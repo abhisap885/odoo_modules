@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.ai.form</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority">50</field>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <app data-string="AI Connector" string="AI Connector" name="ai_connector"
+                         groups="ai_connector.group_manager">
+                        <block title="Providers" name="ai_providers">
+                            <setting id="ai_default_provider" help="Provider used when none is chosen explicitly in a chat or template.">
+                                <field name="ai_default_provider_id" options="{'no_create': True}"/>
+                            </setting>
+                            <setting id="ai_embedding_provider" help="Provider used to build the RAG product knowledge base (embeddings).">
+                                <field name="ai_embedding_provider_id" options="{'no_create': True}"/>
+                            </setting>
+                        </block>
+                        <block title="Retrieval (RAG)" name="ai_rag">
+                            <setting id="ai_chunk_size" help="Characters per product chunk.">
+                                <field name="ai_chunk_size"/>
+                            </setting>
+                            <setting id="ai_rag_top_k" help="Number of product chunks retrieved for each question.">
+                                <field name="ai_rag_top_k"/>
+                            </setting>
+                        </block>
+                    </app>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

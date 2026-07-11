@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Sample provider records are created INACTIVE so the module installs
+             cleanly without real API keys. Managers activate and fill keys. -->
+        <record id="provider_openai" model="ai.provider">
+            <field name="name">OpenAI</field>
+            <field name="provider">openai</field>
+            <field name="model">gpt-4o-mini</field>
+            <field name="active" eval="False"/>
+            <field name="sequence">10</field>
+        </record>
+
+        <record id="provider_anthropic" model="ai.provider">
+            <field name="name">Anthropic Claude</field>
+            <field name="provider">anthropic</field>
+            <field name="model">claude-3-5-sonnet-latest</field>
+            <field name="active" eval="False"/>
+            <field name="sequence">20</field>
+        </record>
+
+        <record id="provider_gemini" model="ai.provider">
+            <field name="name">Google Gemini</field>
+            <field name="provider">gemini</field>
+            <field name="model">gemini-1.5-flash</field>
+            <field name="active" eval="False"/>
+            <field name="sequence">30</field>
+        </record>
+
+        <record id="provider_mistral" model="ai.provider">
+            <field name="name">Mistral AI</field>
+            <field name="provider">mistral</field>
+            <field name="model">mistral-large-latest</field>
+            <field name="active" eval="False"/>
+            <field name="sequence">40</field>
+        </record>
+
+        <record id="provider_ollama" model="ai.provider">
+            <field name="name">Ollama (local)</field>
+            <field name="provider">ollama</field>
+            <field name="model">llama3.1</field>
+            <field name="base_url">http://localhost:11434</field>
+            <field name="active" eval="False"/>
+            <field name="sequence">50</field>
+        </record>
+    </data>
+</odoo>

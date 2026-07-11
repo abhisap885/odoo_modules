@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ai_chat_view_form" model="ir.ui.view">
+            <field name="name">ai.chat.form</field>
+            <field name="model">ai.chat</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="provider_id" options="{'no_create': True}"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="user_id"/>
+                            <field name="model"/>
+                            <field name="message_count" readonly="1"/>
+                            <field name="token_count" readonly="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Conversation">
+                                <field name="message_ids" nolabel="1" mode="list">
+                                    <list editable="bottom" create="0" delete="0">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="role"/>
+                                        <field name="content" widget="text"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="ai_chat_view_list" model="ir.ui.view">
+            <field name="name">ai.chat.list</field>
+            <field name="model">ai.chat</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="provider_id"/>
+                    <field name="message_count"/>
+                    <field name="token_count"/>
+                    <field name="write_date"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="ai_chat_view_search" model="ir.ui.view">
+            <field name="name">ai.chat.search</field>
+            <field name="model">ai.chat</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <filter name="my" string="My Chats"
+                            domain="[('user_id','=',uid)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="ai_chat_action" model="ir.actions.act_window">
+            <field name="name">AI Chats</field>
+            <field name="res_model">ai.chat</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="ai_chat_view_search"/>
+            <field name="context">{'search_default_my': 1}</field>
+        </record>
+    </data>
+</odoo>

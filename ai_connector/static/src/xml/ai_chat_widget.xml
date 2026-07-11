@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="ai_connector.ChatPanel">
+        <div class="ai-chat-panel">
+            <div class="o_ai_header">AI Connector Assistant</div>
+            <div class="o_ai_messages"/>
+            <div class="o_ai_footer">
+                <textarea class="o_ai_input" rows="1"
+                          placeholder="Ask anything..."></textarea>
+                <button class="o_ai_send" type="button">Send</button>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="ai_connector.ChatMessages">
+        <t t-foreach="messages" t-as="msg">
+            <div t-att-class="'o_ai_msg ' + msg.role">
+                <t t-esc="msg.content"/>
+            </div>
+        </t>
+    </t>
+</templates>

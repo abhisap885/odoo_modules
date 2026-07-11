@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="prompt_summarize" model="ai.prompt.template">
+            <field name="name">Summarize Text</field>
+            <field name="category">general</field>
+            <field name="system_message">You are a concise assistant. Summarize the input text clearly.</field>
+            <field name="prompt">Summarize the following text in 3 bullet points:{{text}}</field>
+        </record>
+
+        <record id="prompt_email" model="ai.prompt.template">
+            <field name="name">Draft Reply Email</field>
+            <field name="category">support</field>
+            <field name="system_message">You are a professional support agent. Write a polite, helpful email.</field>
+            <field name="prompt">Write a reply to the following customer message:{{message}}
+Tone: {{tone}}</field>
+        </record>
+
+        <record id="prompt_product_desc" model="ai.prompt.template">
+            <field name="name">Generate Product Description</field>
+            <field name="category">marketing</field>
+            <field name="system_message">You are a creative e-commerce copywriter.</field>
+            <field name="prompt">Write an SEO-friendly product description for: {{product_name}}.
+Key features: {{features}}</field>
+        </record>
+
+        <record id="prompt_lead_qualify" model="ai.prompt.template">
+            <field name="name">Qualify Lead</field>
+            <field name="category">crm</field>
+            <field name="system_message">You are a sales development representative.</field>
+            <field name="prompt">Based on this lead note, score the opportunity (Hot/Warm/Cold) and explain why: {{note}}</field>
+        </record>
+    </data>
+</odoo>

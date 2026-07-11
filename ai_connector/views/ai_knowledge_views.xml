@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ai_product_embedding_view_list" model="ir.ui.view">
+            <field name="name">ai.product.embedding.list</field>
+            <field name="model">ai.product.embedding</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="product_tmpl_id"/>
+                    <field name="name"/>
+                    <field name="chunk_index"/>
+                    <field name="content" string="Chunk Preview" optional="show"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="ai_product_embedding_view_search" model="ir.ui.view">
+            <field name="name">ai.product.embedding.search</field>
+            <field name="model">ai.product.embedding</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="product_tmpl_id"/>
+                    <field name="name"/>
+                    <filter name="group_product" string="By Product"
+                            context="{'group_by':'product_tmpl_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="ai_product_embedding_action" model="ir.actions.act_window">
+            <field name="name">Product Knowledge (RAG)</field>
+            <field name="res_model">ai.product.embedding</field>
+            <field name="view_mode">list</field>
+            <field name="search_view_id" ref="ai_product_embedding_view_search"/>
+            <field name="help">Embeddings created from your products. These power the
+                RAG answers in live chat.</field>
+        </record>
+
+        <record id="action_index_all_products" model="ir.actions.server">
+            <field name="name">Index All Products</field>
+            <field name="model_id" ref="model_ai_product_embedding"/>
+            <field name="state">code</field>
+            <field name="code">action = model.index_all()</field>
+        </record>
+
+        <!-- Product form: index button + status -->
+        <record id="product_template_ai_form" model="ir.ui.view">
+            <field name="name">product.template.ai.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="action_ai_index" type="object"
+                            string="AI: Index" class="btn-secondary"
+                            groups="ai_connector.group_manager"/>
+                    <button name="action_ai_clear_index" type="object"
+                            string="AI: Clear" class="btn-secondary"
+                            groups="ai_connector.group_manager"
+                            invisible="ai_indexed == False"/>
+                </xpath>
+                <xpath expr="//sheet" position="inside">
+                    <div class="o_not_full" groups="ai_connector.group_manager">
+                        <field name="ai_indexed" readonly="1" widget="boolean"
+                               class="oe_inline"/>
+                        <label for="ai_indexed" class="oe_inline ml-1"/>
+                        <field name="ai_chunk_count" readonly="1" class="oe_inline ml-2"/>
+                        <span class="text-muted ml-1">chunks</span>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ai_prompt_template_view_form" model="ir.ui.view">
+            <field name="name">ai.prompt.template.form</field>
+            <field name="model">ai.prompt.template</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_test_render" type="object"
+                                string="Preview Render" class="btn-secondary"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="category"/>
+                                <field name="provider_id"/>
+                                <field name="model"/>
+                                <field name="temperature"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Prompt">
+                                <field name="system_message" placeholder="System instructions..."/>
+                                <label for="prompt"/>
+                                <field name="prompt" nolabel="1"
+                                       placeholder="Use {{variable}} placeholders, e.g. {{record_name}}"/>
+                            </page>
+                            <page string="Variables">
+                                <field name="variable_ids" nolabel="1">
+                                    <list editable="bottom">
+                                        <field name="name"/>
+                                        <field name="description"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="ai_prompt_template_view_list" model="ir.ui.view">
+            <field name="name">ai.prompt.template.list</field>
+            <field name="model">ai.prompt.template</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="category"/>
+                    <field name="provider_id"/>
+                    <field name="model"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="ai_prompt_template_view_search" model="ir.ui.view">
+            <field name="name">ai.prompt.template.search</field>
+            <field name="model">ai.prompt.template</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="category"/>
+                    <filter name="active" string="Active" domain="[('active','=',True)]"/>
+                    <filter name="by_category" string="Category" context="{'group_by':'category'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="ai_prompt_template_action" model="ir.actions.act_window">
+            <field name="name">Prompt Templates</field>
+            <field name="res_model">ai.prompt.template</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="ai_prompt_template_view_search"/>
+        </record>
+    </data>
+</odoo>

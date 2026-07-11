@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ai_provider_user,ai.provider.user,model_ai_provider,ai_connector.group_user,1,0,0,0
+access_ai_provider_manager,ai.provider.manager,model_ai_provider,ai_connector.group_manager,1,1,1,1
+access_ai_prompt_template_user,ai.prompt.template.user,model_ai_prompt_template,ai_connector.group_user,1,0,0,0
+access_ai_prompt_template_manager,ai.prompt.template.manager,model_ai_prompt_template,ai_connector.group_manager,1,1,1,1
+access_ai_prompt_variable_user,ai.prompt.variable.user,model_ai_prompt_variable,ai_connector.group_user,1,0,0,0
+access_ai_prompt_variable_manager,ai.prompt.variable.manager,model_ai_prompt_variable,ai_connector.group_manager,1,1,1,1
+access_ai_chat_user,ai.chat.user,model_ai_chat,ai_connector.group_user,1,1,1,1
+access_ai_chat_message_user,ai.chat.message.user,model_ai_chat_message,ai_connector.group_user,1,1,1,0
+access_ai_product_embedding_user,ai.product.embedding.user,model_ai_product_embedding,ai_connector.group_user,1,0,0,0
+access_ai_product_embedding_manager,ai.product.embedding.manager,model_ai_product_embedding,ai_connector.group_manager,1,1,1,1

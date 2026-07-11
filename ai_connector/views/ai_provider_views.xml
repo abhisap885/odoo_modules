@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ai_provider_view_form" model="ir.ui.view">
+            <field name="name">ai.provider.form</field>
+            <field name="model">ai.provider</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_test_connection" type="object"
+                                string="Test Connection" class="btn-secondary"/>
+                        <field name="active" widget="boolean_toggle" class="oe_edit_only"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box"/>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="provider" required="1"/>
+                                <field name="model" required="1"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="sequence"/>
+                                <field name="temperature"/>
+                                <field name="max_tokens"/>
+                                <field name="base_url"/>
+                                <field name="embedding_model"
+                                       invisible="supports_embeddings == False"/>
+                                <field name="supports_embeddings" readonly="1" widget="boolean"
+                                       invisible="supports_embeddings == False"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Credentials">
+                                <p class="text-muted">API keys are encrypted at rest. Use the
+                                    test key field only to validate connectivity.</p>
+                                <group>
+                                    <field name="api_key" password="True"
+                                           invisible="provider == 'ollama'"/>
+                                    <field name="api_key_test" password="True"
+                                           invisible="provider == 'ollama'"/>
+                                </group>
+                            </page>
+                            <page string="Usage">
+                                <group>
+                                    <field name="total_tokens_used" readonly="1"/>
+                                    <field name="last_error" readonly="1" nolabel="1"
+                                           invisible="last_error == False"/>
+                                </group>
+                            </page>
+                            <page string="Notes">
+                                <field name="notes" nolabel="1" placeholder="Internal notes..."/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="ai_provider_view_list" model="ir.ui.view">
+            <field name="name">ai.provider.list</field>
+            <field name="model">ai.provider</field>
+            <field name="arch" type="xml">
+                <list decoration-muted="not active">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="provider"/>
+                    <field name="model"/>
+                    <field name="active" widget="boolean"/>
+                    <field name="total_tokens_used"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="ai_provider_view_search" model="ir.ui.view">
+            <field name="name">ai.provider.search</field>
+            <field name="model">ai.provider</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="provider"/>
+                    <filter name="active" string="Active" domain="[('active','=',True)]"/>
+                    <filter name="by_provider" string="Provider" context="{'group_by':'provider'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="ai_provider_action" model="ir.actions.act_window">
+            <field name="name">AI Providers</field>
+            <field name="res_model">ai.provider</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="ai_provider_view_search"/>
+        </record>
+    </data>
+</odoo>
