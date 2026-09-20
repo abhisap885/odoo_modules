@@ -1,6 +1,6 @@
 {
-    'name': 'Product Variant Stock Visibility',
-    'version': '1.0.0',
+    'name': 'Variant Stock Visibility',
+    'version': '19.0.1.0.0',
     'category': 'Website/Website',
     'summary': 'Grey out and block selection of out-of-stock product variant options on the website shop',
     'description': """
@@ -29,5 +29,5 @@ Controlled by a single checkbox in Website > Settings.
         'static/description/banner.gif',
     ],
     'installable': True,
-    'application': False,
+    'application': True,
 }
