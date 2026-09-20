@@ -26,7 +26,7 @@ Controlled by a single checkbox in Website > Settings.
         ],
     },
     'images': [
-        'static/description/banner.gif',
+        'static/description/banner.png',
     ],
     'installable': True,
     'application': True,

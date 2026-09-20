@@ -1,0 +1,44 @@
+{
+  "style": "odooteck-app-slide-up-banner",
+  "accent": "#2EE6A8",
+  "icon": "#6C5CE7",
+  "icon2": "#4B3FD4",
+  "odooteck-app_logo": true,
+  "slides": [
+    {
+      "title": "Variant Stock",
+      "accentTitle": "Visibility",
+      "body": "Grey out, disable & block out-of-stock variant options on your eCommerce shop.",
+      "icon": "<path d=\"M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0z\"/><path d=\"M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z\"/>",
+      "lineBreak": true
+    },
+    {
+      "title": "Grey Out",
+      "accentTitle": "OOS Options",
+      "body": "Unavailable sizes and colors get opacity, strikethrough and a clear Out of Stock badge.",
+      "icon": "<path d=\"M18.364 5.636a9 9 0 0 1 0 12.728M5.636 18.364a9 9 0 0 1 0-12.728\"/><line x1=\"4\" y1=\"4\" x2=\"20\" y2=\"20\"/>",
+      "lineBreak": false
+    },
+    {
+      "title": "Real-Time",
+      "accentTitle": "Detection",
+      "body": "Stock levels checked live on every variant change via a fast JSON-RPC call.",
+      "icon": "<polyline points=\"22 12 18 12 15 21 9 3 6 12 2 12\"/>",
+      "lineBreak": false
+    },
+    {
+      "title": "Auto-Disable",
+      "accentTitle": "Selection",
+      "body": "Inputs and variant pills are blocked so shoppers can never pick an unavailable combination.",
+      "icon": "<rect x=\"3\" y=\"11\" width=\"18\" height=\"11\" rx=\"2\" ry=\"2\"/><path d=\"M7 11V7a5 5 0 0 1 10 0v4\"/>",
+      "lineBreak": false
+    },
+    {
+      "title": "One-Click",
+      "accentTitle": "Toggle",
+      "body": "Enable or disable per website from a single checkbox in Website Settings.",
+      "icon": "<path d=\"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z\"/><path d=\"M9 12l2 2 4-4\"/>",
+      "lineBreak": false
+    }
+  ]
+}
