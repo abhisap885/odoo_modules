@@ -2,7 +2,7 @@
     'name': 'Variant Stock Visibility',
     'version': '19.0.1.0.0',
     'category': 'Website/Website',
-    'summary': 'Grey out and block selection of out-of-stock product variant options on the website shop',
+    'summary': 'Odoo 19 Website eCommerce product variant stock visibility: grey out, disable, strike through and block out-of-stock product options, combinations, sizes and colors on the online shop',
     'description': """
 Product Variant Stock Visibility
 =================================
