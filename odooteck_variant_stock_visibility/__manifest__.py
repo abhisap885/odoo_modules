@@ -21,8 +21,8 @@ Controlled by a single checkbox in Website > Settings.
     ],
     'assets': {
         'web.assets_frontend': [
-            'product_variant_stock_visibility/static/src/js/website_sale_stock_visibility.js',
-            'product_variant_stock_visibility/static/src/scss/website_sale_stock_visibility.scss',
+            'odooteck_variant_stock_visibility/static/src/js/website_sale_stock_visibility.js',
+            'odooteck_variant_stock_visibility/static/src/scss/website_sale_stock_visibility.scss',
         ],
     },
     'images': [
