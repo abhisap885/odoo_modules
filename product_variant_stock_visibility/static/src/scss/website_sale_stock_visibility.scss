@@ -1,0 +1,10 @@
+.o_out_of_stock {
+    position: relative;
+    opacity: 0.5;
+    cursor: not-allowed !important;
+    text-decoration: line-through;
+
+    &.o_variant_pills {
+        pointer-events: none;
+    }
+}
