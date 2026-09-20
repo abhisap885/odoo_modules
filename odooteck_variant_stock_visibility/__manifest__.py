@@ -14,6 +14,7 @@ badged "Out of Stock", and are disabled from selection.
 Controlled by a single checkbox in Website > Settings.
 """,
     'author': 'Odooteck',
+    'author_email': 'odooteck.apps@gmail.com',
     'license': 'OPL-1',
     'depends': ['website_sale_stock'],
     'data': [
