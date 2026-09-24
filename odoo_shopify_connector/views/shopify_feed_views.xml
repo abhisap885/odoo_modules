@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Search View -->
+        <record id="view_shopify_feed_search" model="ir.ui.view">
+            <field name="name">shopify.feed.search</field>
+            <field name="model">shopify.feed</field>
+            <field name="arch" type="xml">
+                <search string="Search Feeds">
+                    <field name="name"/>
+                    <field name="external_id"/>
+                    <field name="instance_id"/>
+                    <separator/>
+                    <filter string="Pending" name="filter_draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Failed" name="filter_error" domain="[('state', '=', 'error')]"/>
+                    <filter string="Processed" name="filter_done" domain="[('state', '=', 'done')]"/>
+                    <separator/>
+                    <filter string="Orders" name="filter_orders" domain="[('feed_type', '=', 'order')]"/>
+                    <filter string="Products" name="filter_products" domain="[('feed_type', '=', 'product')]"/>
+                    <filter string="Customers" name="filter_customers" domain="[('feed_type', '=', 'customer')]"/>
+                    <filter string="Categories" name="filter_categories" domain="[('feed_type', '=', 'category')]"/>
+                    <group>
+                        <filter string="Store" name="group_by_instance" context="{'group_by': 'instance_id'}"/>
+                        <filter string="Entity" name="group_by_type" context="{'group_by': 'feed_type'}"/>
+                        <filter string="Status" name="group_by_state" context="{'group_by': 'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- List View (Odoo 19: <list>) -->
+        <record id="view_shopify_feed_list" model="ir.ui.view">
+            <field name="name">shopify.feed.list</field>
+            <field name="model">shopify.feed</field>
+            <field name="arch" type="xml">
+                <list string="Staging Feeds"
+                      decoration-info="state == 'draft'"
+                      decoration-success="state == 'done'"
+                      decoration-danger="state == 'error'"
+                      decoration-muted="state == 'cancelled'">
+                    <field name="name"/>
+                    <field name="instance_id"/>
+                    <field name="feed_type" widget="badge"/>
+                    <field name="external_id"/>
+                    <field name="create_date"/>
+                    <field name="state" widget="badge"
+                           decoration-info="state == 'draft'"
+                           decoration-success="state == 'done'"
+                           decoration-danger="state == 'error'"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="view_shopify_feed_form" model="ir.ui.view">
+            <field name="name">shopify.feed.form</field>
+            <field name="model">shopify.feed</field>
+            <field name="arch" type="xml">
+                <form string="Staging Feed Record">
+                    <header>
+                        <button name="action_process_feed" string="Process Feed" type="object" class="btn-primary"
+                                invisible="state == 'done'"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                    </header>
+                    <sheet>
+                        <div class="alert alert-danger" role="alert" invisible="not error_message">
+                            <strong>Processing Error:</strong> <field name="error_message" readonly="1"/>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="instance_id" readonly="1"/>
+                                <field name="feed_type" readonly="1"/>
+                                <field name="external_id" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="order_id" readonly="1" invisible="feed_type != 'order'"/>
+                                <field name="template_id" readonly="1" invisible="feed_type != 'product'"/>
+                                <field name="partner_id" readonly="1" invisible="feed_type != 'customer'"/>
+                                <field name="category_id" readonly="1" invisible="feed_type != 'category'"/>
+                                <field name="create_date" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Raw JSON Payload" name="payload_page">
+                                <field name="raw_payload" widget="text" readonly="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Window Action (Odoo 19: list,form) -->
+        <record id="action_shopify_feed" model="ir.actions.act_window">
+            <field name="name">Staging Feeds</field>
+            <field name="res_model">shopify.feed</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_shopify_feed_search"/>
+            <field name="context">{'search_default_filter_draft': 1}</field>
+        </record>
+    </data>
+</odoo>

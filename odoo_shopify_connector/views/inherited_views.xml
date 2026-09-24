@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- ============================================================= -->
+        <!-- SALE ORDER FORM INHERITANCE                                   -->
+        <!-- ============================================================= -->
+        <record id="view_order_form_inherit_shopify" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.shopify</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Shopify Info" name="shopify_page" invisible="not shopify_instance_id">
+                        <group>
+                            <group>
+                                <field name="shopify_instance_id" readonly="1"/>
+                                <field name="shopify_order_number" readonly="1"/>
+                                <field name="shopify_order_id" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="shopify_financial_status" readonly="1"/>
+                                <field name="shopify_fulfillment_status" readonly="1"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- ============================================================= -->
+        <!-- PRODUCT TEMPLATE FORM INHERITANCE                             -->
+        <!-- ============================================================= -->
+        <record id="view_product_template_form_inherit_shopify" model="ir.ui.view">
+            <field name="name">product.template.form.inherit.shopify</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Shopify Stores" name="shopify_template_page">
+                        <div class="mb-3">
+                            <button name="action_shopify_export_product"
+                                    string="Export to Shopify"
+                                    type="object"
+                                    class="btn btn-primary"
+                                    icon="fa-cloud-upload"/>
+                        </div>
+                        <group string="Shopify Collections / Categories">
+                            <field name="shopify_category_ids" widget="many2many_tags" readonly="1"/>
+                        </group>
+                        <field name="shopify_template_mapping_ids">
+                            <list decoration-danger="is_deleted_on_shopify" decoration-warning="shopify_status in ('draft', 'archived')">
+                                <field name="instance_id"/>
+                                <field name="shopify_product_id"/>
+                                <field name="shopify_handle"/>
+                                <field name="shopify_status" widget="badge"
+                                       decoration-success="shopify_status == 'active'"
+                                       decoration-danger="shopify_status == 'deleted'"
+                                       decoration-warning="shopify_status in ('draft', 'archived')"/>
+                                <field name="is_deleted_on_shopify" widget="boolean_toggle" readonly="1"/>
+                                <button name="action_odoo_to_shopify"
+                                        type="object"
+                                        string="Odoo to Shopify"
+                                        icon="fa-cloud-upload"
+                                        class="btn btn-sm btn-outline-primary"
+                                        invisible="is_deleted_on_shopify"/>
+                                <button name="action_shopify_to_odoo"
+                                        type="object"
+                                        string="Shopify to Odoo"
+                                        icon="fa-cloud-download"
+                                        class="btn btn-sm btn-outline-secondary"/>
+                                <button name="action_check_shopify_status"
+                                        type="object"
+                                        title="Check Live Shopify Status"
+                                        icon="fa-refresh"
+                                        class="btn btn-sm btn-outline-info"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Shopify Metafields" name="shopify_template_metafields_page">
+                        <field name="shopify_metafield_value_ids"
+                               context="{'default_product_tmpl_id': id}"
+                               domain="[('model_name', '=', 'product.template')]">
+                            <list editable="bottom">
+                                <field name="instance_id"/>
+                                <field name="mapping_id" domain="[('store_type', '=', 'custom'), ('model_name', '=', 'product.template')]"/>
+                                <field name="namespace"/>
+                                <field name="key"/>
+                                <field name="metafield_type"/>
+                                <field name="value"/>
+                            </list>
+                            <form>
+                                <sheet>
+                                    <group>
+                                        <group>
+                                            <field name="instance_id"/>
+                                            <field name="mapping_id" domain="[('store_type', '=', 'custom'), ('model_name', '=', 'product.template')]"/>
+                                        </group>
+                                        <group>
+                                            <field name="namespace"/>
+                                            <field name="key"/>
+                                            <field name="metafield_type"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <field name="value"/>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_product_product_form_inherit_shopify" model="ir.ui.view">
+            <field name="name">product.product.form.inherit.shopify</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Shopify Metafields" name="shopify_variant_metafields_page">
+                        <field name="shopify_metafield_value_ids"
+                               context="{'default_product_id': id}"
+                               domain="[('model_name', '=', 'product.product')]">
+                            <list editable="bottom">
+                                <field name="instance_id"/>
+                                <field name="mapping_id" domain="[('store_type', '=', 'custom'), ('model_name', '=', 'product.product')]"/>
+                                <field name="namespace"/>
+                                <field name="key"/>
+                                <field name="metafield_type"/>
+                                <field name="value"/>
+                            </list>
+                            <form>
+                                <sheet>
+                                    <group>
+                                        <group>
+                                            <field name="instance_id"/>
+                                            <field name="mapping_id" domain="[('store_type', '=', 'custom'), ('model_name', '=', 'product.product')]"/>
+                                        </group>
+                                        <group>
+                                            <field name="namespace"/>
+                                            <field name="key"/>
+                                            <field name="metafield_type"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <field name="value"/>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- ============================================================= -->
+        <!-- RES PARTNER FORM INHERITANCE                                  -->
+        <!-- ============================================================= -->
+        <record id="view_partner_form_inherit_shopify" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit.shopify</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Shopify Mappings" name="shopify_partner_page">
+                        <field name="shopify_customer_mapping_ids" readonly="1">
+                            <list>
+                                <field name="instance_id"/>
+                                <field name="shopify_customer_id"/>
+                                <field name="email"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- ============================================================= -->
+        <!-- STOCK PICKING FORM INHERITANCE                                -->
+        <!-- ============================================================= -->
+        <record id="view_picking_form_inherit_shopify" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit.shopify</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="shopify_fulfillment_synced" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+        <!-- ============================================================= -->
+        <!-- PRODUCT CATEGORY FORM INHERITANCE                             -->
+        <!-- ============================================================= -->
+        <record id="view_product_category_form_inherit_shopify" model="ir.ui.view">
+            <field name="name">product.category.form.inherit.shopify</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='first']" position="after">
+                    <group string="Shopify Collections / Mappings">
+                        <field name="shopify_category_mapping_ids" readonly="1">
+                            <list>
+                                <field name="instance_id"/>
+                                <field name="shopify_collection_id"/>
+                                <field name="shopify_collection_title"/>
+                                <field name="shopify_collection_type"/>
+                                <field name="shopify_handle"/>
+                            </list>
+                        </field>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

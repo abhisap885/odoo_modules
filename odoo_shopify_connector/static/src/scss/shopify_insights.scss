@@ -1,0 +1,255 @@
+// Part of Shopify Odoo Connector. Copyright (c) Odooteck (<https://www.odooteck.com/>).
+// Power BI Style Store Insights & Dynamic Ambient Background Styling
+
+.shopify-insights-container {
+    position: relative;
+    background-color: #f8fafc;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    min-height: 100%;
+    overflow-x: hidden;
+
+    // -------------------------------------------------------------------------
+    // 1. Dynamic Ambient Light Field Layer
+    // -------------------------------------------------------------------------
+    .shopify-insights-ambient-field {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 1;
+
+        // Subtle Geometric Dot Matrix Grid
+        .shopify-insights-grid-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(148, 163, 184, 0.22) 1px, transparent 1px);
+            background-size: 28px 28px;
+            opacity: 0.7;
+            mask-image: radial-gradient(ellipse 95% 80% at 50% 30%, #000 50%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 95% 80% at 50% 30%, #000 50%, transparent 100%);
+        }
+
+        // Floating Luminous Orbs (Mesh Gradient Blobs)
+        .shopify-insights-orb {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            will-change: transform, opacity;
+
+            &.orb-1 {
+                // Top-Left Cyan & Emerald Glow
+                top: -140px;
+                left: -100px;
+                width: 640px;
+                height: 640px;
+                background: radial-gradient(circle, rgba(6, 182, 212, 0.20) 0%, rgba(16, 185, 129, 0.12) 42%, rgba(6, 182, 212, 0) 70%);
+                filter: blur(80px);
+                animation: insightsOrbFloat1 18s ease-in-out infinite alternate;
+            }
+
+            &.orb-2 {
+                // Top-Right Royal Blue & Indigo Glow
+                top: -120px;
+                right: -80px;
+                width: 700px;
+                height: 700px;
+                background: radial-gradient(circle, rgba(37, 99, 235, 0.20) 0%, rgba(99, 102, 241, 0.12) 45%, rgba(37, 99, 235, 0) 70%);
+                filter: blur(85px);
+                animation: insightsOrbFloat2 22s ease-in-out infinite alternate;
+            }
+
+            &.orb-3 {
+                // Mid-Floating Violet / Purple Aurora
+                top: 36%;
+                left: 18%;
+                width: 580px;
+                height: 580px;
+                background: radial-gradient(circle, rgba(139, 92, 246, 0.16) 0%, rgba(168, 85, 247, 0.08) 50%, rgba(139, 92, 246, 0) 70%);
+                filter: blur(90px);
+                animation: insightsOrbFloat3 26s ease-in-out infinite alternate;
+            }
+
+            &.orb-4 {
+                // Bottom-Right Sunset Amber & Rose Glow
+                bottom: 8%;
+                right: 8%;
+                width: 540px;
+                height: 540px;
+                background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, rgba(236, 72, 153, 0.08) 50%, rgba(245, 158, 11, 0) 70%);
+                filter: blur(80px);
+                animation: insightsOrbFloat4 20s ease-in-out infinite alternate;
+            }
+        }
+
+        // Sweeping Angle Light Sheen
+        .shopify-insights-light-beam {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 35%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                transparent 100%
+            );
+            transform: skewX(-25deg);
+            filter: blur(35px);
+            animation: insightsLightBeam 16s linear infinite;
+        }
+    }
+
+    // -------------------------------------------------------------------------
+    // 2. Foreground Glassmorphism Cards & Typography
+    // -------------------------------------------------------------------------
+    .card {
+        background: rgba(255, 255, 255, 0.88) !important;
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid rgba(226, 232, 240, 0.75) !important;
+        box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02) !important;
+        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+
+        &:hover {
+            box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.08), 0 4px 10px -2px rgba(15, 23, 42, 0.03) !important;
+        }
+    }
+
+    .tracking-wider {
+        letter-spacing: 0.05em;
+    }
+
+    .shopify-insights-brand-icon {
+        background-color: rgba(37, 99, 235, 0.1) !important;
+        border: 1px solid rgba(37, 99, 235, 0.2);
+    }
+
+    .shopify-kpi-card {
+        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -4px rgba(0, 0, 0, 0.08), 0 4px 8px -2px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+    }
+
+    .shopify-chart-container {
+        position: relative;
+        width: 100%;
+
+        canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+    }
+
+    .shopify-order-row {
+        transition: background-color 0.15s ease;
+
+        &:hover {
+            background-color: rgba(241, 245, 249, 0.75) !important;
+        }
+    }
+
+    .form-select {
+        cursor: pointer;
+        &:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.15);
+        }
+    }
+}
+
+// -----------------------------------------------------------------------------
+// 3. Fluid Keyframe Animations for Ambient Orbs & Light Field
+// -----------------------------------------------------------------------------
+@keyframes insightsOrbFloat1 {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+        transform: translate3d(90px, 70px, 0) scale(1.15);
+    }
+    100% {
+        transform: translate3d(35px, 130px, 0) scale(0.92);
+    }
+}
+
+@keyframes insightsOrbFloat2 {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+        transform: translate3d(-100px, 80px, 0) scale(1.12);
+    }
+    100% {
+        transform: translate3d(-45px, 140px, 0) scale(0.95);
+    }
+}
+
+@keyframes insightsOrbFloat3 {
+    0% {
+        transform: translate3d(0, 0, 0) scale(0.95);
+    }
+    50% {
+        transform: translate3d(80px, -70px, 0) scale(1.18);
+    }
+    100% {
+        transform: translate3d(140px, 45px, 0) scale(1);
+    }
+}
+
+@keyframes insightsOrbFloat4 {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+        transform: translate3d(-70px, -60px, 0) scale(1.12);
+    }
+    100% {
+        transform: translate3d(-110px, 35px, 0) scale(0.9);
+    }
+}
+
+@keyframes insightsLightBeam {
+    0% {
+        transform: translateX(-150%) skewX(-25deg);
+        opacity: 0;
+    }
+    25% {
+        opacity: 0.45;
+    }
+    75% {
+        opacity: 0.45;
+    }
+    100% {
+        transform: translateX(350%) skewX(-25deg);
+        opacity: 0;
+    }
+}
+
+// -----------------------------------------------------------------------------
+// 4. Store Card Insights Button Styling (Kanban)
+// -----------------------------------------------------------------------------
+.shopify-store-card {
+    .btn-shopify-insights {
+        background-color: #f0fdf4;
+        color: #15803d;
+        border: 1px solid #bbf7d0;
+        font-weight: 600;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background-color: #dcfce7;
+            color: #166534;
+            border-color: #86efac;
+            transform: translateY(-1px);
+        }
+    }
+}

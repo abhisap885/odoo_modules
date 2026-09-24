@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_shopify_onboarding_wizard_form" model="ir.ui.view">
+            <field name="name">shopify.onboarding.wizard.form</field>
+            <field name="model">shopify.onboarding.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Shopify Store Guided Setup Plan">
+                    <sheet>
+                        <!-- Top Header: Progress & Stage Indicator -->
+                        <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
+                            <div>
+                                <h4 class="fw-bold text-dark mb-0">
+                                    <i class="fa fa-flag-checkered text-primary me-2"/>Shopify Store Setup Plan
+                                </h4>
+                                <small class="text-muted">
+                                    Configuring: <strong class="text-dark"><field name="instance_id" readonly="1" options="{'no_open': True}"/></strong>
+                                </small>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="fw-bold text-dark"><field name="onboarding_progress"/>% Configured</span>
+                                <div class="progress" style="width: 140px; height: 10px;">
+                                    <div class="progress-bar bg-success" role="progressbar"
+                                         style="width: 100%;" invisible="onboarding_progress != 100"/>
+                                    <div class="progress-bar bg-primary" role="progressbar"
+                                         style="width: 75%;" invisible="onboarding_progress != 75"/>
+                                    <div class="progress-bar bg-info" role="progressbar"
+                                         style="width: 50%;" invisible="onboarding_progress != 50"/>
+                                    <div class="progress-bar bg-warning" role="progressbar"
+                                         style="width: 25%;" invisible="onboarding_progress != 25"/>
+                                    <div class="progress-bar bg-secondary" role="progressbar"
+                                         style="width: 0%;" invisible="onboarding_progress != 0"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stage Tabs Navigator -->
+                        <field name="current_step" invisible="1"/>
+                        <field name="step_connection_done" invisible="1"/>
+                        <field name="step_logistics_done" invisible="1"/>
+                        <field name="step_financials_done" invisible="1"/>
+                        <field name="step_automations_done" invisible="1"/>
+
+                        <div class="d-flex gap-2 mb-4">
+                            <!-- Tab 1: API Connection -->
+                            <button name="action_go_step_connection" type="object"
+                                    class="btn flex-fill text-start p-2 border"
+                                    invisible="current_step != 'connection'">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="small fw-bold text-primary">1. API Connection</span>
+                                    <i class="fa fa-check-circle text-success" invisible="not step_connection_done"/>
+                                </div>
+                                <div class="small text-muted" style="font-size: 0.75rem;">Credentials &amp; Store URL</div>
+                            </button>
+                            <button name="action_go_step_connection" type="object"
+                                    class="btn flex-fill text-start p-2 border bg-light opacity-75"
+                                    invisible="current_step == 'connection'">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="small fw-semibold text-secondary">1. API Connection</span>
+                                    <i class="fa fa-check-circle text-success" invisible="not step_connection_done"/>
+                                </div>
+                                <div class="small text-muted" style="font-size: 0.75rem;">Credentials &amp; Store URL</div>
+                            </button>
+
+                            <!-- Tab 2: Warehouse & Stock -->
+                            <button name="action_go_step_logistics" type="object"
+                                    class="btn flex-fill text-start p-2 border"
+                                    invisible="current_step != 'logistics'">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="small fw-bold text-primary">2. Stock Logistics</span>
+                                    <i class="fa fa-check-circle text-success" invisible="not step_logistics_done"/>
+                                </div>
+                                <div class="small text-muted" style="font-size: 0.75rem;">Warehouse &amp; Locations</div>
+                            </button>
+                            <button name="action_go_step_logistics" type="object"
+                                    class="btn flex-fill text-start p-2 border bg-light opacity-75"
+                                    invisible="current_step == 'logistics'">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="small fw-semibold text-secondary">2. Stock Logistics</span>
+                                    <i class="fa fa-check-circle text-success" invisible="not step_logistics_done"/>
+                                </div>
+                                <div class="small text-muted" style="font-size: 0.75rem;">Warehouse &amp; Locations</div>
+                            </button>
+
+                            <!-- Tab 3: Pricelist & Finance -->
+                            <button name="action_go_step_financials" type="object"
+                                    class="btn flex-fill text-start p-2 border"
+                                    invisible="current_step != 'financials'">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="small fw-bold text-primary">3. Financials</span>
+                                    <i class="fa fa-check-circle text-success" invisible="not step_financials_done"/>
+                                </div>
+                                <div class="small text-muted" style="font-size: 0.75rem;">Pricelist &amp; Journals</div>
+                            </button>
+                            <button name="action_go_step_financials" type="object"
+                                    class="btn flex-fill text-start p-2 border bg-light opacity-75"
+                                    invisible="current_step == 'financials'">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="small fw-semibold text-secondary">3. Financials</span>
+                                    <i class="fa fa-check-circle text-success" invisible="not step_financials_done"/>
+                                </div>
+                                <div class="small text-muted" style="font-size: 0.75rem;">Pricelist &amp; Journals</div>
+                            </button>
+
+                            <!-- Tab 4: Workflows & Automations -->
+                            <button name="action_go_step_automations" type="object"
+                                    class="btn flex-fill text-start p-2 border"
+                                    invisible="current_step != 'automations'">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="small fw-bold text-primary">4. Automations</span>
+                                    <i class="fa fa-check-circle text-success" invisible="not step_automations_done"/>
+                                </div>
+                                <div class="small text-muted" style="font-size: 0.75rem;">Sync &amp; Workflows</div>
+                            </button>
+                            <button name="action_go_step_automations" type="object"
+                                    class="btn flex-fill text-start p-2 border bg-light opacity-75"
+                                    invisible="current_step == 'automations'">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="small fw-semibold text-secondary">4. Automations</span>
+                                    <i class="fa fa-check-circle text-success" invisible="not step_automations_done"/>
+                                </div>
+                                <div class="small text-muted" style="font-size: 0.75rem;">Sync &amp; Workflows</div>
+                            </button>
+                        </div>
+
+                        <!-- ============================================== -->
+                        <!-- STEP 1 CONTENT: API Connection & Credentials    -->
+                        <!-- ============================================== -->
+                        <div invisible="current_step != 'connection'">
+                            <div class="alert alert-info border-start border-4 border-info shadow-sm p-3 mb-3">
+                                <h6 class="fw-bold text-dark mb-1">
+                                    <i class="fa fa-info-circle text-info me-2"/>How API Connection Works &amp; Guidance
+                                </h6>
+                                <p class="small text-dark mb-2" style="font-size: 0.88rem;">
+                                    This connector communicates directly with Shopify Admin API (REST &amp; GraphQL v2025-01) without any third-party middle servers.
+                                </p>
+                                <ul class="small text-dark mb-0 ps-3" style="font-size: 0.85rem;">
+                                    <li><strong>Shopify Admin Step:</strong> Go to <em>Shopify Admin &gt; Settings &gt; Apps and sales channels &gt; Develop apps</em>.</li>
+                                    <li><strong>Scopes Required:</strong> Enable <code>read_products, write_products, read_orders, write_orders, read_inventory, write_inventory, read_customers, write_customers, read_locations</code>.</li>
+                                    <li><strong>Install App:</strong> Click <em>Install app</em> and copy your <strong>Admin API access token</strong> (starts with <code>shpat_</code>).</li>
+                                </ul>
+                            </div>
+
+                            <group>
+                                <group string="Store URL &amp; API Version">
+                                    <field name="shop_url" placeholder="https://your-store.myshopify.com" required="1"/>
+                                    <field name="api_version" required="1"/>
+                                    <field name="auth_method" widget="radio"/>
+                                </group>
+                                <group string="Security Credentials">
+                                    <field name="access_token" password="True" placeholder="shpat_xxxxxxxxxxxxxxxx"
+                                           invisible="auth_method != 'token'" required="auth_method == 'token'"/>
+                                    <field name="client_id" placeholder="Shopify App API Key"
+                                           invisible="auth_method != 'oauth'" required="auth_method == 'oauth'"/>
+                                    <field name="client_secret" password="True"
+                                           invisible="auth_method != 'oauth'" required="auth_method == 'oauth'"/>
+                                    <field name="redirect_url" invisible="auth_method != 'oauth'"/>
+                                </group>
+                            </group>
+
+                            <div class="p-3 bg-light rounded border mt-2 d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong class="text-dark">Test Store Connectivity:</strong>
+                                    <span class="text-muted small d-block">Validates credentials and checks Shopify Admin permissions.</span>
+                                </div>
+                                <button name="action_wizard_test_connection" type="object"
+                                        string="Connect &amp; Test Connection Now" class="btn btn-primary" icon="fa-plug"/>
+                            </div>
+                        </div>
+
+                        <!-- ============================================== -->
+                        <!-- STEP 2 CONTENT: Warehouse & Stock Logistics    -->
+                        <!-- ============================================== -->
+                        <div invisible="current_step != 'logistics'">
+                            <div class="alert alert-info border-start border-4 border-info shadow-sm p-3 mb-3">
+                                <h6 class="fw-bold text-dark mb-1">
+                                    <i class="fa fa-info-circle text-info me-2"/>How Warehouse &amp; Stock Logistics Works
+                                </h6>
+                                <p class="small text-dark mb-2" style="font-size: 0.88rem;">
+                                    When Shopify orders are imported, delivery orders pick goods from the assigned default warehouse. Stock movements update Shopify quantities automatically.
+                                </p>
+                                <ul class="small text-dark mb-0 ps-3" style="font-size: 0.85rem;">
+                                    <li><strong>Default Warehouse:</strong> Select the warehouse from which orders are fulfilled.</li>
+                                    <li><strong>Default Stock Location:</strong> The internal stock location (e.g. <code>WH/Stock</code>) used for stock deductions.</li>
+                                    <li><strong>Shopify Locations:</strong> Click <em>Fetch Shopify Locations</em> to sync multi-location fulfillment points.</li>
+                                </ul>
+                            </div>
+
+                            <group>
+                                <group string="Odoo Warehouse &amp; Stock Assignment">
+                                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                    <field name="warehouse_id" required="1" domain="[('company_id', '=', company_id)]" options="{'no_create': True}"/>
+                                    <field name="location_id" domain="[('company_id', 'in', (company_id, False)), ('usage', '=', 'internal')]" options="{'no_create': True}"/>
+                                </group>
+                            </group>
+
+                            <div class="p-3 bg-light rounded border mt-2 d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong class="text-dark">Shopify Fulfillment Locations:</strong>
+                                    <span class="text-muted small d-block">Pull active Shopify fulfillment locations for multi-location inventory deduction.</span>
+                                </div>
+                                <button name="action_wizard_fetch_locations" type="object"
+                                        string="Fetch Shopify Locations Now" class="btn btn-primary" icon="fa-map-marker"/>
+                            </div>
+                        </div>
+
+                        <!-- ============================================== -->
+                        <!-- STEP 3 CONTENT: Pricelist & Accounting         -->
+                        <!-- ============================================== -->
+                        <div invisible="current_step != 'financials'">
+                            <div class="alert alert-info border-start border-4 border-info shadow-sm p-3 mb-3">
+                                <h6 class="fw-bold text-dark mb-1">
+                                    <i class="fa fa-info-circle text-info me-2"/>How Pricelist &amp; Accounting Works
+                                </h6>
+                                <p class="small text-dark mb-2" style="font-size: 0.88rem;">
+                                    Shopify orders contain currency pricing, taxes, shipping, and discount amounts that must map directly to Odoo financial entries.
+                                </p>
+                                <ul class="small text-dark mb-0 ps-3" style="font-size: 0.85rem;">
+                                    <li><strong>Currency Pricelist:</strong> Set a pricelist whose currency matches your Shopify store base selling currency.</li>
+                                    <li><strong>Payment Journal:</strong> When Shopify marks an order as <em>Paid</em>, Odoo registers payment through this Bank/Cash journal.</li>
+                                    <li><strong>Discount &amp; Shipping:</strong> Non-inventory service products used for line item balance and tax reporting.</li>
+                                </ul>
+                            </div>
+
+                            <group>
+                                <group string="Pricelist &amp; Currency">
+                                    <field name="pricelist_id" required="1" domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]" options="{'no_create': True}"/>
+                                    <field name="payment_term_id" domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]" options="{'no_create': True}"/>
+                                </group>
+                                <group string="Invoicing &amp; Payment Reconciliation">
+                                    <field name="payment_journal_id" required="1" domain="[('type', 'in', ('bank', 'cash')), ('company_id', '=', company_id)]" options="{'no_create': True}"/>
+                                    <field name="auto_paid_invoices" widget="boolean_toggle"/>
+                                </group>
+                            </group>
+
+                            <group string="Service Products for Financial Balance">
+                                <group>
+                                    <field name="discount_product_id" domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]" options="{'no_create': True}"/>
+                                </group>
+                                <group>
+                                    <field name="delivery_product_id" domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]" options="{'no_create': True}"/>
+                                </group>
+                            </group>
+                        </div>
+
+                        <!-- ============================================== -->
+                        <!-- STEP 4 CONTENT: Automations & Operations       -->
+                        <!-- ============================================== -->
+                        <div invisible="current_step != 'automations'">
+                            <div class="alert alert-info border-start border-4 border-info shadow-sm p-3 mb-3">
+                                <h6 class="fw-bold text-dark mb-1">
+                                    <i class="fa fa-info-circle text-info me-2"/>How Automations &amp; Workflows Work
+                                </h6>
+                                <p class="small text-dark mb-2" style="font-size: 0.88rem;">
+                                    Automations eliminate manual touchpoints across order processing, invoice posting, delivery validation, and inventory adjustments.
+                                </p>
+                                <ul class="small text-dark mb-0 ps-3" style="font-size: 0.85rem;">
+                                    <li><strong>Real-time Stock Sync:</strong> Stock move validation in Odoo instantly triggers inventory level updates on Shopify.</li>
+                                    <li><strong>Auto-Order Lifecycle:</strong> Automatically confirms incoming orders, creates paid invoices, and validates pickings.</li>
+                                    <li><strong>Initial Sync:</strong> Launch the sync wizard to import existing products, collections, customers, and orders.</li>
+                                </ul>
+                            </div>
+
+                            <group>
+                                <group string="Order Lifecycle Automations">
+                                    <field name="auto_validate_orders" widget="boolean_toggle"/>
+                                    <field name="auto_create_invoices" widget="boolean_toggle"/>
+                                    <field name="auto_deliver_orders" widget="boolean_toggle"/>
+                                </group>
+                                <group string="Inventory &amp; Return Automations">
+                                    <field name="sync_inventory_on_update" widget="boolean_toggle"/>
+                                    <field name="auto_process_refunds" widget="boolean_toggle"/>
+                                    <field name="auto_create_credit_notes" widget="boolean_toggle" invisible="not auto_process_refunds"/>
+                                    <field name="auto_validate_refunds" widget="boolean_toggle" invisible="not auto_process_refunds"/>
+                                </group>
+                            </group>
+
+                            <div class="p-3 bg-light rounded border mt-2 d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong class="text-dark">Ready to Sync Data?</strong>
+                                    <span class="text-muted small d-block">Open the Sync Operations wizard to run your first product, category, customer, or order sync.</span>
+                                </div>
+                                <button name="action_save_and_launch_sync" type="object"
+                                        string="Save &amp; Launch Sync Operations" class="btn btn-success" icon="fa-refresh"/>
+                            </div>
+                        </div>
+                    </sheet>
+
+                    <!-- Footer Navigation -->
+                    <footer>
+                        <button name="action_prev_step" string="Previous Step" type="object"
+                                class="btn btn-outline-secondary" invisible="current_step == 'connection'"/>
+                        <button name="action_next_step" string="Save &amp; Next Step" type="object"
+                                class="btn btn-primary" invisible="current_step == 'automations'"/>
+                        <button name="action_save_and_close" string="Save &amp; Finish Setup" type="object"
+                                class="btn btn-success" invisible="current_step != 'automations'"/>
+                        <button name="action_save_and_close" string="Save Progress &amp; Close" type="object"
+                                class="btn btn-secondary" invisible="current_step == 'automations'"/>
+                        <button string="Cancel" class="btn-link text-muted" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Window Action for Setup Wizard -->
+        <record id="action_shopify_onboarding_wizard" model="ir.actions.act_window">
+            <field name="name">Shopify Store Setup Plan</field>
+            <field name="res_model">shopify.onboarding.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

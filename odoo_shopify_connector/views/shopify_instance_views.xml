@@ -1,0 +1,789 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Search View -->
+        <record id="view_shopify_instance_search" model="ir.ui.view">
+            <field name="name">shopify.instance.search</field>
+            <field name="model">shopify.instance</field>
+            <field name="arch" type="xml">
+                <search string="Search Shopify Stores">
+                    <field name="name"/>
+                    <field name="shop_url"/>
+                    <separator/>
+                    <filter string="Connected" name="connected_stores" domain="[('state', '=', 'confirmed')]"/>
+                    <filter string="Draft" name="draft_stores" domain="[('state', '=', 'draft')]"/>
+                    <group>
+                        <filter string="Connection State" name="group_by_state" context="{'group_by': 'state'}"/>
+                        <filter string="Company" name="group_by_company" context="{'group_by': 'company_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Dashboard Kanban Card View (Odoo 19) -->
+        <record id="view_shopify_instance_kanban" model="ir.ui.view">
+            <field name="name">shopify.instance.kanban</field>
+            <field name="model">shopify.instance</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_dashboard o_shopify_kanban" sample="1" on_create="odoo_shopify_connector.action_shopify_store_create_wizard">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="state"/>
+                    <field name="shop_url"/>
+                    <field name="company_id"/>
+                    <field name="warehouse_id"/>
+                    <field name="pricelist_id"/>
+                    <field name="order_mapping_count"/>
+                    <field name="product_mapping_count"/>
+                    <field name="category_mapping_count"/>
+                    <field name="customer_mapping_count"/>
+                    <field name="refund_mapping_count"/>
+                    <field name="location_mapping_count"/>
+                    <field name="feed_count"/>
+                    <field name="history_count"/>
+                    <field name="last_order_sync"/>
+                    <field name="onboarding_progress"/>
+                    <field name="onboarding_step_connection"/>
+                    <field name="onboarding_step_logistics"/>
+                    <field name="onboarding_step_financials"/>
+                    <field name="onboarding_step_automations"/>
+                    <templates>
+                        <t t-name="menu">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5 role="menuitem" class="o_kanban_card_manage_title fw-bold">Operations</h5>
+                                        <div role="menuitem">
+                                            <a name="action_open_store_insights" type="object" class="fw-semibold text-primary">
+                                                <i class="fa fa-line-chart me-1 text-primary"/> Store Insights
+                                            </a>
+                                        </div>
+                                        <div role="menuitem">
+                                            <a name="action_open_sync_wizard" type="object">Sync Operations</a>
+                                        </div>
+                                        <div role="menuitem">
+                                            <a name="action_open_onboarding_wizard" type="object">Setup Plan Wizard</a>
+                                        </div>
+                                        <div role="menuitem">
+                                            <a name="action_test_connection" type="object">Test Connection</a>
+                                        </div>
+                                        <div role="menuitem">
+                                            <a name="action_fetch_locations" type="object">Fetch Locations</a>
+                                        </div>
+                                        <div role="menuitem">
+                                            <a name="action_view_feeds" type="object">Staging Feeds</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <h5 role="menuitem" class="o_kanban_card_manage_title fw-bold">Data Records</h5>
+                                        <div role="menuitem">
+                                            <a name="action_view_orders" type="object">Orders (<field name="order_mapping_count"/>)</a>
+                                        </div>
+                                        <div role="menuitem">
+                                            <a name="action_view_products" type="object">Products (<field name="product_mapping_count"/>)</a>
+                                        </div>
+                                        <div role="menuitem">
+                                            <a name="action_view_categories" type="object">Categories (<field name="category_mapping_count"/>)</a>
+                                        </div>
+                                        <div role="menuitem">
+                                            <a name="action_view_customers" type="object">Customers (<field name="customer_mapping_count"/>)</a>
+                                        </div>
+                                        <div role="menuitem">
+                                            <a name="action_view_refunds" type="object">Refunds (<field name="refund_mapping_count"/>)</a>
+                                        </div>
+                                        <div role="menuitem">
+                                            <a name="action_view_history" type="object">Sync Logs (<field name="history_count"/>)</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row border-top pt-2 mt-2">
+                                    <div class="col-12 text-end">
+                                        <a class="dropdown-item" role="menuitem" type="edit">Configure Store</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-name="card" class="p-3 mb-3 border rounded-3 bg-white shadow-sm w-100 position-relative overflow-hidden shopify-store-card" style="width: 100% !important; min-width: 100% !important;">
+                            <!-- Ambient Animated Background Layer for Connected Stores -->
+                            <t t-if="record.state.raw_value == 'confirmed'">
+                                <div t-attf-class="shopify-connected-ambient shopify-anim-style-#{record.id.raw_value % 4}" aria-hidden="true">
+                                    <div class="shopify-anim-glow-1"/>
+                                    <div class="shopify-anim-glow-2"/>
+                                    <div class="shopify-anim-sheen"/>
+                                </div>
+                            </t>
+                            <div class="row align-items-center g-3 position-relative" style="z-index: 2;">
+                                <!-- Col 1: Store Identity & Status -->
+                                <div class="col-xl-3 col-lg-3 col-md-12">
+                                    <div class="d-flex align-items-center justify-content-between mb-1">
+                                        <a type="open" class="fs-5 fw-bold text-decoration-none text-dark text-truncate me-2" title="Open Store Settings">
+                                            <field name="name"/>
+                                        </a>
+                                        <span t-if="record.state.raw_value == 'confirmed'" class="badge rounded-pill text-bg-success text-nowrap d-inline-flex align-items-center">
+                                            <span class="shopify-live-beacon me-1"/>
+                                            <i class="fa fa-check-circle me-1"/>Connected
+                                        </span>
+                                        <span t-elif="record.state.raw_value == 'error'" class="badge rounded-pill text-bg-danger text-nowrap">
+                                            <i class="fa fa-exclamation-triangle me-1"/>Error
+                                        </span>
+                                        <span t-else="" class="badge rounded-pill text-bg-secondary text-nowrap">
+                                            <i class="fa fa-pencil me-1"/>Draft
+                                        </span>
+                                    </div>
+                                    <div class="text-muted small text-truncate mb-2" title="Shopify Store URL">
+                                        <i class="fa fa-shopping-bag text-primary me-1"/>
+                                        <field name="shop_url"/>
+                                    </div>
+                                    <div class="d-flex flex-wrap gap-2 text-muted small">
+                                        <span title="Assigned Warehouse">
+                                            <i class="fa fa-building-o text-secondary me-1"/>
+                                            <field name="warehouse_id"/>
+                                        </span>
+                                        <span t-if="record.company_id.value" groups="base.group_multi_company" class="border-start ps-2" title="Company">
+                                            <i class="fa fa-globe text-secondary me-1"/>
+                                            <field name="company_id"/>
+                                        </span>
+                                    </div>
+                                    <div class="text-muted small mt-1" title="Last Synchronized">
+                                        <i class="fa fa-clock-o text-secondary me-1"/>
+                                        <t t-if="record.last_order_sync.value">Last Sync: <field name="last_order_sync"/></t>
+                                        <t t-else="">Never synced</t>
+                                    </div>
+                                </div>
+
+                                <!-- Col 2: Store Setup & Onboarding Plan -->
+                                <div class="col-xl-4 col-lg-4 col-md-12 border-start-lg px-xl-3 px-lg-3">
+                                    <div class="p-2 rounded-3 border bg-light">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="small fw-bold text-dark d-flex align-items-center">
+                                                <i class="fa fa-flag-checkered text-primary me-1"/>
+                                                Setup Plan: <t t-out="record.onboarding_progress.raw_value"/>%
+                                            </span>
+                                            <span t-if="record.onboarding_progress.raw_value == 100" class="badge rounded-pill text-bg-success px-2 py-1" style="font-size: 0.72rem;">
+                                                <i class="fa fa-check me-1"/>Ready to Sync
+                                            </span>
+                                            <span t-elif="record.onboarding_progress.raw_value &gt;= 50" class="badge rounded-pill text-bg-primary px-2 py-1" style="font-size: 0.72rem;">
+                                                <i class="fa fa-sliders me-1"/>In Progress
+                                            </span>
+                                            <span t-else="" class="badge rounded-pill text-bg-warning text-dark px-2 py-1" style="font-size: 0.72rem;">
+                                                <i class="fa fa-clock-o me-1"/>Pending Setup
+                                            </span>
+                                        </div>
+                                        <div class="progress mb-2" style="height: 6px;">
+                                            <div t-if="record.onboarding_progress.raw_value == 100" class="progress-bar bg-success" style="width: 100%;"/>
+                                            <div t-elif="record.onboarding_progress.raw_value == 75" class="progress-bar bg-primary" style="width: 75%;"/>
+                                            <div t-elif="record.onboarding_progress.raw_value == 50" class="progress-bar bg-info" style="width: 50%;"/>
+                                            <div t-elif="record.onboarding_progress.raw_value == 25" class="progress-bar bg-warning" style="width: 25%;"/>
+                                            <div t-else="" class="progress-bar bg-secondary" style="width: 0%;"/>
+                                        </div>
+                                        <!-- 4 Stage Quick Buttons -->
+                                        <div class="d-flex justify-content-between gap-1">
+                                            <button name="action_open_step_connection" type="object"
+                                                    t-attf-class="btn btn-sm flex-fill py-1 px-1 text-truncate text-center border #{record.onboarding_step_connection.raw_value ? 'btn-light border-success text-success' : 'btn-warning text-dark shadow-sm'}"
+                                                    title="Stage 1: API Connection &amp; Credentials">
+                                                <i t-attf-class="fa #{record.onboarding_step_connection.raw_value ? 'fa-check text-success' : 'fa-plug'} me-1"/>
+                                                <span class="small fw-semibold">1. API</span>
+                                            </button>
+                                            <button name="action_open_step_logistics" type="object"
+                                                    t-attf-class="btn btn-sm flex-fill py-1 px-1 text-truncate text-center border #{record.onboarding_step_logistics.raw_value ? 'btn-light border-success text-success' : 'btn-warning text-dark shadow-sm'}"
+                                                    title="Stage 2: Warehouse &amp; Stock Logistics">
+                                                <i t-attf-class="fa #{record.onboarding_step_logistics.raw_value ? 'fa-check text-success' : 'fa-building-o'} me-1"/>
+                                                <span class="small fw-semibold">2. Stock</span>
+                                            </button>
+                                            <button name="action_open_step_financials" type="object"
+                                                    t-attf-class="btn btn-sm flex-fill py-1 px-1 text-truncate text-center border #{record.onboarding_step_financials.raw_value ? 'btn-light border-success text-success' : 'btn-warning text-dark shadow-sm'}"
+                                                    title="Stage 3: Pricelist &amp; Accounting Financials">
+                                                <i t-attf-class="fa #{record.onboarding_step_financials.raw_value ? 'fa-check text-success' : 'fa-credit-card'} me-1"/>
+                                                <span class="small fw-semibold">3. Finance</span>
+                                            </button>
+                                            <button name="action_open_step_automations" type="object"
+                                                    t-attf-class="btn btn-sm flex-fill py-1 px-1 text-truncate text-center border #{record.onboarding_step_automations.raw_value ? 'btn-light border-success text-success' : 'btn-light text-muted'}"
+                                                    title="Stage 4: Automation Workflows &amp; Operations">
+                                                <i t-attf-class="fa #{record.onboarding_step_automations.raw_value ? 'fa-check text-success' : 'fa-magic'} me-1"/>
+                                                <span class="small fw-semibold">4. Sync</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Col 3: Core Object Process Metrics -->
+                                <div class="col-xl-3 col-lg-3 col-md-12 border-start-lg px-xl-3 px-lg-3">
+                                    <div class="row g-1">
+                                        <div class="col-6">
+                                            <a name="action_view_orders" type="object"
+                                               class="d-flex align-items-center justify-content-between p-1 px-2 rounded border bg-light text-decoration-none text-dark small" title="View Orders">
+                                                <span class="text-truncate fw-semibold"><i class="fa fa-shopping-cart text-primary me-1"/> Orders</span>
+                                                <span class="badge text-bg-primary rounded-pill"><field name="order_mapping_count"/></span>
+                                            </a>
+                                        </div>
+                                        <div class="col-6">
+                                            <a name="action_view_products" type="object"
+                                               class="d-flex align-items-center justify-content-between p-1 px-2 rounded border bg-light text-decoration-none text-dark small" title="View Products">
+                                                <span class="text-truncate fw-semibold"><i class="fa fa-cube text-success me-1"/> Products</span>
+                                                <span class="badge text-bg-success rounded-pill"><field name="product_mapping_count"/></span>
+                                            </a>
+                                        </div>
+                                        <div class="col-6">
+                                            <a name="action_view_categories" type="object"
+                                               class="d-flex align-items-center justify-content-between p-1 px-2 rounded border bg-light text-decoration-none text-dark small" title="View Categories">
+                                                <span class="text-truncate fw-semibold"><i class="fa fa-sitemap text-info me-1"/> Cats</span>
+                                                <span class="badge text-bg-info text-white rounded-pill"><field name="category_mapping_count"/></span>
+                                            </a>
+                                        </div>
+                                        <div class="col-6">
+                                            <a name="action_view_customers" type="object"
+                                               class="d-flex align-items-center justify-content-between p-1 px-2 rounded border bg-light text-decoration-none text-dark small" title="View Customers">
+                                                <span class="text-truncate fw-semibold"><i class="fa fa-users text-warning me-1"/> Custs</span>
+                                                <span class="badge text-bg-warning text-dark rounded-pill"><field name="customer_mapping_count"/></span>
+                                            </a>
+                                        </div>
+                                        <div class="col-6">
+                                            <a name="action_view_feeds" type="object"
+                                               class="d-flex align-items-center justify-content-between p-1 px-2 rounded border bg-light text-decoration-none text-dark small" title="View Feeds">
+                                                <span class="text-truncate fw-semibold"><i class="fa fa-tasks text-dark me-1"/> Feeds</span>
+                                                <span t-attf-class="badge rounded-pill #{record.feed_count.raw_value &gt; 0 ? 'text-bg-warning text-dark' : 'text-bg-light border text-muted'}"><field name="feed_count"/></span>
+                                            </a>
+                                        </div>
+                                        <div class="col-6">
+                                            <a name="action_view_history" type="object"
+                                               class="d-flex align-items-center justify-content-between p-1 px-2 rounded border bg-light text-decoration-none text-dark small" title="View Sync Logs">
+                                                <span class="text-truncate fw-semibold"><i class="fa fa-history text-muted me-1"/> Logs</span>
+                                                <span class="badge text-bg-light border text-muted rounded-pill"><field name="history_count"/></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Col 4: Primary Quick Actions -->
+                                <div class="col-xl-2 col-lg-2 col-md-12 d-flex flex-column gap-2 justify-content-center text-end">
+                                    <button t-if="record.state.raw_value == 'confirmed'"
+                                            name="action_open_sync_wizard" type="object"
+                                            class="btn btn-primary btn-sm w-100 d-flex align-items-center justify-content-center">
+                                        <i class="fa fa-refresh me-1"/> Sync Operations
+                                    </button>
+                                    <button t-if="record.state.raw_value != 'confirmed'"
+                                            name="action_test_connection" type="object"
+                                            class="btn btn-primary btn-sm w-100 d-flex align-items-center justify-content-center">
+                                        <i class="fa fa-plug me-1"/> Connect &amp; Test
+                                    </button>
+                                    <button name="action_open_store_insights" type="object"
+                                            class="btn btn-shopify-insights btn-sm w-100 d-flex align-items-center justify-content-center shadow-sm"
+                                            title="Store Analytics &amp; Insights Dashboard">
+                                        <i class="fa fa-line-chart me-1"/> Insights
+                                    </button>
+                                    <div class="d-flex gap-1 w-100">
+                                        <a type="open" class="btn btn-outline-secondary btn-sm flex-fill d-flex align-items-center justify-content-center" title="Open Settings">
+                                            <i class="fa fa-sliders me-1"/> Manage
+                                        </a>
+                                        <button t-if="record.state.raw_value == 'confirmed'"
+                                                name="action_test_connection" type="object"
+                                                class="btn btn-outline-secondary btn-sm" title="Re-Test Connection">
+                                            <i class="fa fa-plug"/>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- List View (Odoo 19: <list>) -->
+        <record id="view_shopify_instance_list" model="ir.ui.view">
+            <field name="name">shopify.instance.list</field>
+            <field name="model">shopify.instance</field>
+            <field name="arch" type="xml">
+                <list string="Shopify Stores" decoration-success="state == 'confirmed'" decoration-danger="state == 'error'">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="shop_url"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="warehouse_id"/>
+                    <field name="last_order_sync"/>
+                    <field name="state" widget="badge"
+                           decoration-info="state == 'draft'"
+                           decoration-success="state == 'confirmed'"
+                           decoration-danger="state == 'error'"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="view_shopify_instance_form" model="ir.ui.view">
+            <field name="name">shopify.instance.form</field>
+            <field name="model">shopify.instance</field>
+            <field name="arch" type="xml">
+                <form string="Shopify Store Instance">
+                    <header>
+                        <button name="action_start_oauth" string="Connect via Shopify OAuth" type="object" class="btn-primary"
+                                invisible="state == 'confirmed' or auth_method != 'oauth'"/>
+                        <button name="action_test_connection" string="Connect &amp; Test" type="object" class="btn-primary"
+                                invisible="state == 'confirmed' or auth_method != 'token'"/>
+                        <button name="action_open_sync_wizard" string="Sync Operations" type="object" class="btn-primary"
+                                invisible="state != 'confirmed'"/>
+                        <button name="action_open_store_insights" string="Store Insights" type="object" class="btn-info text-white" icon="fa-line-chart"
+                                invisible="state != 'confirmed'"/>
+                        <button name="action_test_connection" string="Test Connection" type="object" class="btn-secondary"
+                                invisible="state != 'confirmed'"/>
+                        <button name="action_reset_draft" string="Reset to Draft" type="object" class="btn-secondary"
+                                invisible="state == 'draft'"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"/>
+                    </header>
+                    <sheet>
+                        <!-- Stat Button Box -->
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_open_store_insights" type="object" class="oe_stat_button" icon="fa-line-chart">
+                                <div class="o_stat_info">
+                                    <span class="o_stat_text">Store</span>
+                                    <span class="o_stat_text">Insights</span>
+                                </div>
+                            </button>
+                            <button name="action_view_orders" type="object" class="oe_stat_button" icon="fa-shopping-cart">
+                                <field name="order_mapping_count" widget="statinfo" string="Orders"/>
+                            </button>
+                            <button name="action_view_products" type="object" class="oe_stat_button" icon="fa-cube">
+                                <field name="product_mapping_count" widget="statinfo" string="Products"/>
+                            </button>
+                            <button name="action_view_categories" type="object" class="oe_stat_button" icon="fa-sitemap">
+                                <field name="category_mapping_count" widget="statinfo" string="Categories"/>
+                            </button>
+                            <button name="action_view_customers" type="object" class="oe_stat_button" icon="fa-users">
+                                <field name="customer_mapping_count" widget="statinfo" string="Customers"/>
+                            </button>
+                            <button name="action_view_refunds" type="object" class="oe_stat_button" icon="fa-undo">
+                                <field name="refund_mapping_count" widget="statinfo" string="Refunds"/>
+                            </button>
+                            <button name="action_view_locations" type="object" class="oe_stat_button" icon="fa-map-marker">
+                                <field name="location_mapping_count" widget="statinfo" string="Locations"/>
+                            </button>
+                            <button name="action_view_metafields" type="object" class="oe_stat_button" icon="fa-tags">
+                                <field name="metafield_mapping_count" widget="statinfo" string="Metafields"/>
+                            </button>
+                            <button name="action_view_feeds" type="object" class="oe_stat_button" icon="fa-tasks">
+                                <field name="feed_count" widget="statinfo" string="Feeds"/>
+                            </button>
+                            <button name="action_view_history" type="object" class="oe_stat_button" icon="fa-history">
+                                <field name="history_count" widget="statinfo" string="Sync Logs"/>
+                            </button>
+                        </div>
+
+                        <!-- Invisible helper fields for dynamic UI evaluation -->
+                        <field name="show_onboarding_panel" invisible="1"/>
+                        <field name="onboarding_step_connection" invisible="1"/>
+                        <field name="onboarding_step_logistics" invisible="1"/>
+                        <field name="onboarding_step_financials" invisible="1"/>
+                        <field name="onboarding_step_automations" invisible="1"/>
+                        <field name="onboarding_progress" invisible="1"/>
+
+                        <!-- Dynamic Onboarding & Setup Plan (Odoo 19 Best Practice) -->
+                        <div class="card p-3 mb-4 rounded-3 border bg-white shadow-sm" invisible="not show_onboarding_panel">
+                            <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="rounded-circle p-2 text-bg-primary d-flex align-items-center justify-content-center shadow-sm" style="width: 36px; height: 36px;">
+                                        <i class="fa fa-flag-checkered text-white"/>
+                                    </span>
+                                    <div>
+                                        <h6 class="fw-bold mb-0 text-dark">Store Onboarding &amp; Setup Plan</h6>
+                                        <small class="text-muted">Follow these progressive steps to launch your store with zero configuration errors.</small>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="small fw-bold text-dark"><field name="onboarding_progress"/>% Configured</span>
+                                        <div class="progress" style="width: 130px; height: 8px;">
+                                            <div class="progress-bar bg-success" role="progressbar"
+                                                 style="width: 100%;" invisible="onboarding_progress != 100"/>
+                                            <div class="progress-bar bg-primary" role="progressbar"
+                                                 style="width: 75%;" invisible="onboarding_progress != 75"/>
+                                            <div class="progress-bar bg-info" role="progressbar"
+                                                 style="width: 50%;" invisible="onboarding_progress != 50"/>
+                                            <div class="progress-bar bg-warning" role="progressbar"
+                                                 style="width: 25%;" invisible="onboarding_progress != 25"/>
+                                            <div class="progress-bar bg-secondary" role="progressbar"
+                                                 style="width: 0%;" invisible="onboarding_progress != 0"/>
+                                        </div>
+                                    </div>
+                                    <button name="action_open_onboarding_wizard" string="Guided Setup Wizard" type="object"
+                                            class="btn btn-sm btn-outline-primary" icon="fa-magic"/>
+                                    <button name="action_toggle_onboarding" string="Hide" type="object"
+                                            class="btn btn-sm btn-link text-muted text-decoration-none"
+                                            icon="fa-chevron-up"/>
+                                </div>
+                            </div>
+
+                            <!-- 4 Progressive Step Cards Grid -->
+                            <div class="row g-2">
+                                <!-- Step 1: Store Connection -->
+                                <div class="col-md-3">
+                                    <div class="p-3 rounded-3 border h-100 bg-light d-flex flex-column justify-content-between">
+                                        <div>
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <span class="badge rounded-pill text-bg-success px-2 py-1" invisible="not onboarding_step_connection">
+                                                    <i class="fa fa-check me-1"/>1. Connected
+                                                </span>
+                                                <span class="badge rounded-pill text-bg-warning text-dark px-2 py-1" invisible="onboarding_step_connection">
+                                                    <i class="fa fa-clock-o me-1"/>1. Pending
+                                                </span>
+                                                <i class="fa fa-check-circle text-success fa-lg" invisible="not onboarding_step_connection"/>
+                                                <i class="fa fa-plug text-muted fa-lg" invisible="onboarding_step_connection"/>
+                                            </div>
+                                            <h6 class="fw-bold text-dark mb-1">API Connection</h6>
+                                            <p class="text-secondary small mb-0" style="font-size: 0.82rem;">
+                                                Authenticate credentials with Shopify via Admin API token or OAuth.
+                                            </p>
+                                        </div>
+                                        <button name="action_open_step_connection" string="Configure API" type="object"
+                                                class="btn btn-sm btn-outline-primary w-100 mt-2" icon="fa-plug"/>
+                                    </div>
+                                </div>
+
+                                <!-- Step 2: Logistics & Warehouses -->
+                                <div class="col-md-3">
+                                    <div class="p-3 rounded-3 border h-100 bg-light d-flex flex-column justify-content-between">
+                                        <div>
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <span class="badge rounded-pill text-bg-success px-2 py-1" invisible="not onboarding_step_logistics">
+                                                    <i class="fa fa-check me-1"/>2. Assigned
+                                                </span>
+                                                <span class="badge rounded-pill text-bg-warning text-dark px-2 py-1" invisible="onboarding_step_logistics">
+                                                    <i class="fa fa-clock-o me-1"/>2. Required
+                                                </span>
+                                                <i class="fa fa-check-circle text-success fa-lg" invisible="not onboarding_step_logistics"/>
+                                                <i class="fa fa-building-o text-muted fa-lg" invisible="onboarding_step_logistics"/>
+                                            </div>
+                                            <h6 class="fw-bold text-dark mb-1">Warehouse &amp; Stock</h6>
+                                            <p class="text-secondary small mb-0" style="font-size: 0.82rem;">
+                                                Assign default warehouse &amp; stock locations for inventory deductions.
+                                            </p>
+                                        </div>
+                                        <button name="action_open_step_logistics" string="Configure Stock" type="object"
+                                                class="btn btn-sm btn-outline-primary w-100 mt-2" icon="fa-building-o"/>
+                                    </div>
+                                </div>
+
+                                <!-- Step 3: Financials & Accounting -->
+                                <div class="col-md-3">
+                                    <div class="p-3 rounded-3 border h-100 bg-light d-flex flex-column justify-content-between">
+                                        <div>
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <span class="badge rounded-pill text-bg-success px-2 py-1" invisible="not onboarding_step_financials">
+                                                    <i class="fa fa-check me-1"/>3. Configured
+                                                </span>
+                                                <span class="badge rounded-pill text-bg-warning text-dark px-2 py-1" invisible="onboarding_step_financials">
+                                                    <i class="fa fa-clock-o me-1"/>3. Required
+                                                </span>
+                                                <i class="fa fa-check-circle text-success fa-lg" invisible="not onboarding_step_financials"/>
+                                                <i class="fa fa-credit-card text-muted fa-lg" invisible="onboarding_step_financials"/>
+                                            </div>
+                                            <h6 class="fw-bold text-dark mb-1">Pricelist &amp; Payment</h6>
+                                            <p class="text-secondary small mb-0" style="font-size: 0.82rem;">
+                                                Set currency pricelist and payment journal for automated accounting.
+                                            </p>
+                                        </div>
+                                        <button name="action_open_step_financials" string="Configure Finance" type="object"
+                                                class="btn btn-sm btn-outline-primary w-100 mt-2" icon="fa-credit-card"/>
+                                    </div>
+                                </div>
+
+                                <!-- Step 4: Automations & Workflows -->
+                                <div class="col-md-3">
+                                    <div class="p-3 rounded-3 border h-100 bg-light d-flex flex-column justify-content-between">
+                                        <div>
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <span class="badge rounded-pill text-bg-success px-2 py-1" invisible="not onboarding_step_automations">
+                                                    <i class="fa fa-check me-1"/>4. Active
+                                                </span>
+                                                <span class="badge rounded-pill text-bg-secondary px-2 py-1" invisible="onboarding_step_automations">
+                                                    <i class="fa fa-sliders me-1"/>4. Optional
+                                                </span>
+                                                <i class="fa fa-check-circle text-success fa-lg" invisible="not onboarding_step_automations"/>
+                                                <i class="fa fa-magic text-muted fa-lg" invisible="onboarding_step_automations"/>
+                                            </div>
+                                            <h6 class="fw-bold text-dark mb-1">Auto Workflows</h6>
+                                            <p class="text-secondary small mb-0" style="font-size: 0.82rem;">
+                                                Enable real-time inventory sync, auto-order validation, and invoicing.
+                                            </p>
+                                        </div>
+                                        <button name="action_open_step_automations" string="Configure Workflows" type="object"
+                                                class="btn btn-sm btn-outline-primary w-100 mt-2" icon="fa-sliders"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Collapsed Setup Plan Banner (when hidden) -->
+                        <div class="d-flex justify-content-end mb-2" invisible="show_onboarding_panel">
+                            <button name="action_toggle_onboarding" string="Show Setup Plan" type="object"
+                                    class="btn btn-sm btn-link text-primary text-decoration-none fw-semibold"
+                                    icon="fa-tasks"/>
+                        </div>
+
+                        <!-- Modern High-Contrast Status Banners (Replaces old web_ribbon) -->
+                        <!-- State: Confirmed / Connected -->
+                        <div class="card p-3 mb-4 rounded-3 border bg-white shadow-sm border-start border-4 border-success position-relative overflow-hidden"
+                             invisible="state != 'confirmed'">
+                            <div class="shopify-connected-ambient shopify-anim-style-0" aria-hidden="true">
+                                <div class="shopify-anim-glow-1"/>
+                                <div class="shopify-anim-sheen"/>
+                            </div>
+                            <div class="d-flex align-items-center position-relative" style="z-index: 2;">
+                                <div class="rounded-circle p-2 text-bg-success me-3 d-flex align-items-center justify-content-center shadow-sm"
+                                     style="width: 44px; height: 44px; min-width: 44px;">
+                                    <i class="fa fa-check fa-lg text-white"/>
+                                </div>
+                                <div>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <h5 class="fw-bold mb-0 text-dark">Shopify Store Connected &amp; Live</h5>
+                                        <span class="badge rounded-pill text-bg-success text-uppercase px-2 py-1 d-inline-flex align-items-center" style="font-size: 0.75rem;">
+                                            <span class="shopify-live-beacon me-1"/>Active
+                                        </span>
+                                    </div>
+                                    <p class="text-dark mb-0 mt-1 fw-normal" style="font-size: 0.95rem; color: #111827 !important;">
+                                        Store connection is healthy and active. Real-time inventory sync, webhooks, and automated order workflows are operational.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- State: Draft -->
+                        <div class="card p-3 mb-4 rounded-3 border bg-white shadow-sm border-start border-4 border-primary"
+                             invisible="state != 'draft'">
+                            <div class="d-flex align-items-center">
+                                <div class="rounded-circle p-2 text-bg-primary me-3 d-flex align-items-center justify-content-center shadow-sm"
+                                     style="width: 44px; height: 44px; min-width: 44px;">
+                                    <i class="fa fa-plug fa-lg text-white"/>
+                                </div>
+                                <div>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <h5 class="fw-bold mb-0 text-dark">Store Configuration in Progress</h5>
+                                        <span class="badge rounded-pill text-bg-secondary text-uppercase px-2 py-1" style="font-size: 0.75rem;">Draft</span>
+                                    </div>
+                                    <p class="text-dark mb-0 mt-1 fw-normal" style="font-size: 0.95rem; color: #111827 !important;">
+                                        Configure your Shopify Store URL and Admin Access Token in the <strong>API &amp; Authentication</strong> tab, then click <strong>Connect &amp; Test</strong> in the header above.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- State: Error -->
+                        <div class="card p-3 mb-4 rounded-3 border bg-white shadow-sm border-start border-4 border-danger"
+                             invisible="state != 'error'">
+                            <div class="d-flex align-items-center">
+                                <div class="rounded-circle p-2 text-bg-danger me-3 d-flex align-items-center justify-content-center shadow-sm"
+                                     style="width: 44px; height: 44px; min-width: 44px;">
+                                    <i class="fa fa-exclamation-triangle fa-lg text-white"/>
+                                </div>
+                                <div>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <h5 class="fw-bold mb-0 text-danger">Connection Disconnected / Failed</h5>
+                                        <span class="badge rounded-pill text-bg-danger text-uppercase px-2 py-1" style="font-size: 0.75rem;">Attention</span>
+                                    </div>
+                                    <p class="text-dark mb-0 mt-1 fw-normal" style="font-size: 0.95rem; color: #111827 !important;">
+                                        Unable to communicate with Shopify API. Check your store URL and access token permissions, then click <strong>Connect &amp; Test</strong> in the header above to re-verify.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Store Title -->
+                        <div class="oe_title mb-3">
+                            <label for="name" string="Shopify Store Name" class="text-muted small fw-semibold"/>
+                            <h1>
+                                <field name="name" placeholder="e.g. My Flagship Shopify Store" class="fw-bold"/>
+                            </h1>
+                        </div>
+
+                        <!-- Core Parameters Overview -->
+                        <group>
+                            <group string="Store Identity &amp; Connection">
+                                <field name="shop_url" placeholder="https://your-store.myshopify.com" readonly="state == 'confirmed'"/>
+                                <field name="warehouse_id" domain="[('company_id', '=', company_id)]" options="{'no_create': True}"/>
+                            </group>
+                            <group string="Multi-Company &amp; Visibility">
+                                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                <field name="active" invisible="1"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <!-- Tab 1: API & Authentication -->
+                            <page string="API &amp; Authentication" name="credentials_page">
+                                <div class="row mt-2">
+                                    <div class="col-md-7">
+                                        <group string="Authentication Mode">
+                                            <field name="auth_method" widget="radio" readonly="state == 'confirmed'"/>
+                                        </group>
+
+                                        <!-- Token Configuration -->
+                                        <group string="Direct Admin API Access Token" invisible="auth_method != 'token'">
+                                            <field name="access_token" password="True" readonly="state == 'confirmed'" required="auth_method == 'token' and state == 'confirmed'"/>
+                                            <field name="api_version" readonly="state == 'confirmed'"/>
+                                            <field name="shopify_location_id" readonly="state == 'confirmed'"/>
+                                        </group>
+
+                                        <!-- OAuth Configuration -->
+                                        <group string="Shopify OAuth 2.0 Credentials" invisible="auth_method != 'oauth'">
+                                            <field name="client_id" placeholder="Shopify App Client ID / API Key" readonly="state == 'confirmed'" required="auth_method == 'oauth'"/>
+                                            <field name="client_secret" password="True" readonly="state == 'confirmed'" required="auth_method == 'oauth'"/>
+                                            <field name="redirect_url" readonly="1"/>
+                                            <field name="oauth_scopes" readonly="state == 'confirmed'"/>
+                                        </group>
+
+                                        <!-- Security & Webhooks -->
+                                        <group string="Security &amp; Webhooks">
+                                            <field name="webhook_secret" password="True"/>
+                                        </group>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="card bg-light border-0 p-3 rounded-3 mt-3 shadow-sm">
+                                            <h6 class="fw-bold text-primary mb-2"><i class="fa fa-info-circle me-1"/> Connection Guide</h6>
+                                            <p class="small text-muted mb-2">
+                                                1. In your <strong>Shopify Admin</strong>, navigate to: <em>Settings &gt; Apps and sales channels &gt; Develop apps</em>.
+                                            </p>
+                                            <p class="small text-muted mb-2">
+                                                2. Create an app and grant Admin API access scopes for <strong>Orders, Products, Inventory, Customers</strong>.
+                                            </p>
+                                            <p class="small text-muted mb-2">
+                                                3. Install the app, copy the <strong>Admin API access token</strong> (starts with <code>shpat_</code>), and paste it into the field on the left.
+                                            </p>
+                                            <p class="small text-muted mb-0">
+                                                4. Click <strong>Connect &amp; Test</strong> in the header to activate your integration!
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </page>
+
+                            <!-- Tab 2: Defaults & Accounting -->
+                            <page string="Defaults &amp; Accounting" name="defaults_page">
+                                <div class="row mt-2">
+                                    <div class="col-md-6">
+                                        <group string="Inventory &amp; Warehousing">
+                                            <field name="warehouse_id" domain="[('company_id', '=', company_id)]" options="{'no_create': True}"/>
+                                            <field name="location_id" domain="[('company_id', 'in', (company_id, False)), ('usage', '=', 'internal')]" options="{'no_create': True}"/>
+                                        </group>
+                                        <group string="Sales Team &amp; Assignment">
+                                            <field name="team_id" domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]" options="{'no_create': True}"/>
+                                            <field name="user_id" widget="many2one_avatar_user"/>
+                                        </group>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <group string="Pricing &amp; Invoicing Defaults">
+                                            <field name="pricelist_id" domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]" options="{'no_create': True}"/>
+                                            <field name="payment_term_id" options="{'no_create': True}"/>
+                                            <field name="payment_journal_id" domain="[('type', 'in', ('bank', 'cash')), ('company_id', '=', company_id)]" options="{'no_create': True}"/>
+                                        </group>
+                                        <group string="Special Line Items">
+                                            <field name="discount_product_id" options="{'no_create': True}"/>
+                                            <field name="delivery_product_id" options="{'no_create': True}"/>
+                                        </group>
+                                    </div>
+                                </div>
+                            </page>
+
+                            <!-- Tab 3: Automation & Policies -->
+                            <page string="Automation &amp; Policies" name="policies_page">
+                                <div class="row mt-2">
+                                    <div class="col-md-6">
+                                        <group string="Order Workflow Automation">
+                                            <field name="auto_validate_orders" widget="boolean_toggle"/>
+                                            <field name="auto_create_invoices" widget="boolean_toggle"/>
+                                            <field name="auto_paid_invoices" widget="boolean_toggle"/>
+                                            <field name="auto_deliver_orders" widget="boolean_toggle"/>
+                                        </group>
+                                        <group string="Inventory Automation">
+                                            <field name="sync_inventory_on_update" widget="boolean_toggle"/>
+                                        </group>
+                                        <group string="Refunds &amp; Returns Automation">
+                                            <field name="auto_process_refunds" widget="boolean_toggle"/>
+                                            <field name="auto_create_credit_notes" widget="boolean_toggle"/>
+                                            <field name="auto_validate_refunds" widget="boolean_toggle"/>
+                                        </group>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <group string="Synchronization Health &amp; Timestamps">
+                                            <field name="last_order_sync" readonly="1"/>
+                                            <field name="last_product_sync" readonly="1"/>
+                                            <field name="last_category_sync" readonly="1"/>
+                                            <field name="last_customer_sync" readonly="1"/>
+                                            <field name="last_inventory_sync" readonly="1"/>
+                                        </group>
+                                    </div>
+                                </div>
+                            </page>
+
+                            <!-- Tab 4: Locations & Stock -->
+                            <page string="Locations &amp; Stock" name="locations_page">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="text-muted small">
+                                        Map multiple Shopify fulfillment locations to individual Odoo warehouses and internal stock locations.
+                                    </span>
+                                    <button name="action_fetch_locations" type="object" string="Fetch Shopify Locations" class="btn btn-secondary btn-sm" icon="fa-cloud-download" invisible="state != 'confirmed'"/>
+                                </div>
+                                <field name="location_mapping_ids">
+                                    <list editable="bottom">
+                                        <field name="shopify_location_name"/>
+                                        <field name="shopify_location_id"/>
+                                        <field name="warehouse_id" domain="[('company_id', '=', parent.company_id)]"/>
+                                        <field name="location_id" domain="[('company_id', 'in', (parent.company_id, False)), ('usage', '=', 'internal')]"/>
+                                        <field name="sync_stock" widget="boolean_toggle"/>
+                                        <field name="is_primary"/>
+                                        <field name="active" widget="boolean_toggle"/>
+                                    </list>
+                                </field>
+                            </page>
+
+                            <!-- Tab 5: Metafield Mappings -->
+                            <page string="Metafield Mappings" name="metafields_page">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="text-muted small">
+                                        Map custom fields and specifications between Odoo models and Shopify metafield definitions.
+                                    </span>
+                                    <button name="action_fetch_metafields" type="object" string="Fetch Shopify Metafields" class="btn btn-secondary btn-sm" icon="fa-cloud-download" invisible="state != 'confirmed'"/>
+                                </div>
+                                <field name="metafield_mapping_ids">
+                                    <list editable="bottom">
+                                        <field name="model_id"/>
+                                        <field name="store_type"/>
+                                        <field name="field_id" invisible="store_type != 'field'"/>
+                                        <field name="namespace"/>
+                                        <field name="key"/>
+                                        <field name="metafield_type"/>
+                                        <field name="shopify_owner_type" readonly="1"/>
+                                        <field name="shopify_definition_id" readonly="1" optional="hide"/>
+                                        <field name="description" readonly="1" optional="hide"/>
+                                        <field name="sync_direction"/>
+                                        <field name="active" widget="boolean_toggle"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Window Action (Odoo 19: kanban,list,form) -->
+        <record id="action_shopify_instance" model="ir.actions.act_window">
+            <field name="name">Shopify Stores</field>
+            <field name="res_model">shopify.instance</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="view_id" ref="view_shopify_instance_kanban"/>
+            <field name="search_view_id" ref="view_shopify_instance_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Configure your first Shopify store connection!
+                </p>
+            </field>
+        </record>
+
+        <!-- Client Action: Power BI Style Store Insights Dashboard -->
+        <record id="action_shopify_store_insights" model="ir.actions.client">
+            <field name="name">Store Insights</field>
+            <field name="tag">shopify_store_insights_dashboard</field>
+            <field name="target">current</field>
+        </record>
+    </data>
+</odoo>

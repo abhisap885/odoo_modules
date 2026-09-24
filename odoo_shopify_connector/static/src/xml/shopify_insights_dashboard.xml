@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="odoo_shopify_connector.ShopifyStoreInsightsDashboard">
+        <div class="shopify-insights-container h-100 overflow-auto position-relative p-3 p-md-4">
+            <!-- Dynamic Ambient Glow & Mesh Grid Background Layer -->
+            <div class="shopify-insights-ambient-field" aria-hidden="true">
+                <div class="shopify-insights-grid-pattern"/>
+                <div class="shopify-insights-orb orb-1"/>
+                <div class="shopify-insights-orb orb-2"/>
+                <div class="shopify-insights-orb orb-3"/>
+                <div class="shopify-insights-orb orb-4"/>
+                <div class="shopify-insights-light-beam"/>
+            </div>
+
+            <!-- Foreground Content Layer -->
+            <div class="shopify-insights-content position-relative" style="z-index: 2;">
+                <!-- Top Control Bar (Power BI Style Header) -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4 bg-white">
+                <div class="card-body p-3 p-md-4">
+                    <div class="row align-items-center g-3">
+                        <!-- Store Selector & Title -->
+                        <div class="col-xl-5 col-lg-5 col-md-12 d-flex align-items-center gap-3">
+                            <div class="shopify-insights-brand-icon rounded-3 p-2 bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center shadow-sm" style="width: 44px; height: 44px;">
+                                <i class="fa fa-line-chart fs-4 text-primary"/>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <h4 class="mb-0 fw-bold text-dark text-truncate">Store Insights &amp; Analytics</h4>
+                                    <span t-if="state.data and state.data.selected_instance_state == 'confirmed'" class="badge rounded-pill text-bg-success px-2 py-1 small">
+                                        <i class="fa fa-circle me-1" style="font-size: 0.5rem;"/>Live
+                                    </span>
+                                    <span t-elif="state.data and state.data.selected_instance_state == 'draft'" class="badge rounded-pill text-bg-secondary px-2 py-1 small">
+                                        Draft
+                                    </span>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <label class="text-muted small mb-0 fw-semibold">Store:</label>
+                                    <select class="form-select form-select-sm border-secondary-subtle fw-semibold rounded-pill px-3 py-1 shadow-none"
+                                            style="max-width: 240px;"
+                                            t-on-change="onSelectStore">
+                                        <t t-if="state.data and state.data.instances">
+                                            <t t-foreach="state.data.instances" t-as="inst" t-key="inst.id">
+                                                <option t-att-value="inst.id" t-att-selected="inst.id == state.selectedInstanceId">
+                                                    <t t-out="inst.name"/>
+                                                </option>
+                                            </t>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Date Range Filters (Power BI Slicers) -->
+                        <div class="col-xl-4 col-lg-4 col-md-12 d-flex justify-content-center">
+                            <div class="btn-group btn-group-sm p-1 bg-light rounded-pill border shadow-none" role="group" aria-label="Date Period">
+                                <button type="button"
+                                        t-attf-class="btn rounded-pill px-3 py-1 fw-semibold #{state.selectedPeriod == '7d' ? 'btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}"
+                                        t-on-click="() => this.onSelectPeriod('7d')">7D</button>
+                                <button type="button"
+                                        t-attf-class="btn rounded-pill px-3 py-1 fw-semibold #{state.selectedPeriod == '30d' ? 'btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}"
+                                        t-on-click="() => this.onSelectPeriod('30d')">30D</button>
+                                <button type="button"
+                                        t-attf-class="btn rounded-pill px-3 py-1 fw-semibold #{state.selectedPeriod == '90d' ? 'btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}"
+                                        t-on-click="() => this.onSelectPeriod('90d')">90D</button>
+                                <button type="button"
+                                        t-attf-class="btn rounded-pill px-3 py-1 fw-semibold #{state.selectedPeriod == 'year' ? 'btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}"
+                                        t-on-click="() => this.onSelectPeriod('year')">1 Year</button>
+                                <button type="button"
+                                        t-attf-class="btn rounded-pill px-3 py-1 fw-semibold #{state.selectedPeriod == 'all' ? 'btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}"
+                                        t-on-click="() => this.onSelectPeriod('all')">All Time</button>
+                            </div>
+                        </div>
+
+                        <!-- Quick Action Buttons -->
+                        <div class="col-xl-3 col-lg-3 col-md-12 d-flex justify-content-xl-end justify-content-center gap-2">
+                            <button class="btn btn-outline-primary btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center"
+                                    t-on-click="openSyncWizard"
+                                    title="Sync Orders &amp; Data">
+                                <i class="fa fa-refresh me-1"/> Sync
+                            </button>
+                            <button class="btn btn-outline-secondary btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center"
+                                    t-on-click="viewAllOrders"
+                                    title="View All Orders in List">
+                                <i class="fa fa-shopping-cart me-1"/> Orders
+                            </button>
+                            <button class="btn btn-light btn-sm rounded-circle border shadow-sm p-2 d-flex align-items-center justify-content-center"
+                                    style="width: 32px; height: 32px;"
+                                    t-on-click="reloadDashboard"
+                                    title="Refresh Dashboard">
+                                <i class="fa fa-repeat text-secondary"/>
+                            </button>
+                            <button class="btn btn-light btn-sm rounded-circle border shadow-sm p-2 d-flex align-items-center justify-content-center"
+                                    style="width: 32px; height: 32px;"
+                                    t-on-click="openStoreSettings"
+                                    title="Store Settings">
+                                <i class="fa fa-cog text-secondary"/>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading Spinner -->
+            <t t-if="state.isLoading">
+                <div class="d-flex flex-column align-items-center justify-content-center p-5 text-muted">
+                    <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
+                        <span class="visually-hidden">Loading Analytics...</span>
+                    </div>
+                    <h5 class="fw-semibold">Processing Store Data...</h5>
+                    <p class="small text-muted">Calculating sales metrics, orders, and graph visualisations</p>
+                </div>
+            </t>
+
+            <!-- Main Dashboard Body -->
+            <t t-else="">
+                <!-- Sample Data Banner (Shown if 0 orders) -->
+                <t t-if="state.data and state.data.kpis.total_orders == 0">
+                    <div class="alert alert-info border-0 shadow-sm rounded-4 p-3 mb-4 d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="rounded-circle p-2 bg-info bg-opacity-25 text-info d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                <i class="fa fa-info-circle fs-5"/>
+                            </span>
+                            <div>
+                                <h6 class="fw-bold mb-1 text-dark">No Orders Synced Yet For This Store</h6>
+                                <p class="small mb-0 text-dark text-opacity-75">
+                                    You can sync live orders directly from Shopify, or load sample demo orders to preview the Power BI charts immediately.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-primary btn-sm rounded-pill px-3 shadow-sm text-nowrap" t-on-click="openSyncWizard">
+                                <i class="fa fa-refresh me-1"/> Sync Orders Now
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm rounded-pill px-3 shadow-sm text-nowrap" t-on-click="loadSampleData">
+                                <i class="fa fa-magic me-1"/> Load Sample Analytics
+                            </button>
+                        </div>
+                    </div>
+                </t>
+
+                <!-- KPI Tiles Grid (Power BI Scorecards) -->
+                <div class="row g-3 mb-4">
+                    <!-- 1. Total Revenue -->
+                    <div class="col-xl-2 col-lg-4 col-md-6 col-12">
+                        <div class="card border-0 shadow-sm rounded-4 h-100 p-3 bg-white shopify-kpi-card border-top border-4 border-primary">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="text-muted small fw-bold text-uppercase tracking-wider">Total Sales</span>
+                                <span class="p-2 rounded-3 bg-primary bg-opacity-10 text-primary">
+                                    <i class="fa fa-dollar"/>
+                                </span>
+                            </div>
+                            <h3 class="fw-bold text-dark mb-1 text-truncate" t-out="state.data.kpis.total_sales_formatted"/>
+                            <div class="d-flex align-items-center text-success small fw-semibold">
+                                <i class="fa fa-arrow-up me-1"/>
+                                <span>Gross Revenue</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Total Orders -->
+                    <div class="col-xl-2 col-lg-4 col-md-6 col-12">
+                        <div class="card border-0 shadow-sm rounded-4 h-100 p-3 bg-white shopify-kpi-card border-top border-4 border-info">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="text-muted small fw-bold text-uppercase tracking-wider">Total Orders</span>
+                                <span class="p-2 rounded-3 bg-info bg-opacity-10 text-info">
+                                    <i class="fa fa-shopping-cart"/>
+                                </span>
+                            </div>
+                            <h3 class="fw-bold text-dark mb-1">
+                                <t t-out="state.data.kpis.total_orders"/>
+                            </h3>
+                            <div class="text-muted small">
+                                <span class="text-dark fw-semibold" t-out="state.data.kpis.fulfilled_count"/> Fulfilled
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Average Order Value -->
+                    <div class="col-xl-2 col-lg-4 col-md-6 col-12">
+                        <div class="card border-0 shadow-sm rounded-4 h-100 p-3 bg-white shopify-kpi-card border-top border-4 border-success">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="text-muted small fw-bold text-uppercase tracking-wider">Avg Order Value</span>
+                                <span class="p-2 rounded-3 bg-success bg-opacity-10 text-success">
+                                    <i class="fa fa-line-chart"/>
+                                </span>
+                            </div>
+                            <h3 class="fw-bold text-dark mb-1 text-truncate" t-out="state.data.kpis.aov_formatted"/>
+                            <div class="text-muted small">
+                                <span>Revenue / Order</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Fulfillment Rate -->
+                    <div class="col-xl-2 col-lg-4 col-md-6 col-12">
+                        <div class="card border-0 shadow-sm rounded-4 h-100 p-3 bg-white shopify-kpi-card border-top border-4 border-warning">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="text-muted small fw-bold text-uppercase tracking-wider">Fulfillment</span>
+                                <span class="p-2 rounded-3 bg-warning bg-opacity-10 text-warning">
+                                    <i class="fa fa-truck"/>
+                                </span>
+                            </div>
+                            <h3 class="fw-bold text-dark mb-1">
+                                <t t-out="state.data.kpis.fulfillment_rate"/>%
+                            </h3>
+                            <div class="progress mt-1" style="height: 5px;">
+                                <div class="progress-bar bg-warning" t-attf-style="width: #{state.data.kpis.fulfillment_rate}%"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. Mapped Products -->
+                    <div class="col-xl-2 col-lg-4 col-md-6 col-12">
+                        <div class="card border-0 shadow-sm rounded-4 h-100 p-3 bg-white shopify-kpi-card border-top border-4 border-purple" style="border-top-color: #8b5cf6 !important;">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="text-muted small fw-bold text-uppercase tracking-wider">Products</span>
+                                <span class="p-2 rounded-3 text-purple" style="background-color: rgba(139, 92, 246, 0.1); color: #8b5cf6;">
+                                    <i class="fa fa-cube"/>
+                                </span>
+                            </div>
+                            <h3 class="fw-bold text-dark mb-1">
+                                <t t-out="state.data.kpis.total_products"/>
+                            </h3>
+                            <div class="text-muted small">
+                                <span>Mapped Catalog</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. Customers -->
+                    <div class="col-xl-2 col-lg-4 col-md-6 col-12">
+                        <div class="card border-0 shadow-sm rounded-4 h-100 p-3 bg-white shopify-kpi-card border-top border-4 border-danger">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="text-muted small fw-bold text-uppercase tracking-wider">Customers</span>
+                                <span class="p-2 rounded-3 bg-danger bg-opacity-10 text-danger">
+                                    <i class="fa fa-users"/>
+                                </span>
+                            </div>
+                            <h3 class="fw-bold text-dark mb-1">
+                                <t t-out="state.data.kpis.total_customers"/>
+                            </h3>
+                            <div class="text-muted small">
+                                <span class="text-danger fw-semibold" t-out="state.data.kpis.refund_count"/> Refunds
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visuals Grid: Row 1 -->
+                <div class="row g-4 mb-4">
+                    <!-- Sales & Revenue Trend Over Time (Area + Bar Chart) -->
+                    <div class="col-xl-8 col-lg-7 col-12">
+                        <div class="card border-0 shadow-sm rounded-4 bg-white p-3 p-md-4 h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <h5 class="fw-bold text-dark mb-0">Sales Revenue &amp; Orders Trend</h5>
+                                    <small class="text-muted">Monthly &amp; periodic timeline of sales volume and order count</small>
+                                </div>
+                                <span class="badge text-bg-light border text-secondary px-2 py-1">
+                                    <i class="fa fa-bar-chart me-1"/>Timeline
+                                </span>
+                            </div>
+                            <div class="shopify-chart-container position-relative" style="height: 320px;">
+                                <canvas t-ref="salesTrendChart"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Financial Status Donut / Pie Chart -->
+                    <div class="col-xl-4 col-lg-5 col-12">
+                        <div class="card border-0 shadow-sm rounded-4 bg-white p-3 p-md-4 h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <h5 class="fw-bold text-dark mb-0">Financial Status</h5>
+                                    <small class="text-muted">Breakdown by payment state</small>
+                                </div>
+                                <span class="badge text-bg-light border text-secondary px-2 py-1">
+                                    <i class="fa fa-pie-chart me-1"/>Payments
+                                </span>
+                            </div>
+                            <div class="shopify-chart-container position-relative" style="height: 320px;">
+                                <canvas t-ref="financialStatusChart"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visuals Grid: Row 2 -->
+                <div class="row g-4 mb-4">
+                    <!-- Fulfillment Status Breakdown (Donut Chart) -->
+                    <div class="col-xl-4 col-lg-4 col-md-12">
+                        <div class="card border-0 shadow-sm rounded-4 bg-white p-3 p-md-4 h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <h5 class="fw-bold text-dark mb-0">Fulfillment Status</h5>
+                                    <small class="text-muted">Orders by shipping state</small>
+                                </div>
+                                <span class="badge text-bg-light border text-secondary px-2 py-1">
+                                    <i class="fa fa-truck me-1"/>Delivery
+                                </span>
+                            </div>
+                            <div class="shopify-chart-container position-relative" style="height: 280px;">
+                                <canvas t-ref="fulfillmentStatusChart"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Top Products Leaderboard (Horizontal Bar Chart) -->
+                    <div class="col-xl-4 col-lg-4 col-md-12">
+                        <div class="card border-0 shadow-sm rounded-4 bg-white p-3 p-md-4 h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <h5 class="fw-bold text-dark mb-0">Top Products</h5>
+                                    <small class="text-muted">Ranked by Shopify sales revenue</small>
+                                </div>
+                                <span class="badge text-bg-light border text-secondary px-2 py-1">
+                                    <i class="fa fa-trophy text-warning me-1"/>Top 6
+                                </span>
+                            </div>
+                            <div class="shopify-chart-container position-relative" style="height: 280px;">
+                                <canvas t-ref="topProductsChart"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sales by Category (Pie Chart) -->
+                    <div class="col-xl-4 col-lg-4 col-md-12">
+                        <div class="card border-0 shadow-sm rounded-4 bg-white p-3 p-md-4 h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <h5 class="fw-bold text-dark mb-0">Product Categories</h5>
+                                    <small class="text-muted">Revenue share by category</small>
+                                </div>
+                                <span class="badge text-bg-light border text-secondary px-2 py-1">
+                                    <i class="fa fa-sitemap me-1"/>Category
+                                </span>
+                            </div>
+                            <div class="shopify-chart-container position-relative" style="height: 280px;">
+                                <canvas t-ref="categoryChart"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Shopify Orders Interactive Table (Power BI Grid) -->
+                <div class="card border-0 shadow-sm rounded-4 bg-white p-3 p-md-4 mb-4">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+                        <div>
+                            <h5 class="fw-bold text-dark mb-0">Recent Synchronized Orders</h5>
+                            <small class="text-muted">Live ledger of latest orders synced from Shopify</small>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm rounded-pill px-3 shadow-sm" t-on-click="viewAllOrders">
+                            <i class="fa fa-external-link me-1"/> View All Order Mappings
+                        </button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light text-muted small text-uppercase">
+                                <tr>
+                                    <th scope="col" class="border-0">Shopify #</th>
+                                    <th scope="col" class="border-0">Odoo SO</th>
+                                    <th scope="col" class="border-0">Date</th>
+                                    <th scope="col" class="border-0">Customer</th>
+                                    <th scope="col" class="border-0">Total Amount</th>
+                                    <th scope="col" class="border-0">Financial Status</th>
+                                    <th scope="col" class="border-0">Fulfillment</th>
+                                    <th scope="col" class="border-0 text-end">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-if="state.data.recent_orders and state.data.recent_orders.length &gt; 0">
+                                    <t t-foreach="state.data.recent_orders" t-as="ord" t-key="ord.id">
+                                        <tr class="shopify-order-row">
+                                            <td class="fw-bold text-primary">
+                                                <i class="fa fa-shopping-bag me-1 text-primary opacity-75"/>
+                                                <t t-out="ord.shopify_order_number"/>
+                                            </td>
+                                            <td class="fw-semibold text-dark">
+                                                <t t-out="ord.order_name"/>
+                                            </td>
+                                            <td class="text-muted small">
+                                                <t t-out="ord.date"/>
+                                            </td>
+                                            <td class="text-dark">
+                                                <i class="fa fa-user-circle-o text-muted me-1"/>
+                                                <t t-out="ord.customer_name"/>
+                                            </td>
+                                            <td class="fw-bold text-dark">
+                                                <t t-out="ord.amount_formatted"/>
+                                            </td>
+                                            <td>
+                                                <span t-if="ord.financial_status == 'paid'" class="badge rounded-pill text-bg-success px-2 py-1">Paid</span>
+                                                <span t-elif="ord.financial_status == 'pending'" class="badge rounded-pill text-bg-warning text-dark px-2 py-1">Pending</span>
+                                                <span t-elif="ord.financial_status == 'authorized'" class="badge rounded-pill text-bg-primary px-2 py-1">Authorized</span>
+                                                <span t-elif="ord.financial_status == 'partially_paid'" class="badge rounded-pill text-bg-info text-white px-2 py-1">Partial</span>
+                                                <span t-elif="ord.financial_status == 'refunded'" class="badge rounded-pill text-bg-danger px-2 py-1">Refunded</span>
+                                                <span t-else="" class="badge rounded-pill text-bg-secondary px-2 py-1"><t t-out="ord.financial_status"/></span>
+                                            </td>
+                                            <td>
+                                                <span t-if="ord.fulfillment_status == 'fulfilled'" class="badge rounded-pill text-bg-info text-white px-2 py-1">
+                                                    <i class="fa fa-check me-1"/>Fulfilled
+                                                </span>
+                                                <span t-elif="ord.fulfillment_status == 'partial'" class="badge rounded-pill text-bg-secondary px-2 py-1">Partial</span>
+                                                <span t-else="" class="badge rounded-pill text-bg-warning text-dark px-2 py-1">Unfulfilled</span>
+                                            </td>
+                                            <td class="text-end">
+                                                <button class="btn btn-outline-secondary btn-sm rounded-pill px-2 py-1 shadow-none"
+                                                        t-on-click="() => this.openOrder(ord.order_id)"
+                                                        title="Open Order Record">
+                                                    <i class="fa fa-arrow-right"/>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
+                                <t t-else="">
+                                    <tr>
+                                        <td colspan="8" class="text-center text-muted py-4">
+                                            <i class="fa fa-inbox fs-3 mb-2 d-block opacity-50"/>
+                                            No recent orders found for the selected store/period.
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </t>
+            </div>
+        </div>
+    </t>
+
+</templates>

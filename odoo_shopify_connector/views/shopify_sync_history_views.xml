@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Search View -->
+        <record id="view_shopify_sync_history_search" model="ir.ui.view">
+            <field name="name">shopify.sync.history.search</field>
+            <field name="model">shopify.sync.history</field>
+            <field name="arch" type="xml">
+                <search string="Search Sync History">
+                    <field name="name"/>
+                    <field name="instance_id"/>
+                    <separator/>
+                    <filter string="Success" name="filter_success" domain="[('status', '=', 'success')]"/>
+                    <filter string="Failed" name="filter_failed" domain="[('status', '=', 'failed')]"/>
+                    <filter string="Warnings" name="filter_warning" domain="[('status', '=', 'warning')]"/>
+                    <group>
+                        <filter string="Store" name="group_by_instance" context="{'group_by': 'instance_id'}"/>
+                        <filter string="Entity" name="group_by_entity" context="{'group_by': 'entity_type'}"/>
+                        <filter string="Status" name="group_by_status" context="{'group_by': 'status'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- List View (Odoo 19: <list>) -->
+        <record id="view_shopify_sync_history_list" model="ir.ui.view">
+            <field name="name">shopify.sync.history.list</field>
+            <field name="model">shopify.sync.history</field>
+            <field name="arch" type="xml">
+                <list string="Synchronization History"
+                      decoration-success="status == 'success'"
+                      decoration-warning="status == 'warning'"
+                      decoration-danger="status == 'failed'">
+                    <field name="create_date"/>
+                    <field name="name"/>
+                    <field name="instance_id"/>
+                    <field name="operation_type" widget="badge"/>
+                    <field name="entity_type" widget="badge"/>
+                    <field name="record_count"/>
+                    <field name="status" widget="badge"
+                           decoration-success="status == 'success'"
+                           decoration-warning="status == 'warning'"
+                           decoration-danger="status == 'failed'"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="view_shopify_sync_history_form" model="ir.ui.view">
+            <field name="name">shopify.sync.history.form</field>
+            <field name="model">shopify.sync.history</field>
+            <field name="arch" type="xml">
+                <form string="Sync Log Entry">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="instance_id" readonly="1"/>
+                                <field name="operation_type" readonly="1"/>
+                                <field name="entity_type" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="status" readonly="1"/>
+                                <field name="record_count" readonly="1"/>
+                                <field name="create_date" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Log Message &amp; Trace" name="message_page">
+                                <field name="message" readonly="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Window Action (Odoo 19: list,form) -->
+        <record id="action_shopify_sync_history" model="ir.actions.act_window">
+            <field name="name">Sync History</field>
+            <field name="res_model">shopify.sync.history</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_shopify_sync_history_search"/>
+        </record>
+    </data>
+</odoo>

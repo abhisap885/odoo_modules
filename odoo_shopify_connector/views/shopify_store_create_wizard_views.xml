@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_shopify_store_create_wizard_form" model="ir.ui.view">
+            <field name="name">shopify.store.create.wizard.form</field>
+            <field name="model">shopify.store.create.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Connect New Shopify Store">
+                    <sheet>
+                        <div class="alert alert-info border-start border-4 border-info shadow-sm p-3 mb-3">
+                            <h6 class="fw-bold text-dark mb-1">
+                                <i class="fa fa-shopping-bag text-primary me-2"/>Quick Store Creation &amp; Connection
+                            </h6>
+                            <p class="small text-dark mb-0">
+                                Enter your Shopify store details and Admin API Access Token below. Your store card will be created immediately in your dashboard.
+                            </p>
+                        </div>
+                        <group>
+                            <group string="Store Identity">
+                                <field name="name" placeholder="e.g. My Flagship Store" required="1"/>
+                                <field name="shop_url" placeholder="https://your-store.myshopify.com" required="1"/>
+                                <field name="api_version" required="1"/>
+                                <field name="auth_method" widget="radio"/>
+                            </group>
+                            <group string="Credentials &amp; Logistics">
+                                <field name="access_token" password="True" placeholder="shpat_xxxxxxxxxxxxxxxx"
+                                       invisible="auth_method != 'token'" required="auth_method == 'token'"/>
+                                <field name="client_id" placeholder="API Key"
+                                       invisible="auth_method != 'oauth'" required="auth_method == 'oauth'"/>
+                                <field name="client_secret" password="True"
+                                       invisible="auth_method != 'oauth'" required="auth_method == 'oauth'"/>
+                                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                <field name="warehouse_id" options="{'no_create': True}" required="1"/>
+                                <field name="pricelist_id" options="{'no_create': True}"/>
+                                <field name="test_connection_now" widget="boolean_toggle"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="action_create_store" string="Create &amp; Connect Store" type="object" class="btn-primary" icon="fa-plus-circle"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_shopify_store_create_wizard" model="ir.actions.act_window">
+            <field name="name">Connect New Shopify Store</field>
+            <field name="res_model">shopify.store.create.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_shopify_store_create_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

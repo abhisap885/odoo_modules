@@ -1,0 +1,355 @@
+/* Shopify Odoo Connector - Full-width Horizontal Kanban Cards & Ambient Animations */
+
+// -----------------------------------------------------------------------------
+// 1. Kanban Layout & Responsiveness
+// -----------------------------------------------------------------------------
+.o_kanban_view.o_shopify_kanban {
+    .o_kanban_renderer {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.85rem !important;
+        width: 100% !important;
+    }
+    .o_kanban_record {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 100% !important;
+        flex: 1 1 100% !important;
+        margin-bottom: 0 !important;
+    }
+    .o_kanban_record .card {
+        width: 100% !important;
+        position: relative !important;
+        overflow: hidden !important;
+        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+    }
+    .o_kanban_record .card:hover {
+        box-shadow: 0 0.65rem 1.25rem rgba(0, 0, 0, 0.08) !important;
+        transform: translateY(-1px);
+    }
+}
+
+// -----------------------------------------------------------------------------
+// 2. Base Ambient Layer for Connected Store Cards
+// -----------------------------------------------------------------------------
+.shopify-connected-ambient {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: inherit;
+    transition: opacity 0.3s ease;
+}
+
+// Ensure card content remains above the animated layer
+.shopify-store-card .row,
+.card:has(.shopify-connected-ambient) > div.d-flex {
+    position: relative;
+    z-index: 2;
+}
+
+// Frosted glass effect for inner panels on connected cards
+.card:has(.shopify-connected-ambient) {
+    border-color: rgba(16, 185, 129, 0.22) !important;
+    box-shadow: 0 4px 18px -2px rgba(16, 185, 129, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.03) !important;
+
+    .bg-light {
+        background-color: rgba(248, 250, 252, 0.72) !important;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+    }
+}
+
+// -----------------------------------------------------------------------------
+// 3. Distinct Light Animation Styles for Each Connected Card
+// -----------------------------------------------------------------------------
+
+// =============================================================================
+// Style 0: Emerald Aurora Undulation (Fluid Pastel Wave)
+// =============================================================================
+.shopify-anim-style-0,
+.o_shopify_kanban .o_kanban_record:nth-child(4n+1) .shopify-connected-ambient {
+    background: linear-gradient(
+        125deg,
+        rgba(236, 253, 245, 0.88) 0%,
+        rgba(209, 250, 229, 0.65) 28%,
+        rgba(204, 251, 241, 0.70) 55%,
+        rgba(224, 242, 254, 0.55) 78%,
+        rgba(236, 253, 245, 0.88) 100%
+    );
+    background-size: 260% 260%;
+    animation: shopifyAuroraWave 13s ease-in-out infinite alternate;
+
+    .shopify-anim-glow-1 {
+        position: absolute;
+        top: -40px;
+        right: 8%;
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(16, 185, 129, 0.16) 0%, rgba(16, 185, 129, 0) 70%);
+        filter: blur(35px);
+        animation: shopifyGlowPulse 8s ease-in-out infinite alternate;
+    }
+}
+
+.o_shopify_kanban .o_kanban_record:has(.shopify-anim-style-0) .card,
+.o_shopify_kanban .o_kanban_record:nth-child(4n+1):has(.shopify-connected-ambient) .card {
+    border-left: 4px solid #10b981 !important;
+}
+
+// =============================================================================
+// Style 1: Twin Floating Celestial Orbs (Orb Drift & Glow)
+// =============================================================================
+.shopify-anim-style-1,
+.o_shopify_kanban .o_kanban_record:nth-child(4n+2) .shopify-connected-ambient {
+    background: linear-gradient(
+        135deg,
+        rgba(240, 253, 250, 0.75) 0%,
+        rgba(255, 255, 255, 0.92) 50%,
+        rgba(240, 249, 255, 0.75) 100%
+    );
+
+    .shopify-anim-glow-1 {
+        position: absolute;
+        top: -30px;
+        right: 18%;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(6, 182, 212, 0.16) 0%, rgba(6, 182, 212, 0) 70%);
+        filter: blur(32px);
+        animation: shopifyDriftOrb1 11s ease-in-out infinite alternate;
+    }
+
+    .shopify-anim-glow-2 {
+        position: absolute;
+        bottom: -40px;
+        left: 22%;
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(52, 211, 153, 0.18) 0%, rgba(52, 211, 153, 0) 70%);
+        filter: blur(36px);
+        animation: shopifyDriftOrb2 14s ease-in-out infinite alternate;
+    }
+}
+
+.o_shopify_kanban .o_kanban_record:has(.shopify-anim-style-1) .card,
+.o_shopify_kanban .o_kanban_record:nth-child(4n+2):has(.shopify-connected-ambient) .card {
+    border-left: 4px solid #06b6d4 !important;
+}
+
+// =============================================================================
+// Style 2: Prismatic Sheen Wave (Gliding Glass Shimmer)
+// =============================================================================
+.shopify-anim-style-2,
+.o_shopify_kanban .o_kanban_record:nth-child(4n+3) .shopify-connected-ambient {
+    background: linear-gradient(
+        135deg,
+        rgba(240, 253, 244, 0.7) 0%,
+        rgba(255, 255, 255, 0.95) 60%,
+        rgba(240, 253, 250, 0.65) 100%
+    );
+
+    .shopify-anim-sheen {
+        position: absolute;
+        top: -60%;
+        left: -80%;
+        width: 55%;
+        height: 220%;
+        background: linear-gradient(
+            115deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0) 20%,
+            rgba(52, 211, 153, 0.12) 42%,
+            rgba(56, 189, 248, 0.16) 50%,
+            rgba(52, 211, 153, 0.12) 58%,
+            rgba(255, 255, 255, 0) 80%,
+            transparent 100%
+        );
+        transform: rotate(18deg);
+        filter: blur(10px);
+        animation: shopifyShimmerGlide 8.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    .shopify-anim-glow-1 {
+        position: absolute;
+        top: 25%;
+        right: 6%;
+        width: 190px;
+        height: 190px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(20, 184, 166, 0.12) 0%, rgba(20, 184, 166, 0) 70%);
+        filter: blur(28px);
+        animation: shopifyGlowPulse 6s ease-in-out infinite alternate;
+    }
+}
+
+.o_shopify_kanban .o_kanban_record:has(.shopify-anim-style-2) .card,
+.o_shopify_kanban .o_kanban_record:nth-child(4n+3):has(.shopify-connected-ambient) .card {
+    border-left: 4px solid #14b8a6 !important;
+}
+
+// =============================================================================
+// Style 3: Harmonic Breathing Radar Pulse (Heartbeat & Concentric Glow)
+// =============================================================================
+.shopify-anim-style-3,
+.o_shopify_kanban .o_kanban_record:nth-child(4n+4) .shopify-connected-ambient {
+    background: radial-gradient(
+        ellipse at 14% 50%,
+        rgba(220, 252, 231, 0.8) 0%,
+        rgba(240, 253, 250, 0.6) 45%,
+        rgba(255, 255, 255, 0.92) 100%
+    );
+
+    .shopify-anim-glow-1 {
+        position: absolute;
+        top: 50%;
+        left: 8%;
+        transform: translate(-50%, -50%);
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, rgba(5, 150, 105, 0.05) 50%, rgba(16, 185, 129, 0) 70%);
+        filter: blur(22px);
+        animation: shopifyPulseExpand 6s ease-in-out infinite alternate;
+    }
+
+    .shopify-anim-glow-2 {
+        position: absolute;
+        top: -15%;
+        right: 12%;
+        width: 210px;
+        height: 210px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(13, 148, 136, 0.14) 0%, rgba(13, 148, 136, 0) 70%);
+        filter: blur(32px);
+        animation: shopifyDriftOrb1 13s ease-in-out infinite alternate;
+    }
+}
+
+.o_shopify_kanban .o_kanban_record:has(.shopify-anim-style-3) .card,
+.o_shopify_kanban .o_kanban_record:nth-child(4n+4):has(.shopify-connected-ambient) .card {
+    border-left: 4px solid #059669 !important;
+}
+
+// -----------------------------------------------------------------------------
+// 4. Live Pulse Beacon inside Connected Badge
+// -----------------------------------------------------------------------------
+.shopify-live-beacon {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: -3px;
+        left: -3px;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.75);
+        animation: shopifyBeaconPing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+}
+
+// -----------------------------------------------------------------------------
+// 5. Smooth Keyframe Definitions
+// -----------------------------------------------------------------------------
+@keyframes shopifyAuroraWave {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes shopifyGlowPulse {
+    0% {
+        opacity: 0.6;
+        transform: scale(0.92);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1.12);
+    }
+}
+
+@keyframes shopifyDriftOrb1 {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    50% {
+        transform: translate(-35px, 25px) scale(1.15);
+    }
+    100% {
+        transform: translate(25px, -18px) scale(0.95);
+    }
+}
+
+@keyframes shopifyDriftOrb2 {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    50% {
+        transform: translate(45px, -20px) scale(1.12);
+    }
+    100% {
+        transform: translate(-25px, 18px) scale(0.92);
+    }
+}
+
+@keyframes shopifyShimmerGlide {
+    0% {
+        left: -80%;
+        opacity: 0;
+    }
+    15% {
+        opacity: 1;
+    }
+    55% {
+        left: 150%;
+        opacity: 0.85;
+    }
+    60% {
+        left: 150%;
+        opacity: 0;
+    }
+    100% {
+        left: 150%;
+        opacity: 0;
+    }
+}
+
+@keyframes shopifyPulseExpand {
+    0% {
+        transform: translate(-50%, -50%) scale(0.85);
+        opacity: 0.55;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.22);
+        opacity: 0.95;
+    }
+}
+
+@keyframes shopifyBeaconPing {
+    0% {
+        transform: scale(0.7);
+        opacity: 1;
+    }
+    80%, 100% {
+        transform: scale(2.2);
+        opacity: 0;
+    }
+}

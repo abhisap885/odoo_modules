@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="demo_shopify_instance" model="shopify.instance">
+            <field name="name">Demo USA Shopify Store</field>
+            <field name="shop_url">https://demo-store.myshopify.com</field>
+            <field name="access_token">shpat_demo_access_token_12345</field>
+            <field name="api_version">2025-01</field>
+            <field name="warehouse_id" ref="stock.warehouse0"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="state">draft</field>
+        </record>
+    </data>
+</odoo>

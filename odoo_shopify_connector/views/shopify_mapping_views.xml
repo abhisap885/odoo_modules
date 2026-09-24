@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- ============================================================= -->
+        <!-- 1. PRODUCT TEMPLATE MAPPING                                   -->
+        <!-- ============================================================= -->
+        <record id="view_shopify_template_mapping_list" model="ir.ui.view">
+            <field name="name">shopify.template.mapping.list</field>
+            <field name="model">shopify.template.mapping</field>
+            <field name="arch" type="xml">
+                <list string="Product Template Mappings" decoration-danger="is_deleted_on_shopify" decoration-warning="shopify_status in ('draft', 'archived')">
+                    <field name="template_id"/>
+                    <field name="default_code"/>
+                    <field name="shopify_product_id"/>
+                    <field name="shopify_handle"/>
+                    <field name="instance_id"/>
+                    <field name="list_price"/>
+                    <field name="shopify_status" widget="badge"
+                           decoration-success="shopify_status == 'active'"
+                           decoration-danger="shopify_status == 'deleted'"
+                           decoration-warning="shopify_status in ('draft', 'archived')"/>
+                    <field name="is_deleted_on_shopify" widget="boolean_toggle" readonly="1"/>
+                    <button name="action_odoo_to_shopify"
+                            type="object"
+                            string="Push"
+                            icon="fa-cloud-upload"
+                            title="Push updates from Odoo to Shopify"
+                            class="btn btn-sm btn-outline-primary"
+                            invisible="is_deleted_on_shopify"/>
+                    <button name="action_shopify_to_odoo"
+                            type="object"
+                            string="Pull"
+                            icon="fa-cloud-download"
+                            title="Pull updates from Shopify to Odoo"
+                            class="btn btn-sm btn-outline-secondary"/>
+                    <button name="action_check_shopify_status"
+                            type="object"
+                            icon="fa-refresh"
+                            title="Check Live Shopify Status"
+                            class="btn btn-sm btn-outline-info"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_shopify_template_mapping_form" model="ir.ui.view">
+            <field name="name">shopify.template.mapping.form</field>
+            <field name="model">shopify.template.mapping</field>
+            <field name="arch" type="xml">
+                <form string="Product Template Mapping">
+                    <header>
+                        <button name="action_odoo_to_shopify" string="Push to Shopify (Odoo → Shopify)" type="object" class="btn-primary" invisible="is_deleted_on_shopify"/>
+                        <button name="action_shopify_to_odoo" string="Pull from Shopify (Shopify → Odoo)" type="object" class="btn-secondary"/>
+                        <button name="action_check_shopify_status" string="Check Shopify Status" type="object" class="btn-info"/>
+                        <field name="shopify_status" widget="statusbar" statusbar_visible="active,archived,deleted"/>
+                    </header>
+                    <sheet>
+                        <div class="alert alert-danger" role="alert" invisible="not is_deleted_on_shopify">
+                            <strong>Deleted on Shopify:</strong> This product has been deleted or removed from the Shopify store.
+                        </div>
+                        <div class="oe_title mb-3">
+                            <span class="text-muted small fw-semibold">Mapped Product Template</span>
+                            <h1>
+                                <field name="display_name" class="fw-bold" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Odoo Template">
+                                <field name="template_id"/>
+                                <field name="default_code"/>
+                                <field name="list_price"/>
+                            </group>
+                            <group string="Shopify Information">
+                                <field name="instance_id"/>
+                                <field name="shopify_product_id"/>
+                                <field name="shopify_handle"/>
+                                <field name="shopify_status" readonly="1"/>
+                                <field name="is_deleted_on_shopify" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Mapped Variants" name="variants_page">
+                                <field name="variant_mapping_ids" readonly="1">
+                                    <list decoration-danger="is_deleted_on_shopify">
+                                        <field name="product_id"/>
+                                        <field name="shopify_variant_id"/>
+                                        <field name="shopify_sku"/>
+                                        <field name="qty_available"/>
+                                        <field name="is_deleted_on_shopify" invisible="1"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_shopify_template_mapping_search" model="ir.ui.view">
+            <field name="name">shopify.template.mapping.search</field>
+            <field name="model">shopify.template.mapping</field>
+            <field name="arch" type="xml">
+                <search string="Search Product Mappings">
+                    <field name="template_id"/>
+                    <field name="default_code"/>
+                    <field name="shopify_product_id"/>
+                    <field name="instance_id"/>
+                    <separator/>
+                    <filter string="Active on Shopify" name="filter_active" domain="[('is_deleted_on_shopify', '=', False)]"/>
+                    <filter string="Deleted on Shopify" name="filter_deleted" domain="[('is_deleted_on_shopify', '=', True)]"/>
+                    <group>
+                        <filter string="Store" name="group_by_instance" context="{'group_by': 'instance_id'}"/>
+                        <filter string="Status" name="group_by_status" context="{'group_by': 'shopify_status'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_shopify_template_mapping" model="ir.actions.act_window">
+            <field name="name">Product Mappings</field>
+            <field name="res_model">shopify.template.mapping</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_shopify_template_mapping_search"/>
+        </record>
+
+        <!-- ============================================================= -->
+        <!-- 2. PRODUCT VARIANT MAPPING                                    -->
+        <!-- ============================================================= -->
+        <record id="view_shopify_product_mapping_list" model="ir.ui.view">
+            <field name="name">shopify.product.mapping.list</field>
+            <field name="model">shopify.product.mapping</field>
+            <field name="arch" type="xml">
+                <list string="Product Variant Mappings">
+                    <field name="product_id"/>
+                    <field name="shopify_sku"/>
+                    <field name="shopify_variant_id"/>
+                    <field name="shopify_inventory_item_id"/>
+                    <field name="qty_available"/>
+                    <field name="instance_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_shopify_product_mapping_form" model="ir.ui.view">
+            <field name="name">shopify.product.mapping.form</field>
+            <field name="model">shopify.product.mapping</field>
+            <field name="arch" type="xml">
+                <form string="Product Variant Mapping">
+                    <sheet>
+                        <div class="alert alert-danger" role="alert" invisible="not is_deleted_on_shopify">
+                            <strong>Deleted on Shopify:</strong> The parent product has been deleted or removed from the Shopify store.
+                        </div>
+                        <div class="oe_title mb-3">
+                            <span class="text-muted small fw-semibold">Mapped Product Variant</span>
+                            <h1>
+                                <field name="display_name" class="fw-bold" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Odoo Variant Details">
+                                <field name="product_id"/>
+                                <field name="template_mapping_id"/>
+                                <field name="barcode"/>
+                                <field name="qty_available"/>
+                            </group>
+                            <group string="Shopify Variant Details">
+                                <field name="instance_id"/>
+                                <field name="shopify_variant_id"/>
+                                <field name="shopify_sku"/>
+                                <field name="shopify_inventory_item_id"/>
+                                <field name="is_deleted_on_shopify" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_shopify_product_mapping" model="ir.actions.act_window">
+            <field name="name">Variant Mappings</field>
+            <field name="res_model">shopify.product.mapping</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- ============================================================= -->
+        <!-- 3. SALES ORDER MAPPING                                        -->
+        <!-- ============================================================= -->
+        <record id="view_shopify_order_mapping_list" model="ir.ui.view">
+            <field name="name">shopify.order.mapping.list</field>
+            <field name="model">shopify.order.mapping</field>
+            <field name="arch" type="xml">
+                <list string="Order Mappings">
+                    <field name="shopify_order_number"/>
+                    <field name="order_id"/>
+                    <field name="partner_id"/>
+                    <field name="amount_total"/>
+                    <field name="financial_status" widget="badge"/>
+                    <field name="fulfillment_status" widget="badge"/>
+                    <field name="instance_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_shopify_order_mapping_form" model="ir.ui.view">
+            <field name="name">shopify.order.mapping.form</field>
+            <field name="model">shopify.order.mapping</field>
+            <field name="arch" type="xml">
+                <form string="Sales Order Mapping">
+                    <header>
+                        <field name="financial_status" widget="statusbar" statusbar_visible="pending,paid"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title mb-3">
+                            <span class="text-muted small fw-semibold">Shopify Sales Order</span>
+                            <h1>
+                                <field name="display_name" class="fw-bold" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Shopify Order Details">
+                                <field name="shopify_order_number"/>
+                                <field name="shopify_order_id"/>
+                                <field name="financial_status" widget="badge"/>
+                                <field name="fulfillment_status" widget="badge"/>
+                                <field name="instance_id"/>
+                            </group>
+                            <group string="Odoo Sales Order">
+                                <field name="order_id"/>
+                                <field name="partner_id"/>
+                                <field name="amount_total"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_shopify_order_mapping" model="ir.actions.act_window">
+            <field name="name">Order Mappings</field>
+            <field name="res_model">shopify.order.mapping</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- ============================================================= -->
+        <!-- 4. CUSTOMER MAPPING                                           -->
+        <!-- ============================================================= -->
+        <record id="view_shopify_partner_mapping_list" model="ir.ui.view">
+            <field name="name">shopify.partner.mapping.list</field>
+            <field name="model">shopify.partner.mapping</field>
+            <field name="arch" type="xml">
+                <list string="Customer Mappings">
+                    <field name="partner_id"/>
+                    <field name="email"/>
+                    <field name="phone"/>
+                    <field name="shopify_customer_id"/>
+                    <field name="instance_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_shopify_partner_mapping_form" model="ir.ui.view">
+            <field name="name">shopify.partner.mapping.form</field>
+            <field name="model">shopify.partner.mapping</field>
+            <field name="arch" type="xml">
+                <form string="Customer Mapping">
+                    <sheet>
+                        <div class="oe_title mb-3">
+                            <span class="text-muted small fw-semibold">Shopify Customer</span>
+                            <h1>
+                                <field name="display_name" class="fw-bold" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Odoo Partner Details">
+                                <field name="partner_id"/>
+                                <field name="email"/>
+                                <field name="phone"/>
+                            </group>
+                            <group string="Shopify Customer Details">
+                                <field name="instance_id"/>
+                                <field name="shopify_customer_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_shopify_partner_mapping" model="ir.actions.act_window">
+            <field name="name">Customer Mappings</field>
+            <field name="res_model">shopify.partner.mapping</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- ============================================================= -->
+        <!-- 5. TAX MAPPING                                                -->
+        <!-- ============================================================= -->
+        <record id="view_shopify_tax_mapping_list" model="ir.ui.view">
+            <field name="name">shopify.tax.mapping.list</field>
+            <field name="model">shopify.tax.mapping</field>
+            <field name="arch" type="xml">
+                <list string="Tax Mappings" editable="bottom">
+                    <field name="instance_id"/>
+                    <field name="shopify_tax_title"/>
+                    <field name="tax_id"/>
+                    <field name="rate"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="action_shopify_tax_mapping" model="ir.actions.act_window">
+            <field name="name">Tax Mappings</field>
+            <field name="res_model">shopify.tax.mapping</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- ============================================================= -->
+        <!-- 6. LOCATION MAPPING                                           -->
+        <!-- ============================================================= -->
+        <record id="view_shopify_location_mapping_list" model="ir.ui.view">
+            <field name="name">shopify.location.mapping.list</field>
+            <field name="model">shopify.location.mapping</field>
+            <field name="arch" type="xml">
+                <list string="Location Stock Mappings" editable="bottom">
+                    <field name="instance_id"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="shopify_location_name"/>
+                    <field name="shopify_location_id"/>
+                    <field name="warehouse_id" domain="[('company_id', '=', company_id)]"/>
+                    <field name="location_id" domain="[('company_id', 'in', (company_id, False)), ('usage', '=', 'internal')]"/>
+                    <field name="sync_stock" widget="boolean_toggle"/>
+                    <field name="is_primary"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_shopify_location_mapping_form" model="ir.ui.view">
+            <field name="name">shopify.location.mapping.form</field>
+            <field name="model">shopify.location.mapping</field>
+            <field name="arch" type="xml">
+                <form string="Location Stock Mapping">
+                    <sheet>
+                        <div class="oe_title mb-3">
+                            <span class="text-muted small fw-semibold">Shopify Location</span>
+                            <h1>
+                                <field name="display_name" class="fw-bold" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Shopify Location Details">
+                                <field name="instance_id"/>
+                                <field name="shopify_location_name"/>
+                                <field name="shopify_location_id"/>
+                                <field name="is_primary"/>
+                                <field name="sync_stock" widget="boolean_toggle"/>
+                                <field name="active" widget="boolean_toggle"/>
+                            </group>
+                            <group string="Odoo Warehouse &amp; Stock Location">
+                                <field name="company_id" invisible="1"/>
+                                <field name="warehouse_id" domain="[('company_id', '=', company_id)]"/>
+                                <field name="location_id" domain="[('company_id', 'in', (company_id, False)), ('usage', '=', 'internal')]"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_shopify_location_mapping" model="ir.actions.act_window">
+            <field name="name">Location Mappings</field>
+            <field name="res_model">shopify.location.mapping</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- ============================================================= -->
+        <!-- 7. METAFIELD MAPPING                                          -->
+        <!-- ============================================================= -->
+        <record id="view_shopify_metafield_mapping_list" model="ir.ui.view">
+            <field name="name">shopify.metafield.mapping.list</field>
+            <field name="model">shopify.metafield.mapping</field>
+            <field name="arch" type="xml">
+                <list string="Metafield Mappings" editable="bottom">
+                    <field name="instance_id"/>
+                    <field name="model_id"/>
+                    <field name="store_type"/>
+                    <field name="field_id" invisible="store_type != 'field'"/>
+                    <field name="namespace"/>
+                    <field name="key"/>
+                    <field name="metafield_type"/>
+                    <field name="shopify_owner_type" readonly="1"/>
+                    <field name="shopify_definition_id" readonly="1" optional="hide"/>
+                    <field name="description" readonly="1" optional="hide"/>
+                    <field name="sync_direction"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_shopify_metafield_mapping_search" model="ir.ui.view">
+            <field name="name">shopify.metafield.mapping.search</field>
+            <field name="model">shopify.metafield.mapping</field>
+            <field name="arch" type="xml">
+                <search string="Metafield Mappings">
+                    <field name="name"/>
+                    <field name="namespace"/>
+                    <field name="key"/>
+                    <field name="field_id"/>
+                    <filter string="Odoo Fields" name="filter_field" domain="[('store_type', '=', 'field')]"/>
+                    <filter string="Product Sheet Values" name="filter_custom" domain="[('store_type', '=', 'custom')]"/>
+                    <filter string="Inactive" name="filter_inactive" domain="[('active', '=', False)]"/>
+                    <group>
+                        <filter string="Store" name="group_instance" context="{'group_by': 'instance_id'}"/>
+                        <filter string="Model" name="group_model" context="{'group_by': 'model_id'}"/>
+                        <filter string="Mapping Type" name="group_store_type" context="{'group_by': 'store_type'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="instance_id" enable_counters="1"/>
+                        <field name="model_id" enable_counters="1"/>
+                        <field name="store_type" enable_counters="1"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_shopify_metafield_mapping_form" model="ir.ui.view">
+            <field name="name">shopify.metafield.mapping.form</field>
+            <field name="model">shopify.metafield.mapping</field>
+            <field name="arch" type="xml">
+                <form string="Metafield Mapping">
+                    <sheet>
+                        <div class="oe_title mb-3">
+                            <span class="text-muted small fw-semibold">Shopify Metafield Mapping</span>
+                            <h1>
+                                <field name="display_name" class="fw-bold" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Shopify Metafield">
+                                <field name="instance_id"/>
+                                <field name="namespace"/>
+                                <field name="key"/>
+                                <field name="metafield_type"/>
+                                <field name="shopify_owner_type" readonly="1"/>
+                            </group>
+                            <group string="Odoo Target">
+                                <field name="model_id"/>
+                                <field name="store_type" widget="radio"/>
+                                <field name="field_id"
+                                       invisible="store_type != 'field'"
+                                       required="store_type == 'field' and not shopify_definition_id"
+                                       options="{'no_create': True}"/>
+                                <field name="sync_direction"/>
+                                <field name="active" widget="boolean_toggle"/>
+                            </group>
+                        </group>
+                        <group string="Definition">
+                            <field name="shopify_definition_id" readonly="1"/>
+                            <field name="description" readonly="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_shopify_metafield_mapping" model="ir.actions.act_window">
+            <field name="name">Metafield Mappings</field>
+            <field name="res_model">shopify.metafield.mapping</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <record id="view_shopify_metafield_value_list" model="ir.ui.view">
+            <field name="name">shopify.metafield.value.list</field>
+            <field name="model">shopify.metafield.value</field>
+            <field name="arch" type="xml">
+                <list string="Product Metafield Values" editable="bottom">
+                    <field name="instance_id"/>
+                    <field name="mapping_id"/>
+                    <field name="product_tmpl_id"/>
+                    <field name="product_id"/>
+                    <field name="namespace"/>
+                    <field name="key"/>
+                    <field name="metafield_type"/>
+                    <field name="value"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_shopify_metafield_value_form" model="ir.ui.view">
+            <field name="name">shopify.metafield.value.form</field>
+            <field name="model">shopify.metafield.value</field>
+            <field name="arch" type="xml">
+                <form string="Product Metafield Value">
+                    <sheet>
+                        <div class="oe_title mb-3">
+                            <span class="text-muted small fw-semibold">Metafield Value</span>
+                            <h1>
+                                <field name="display_name" class="fw-bold" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="instance_id"/>
+                                <field name="mapping_id"/>
+                                <field name="product_tmpl_id" invisible="model_name != 'product.template'"/>
+                                <field name="product_id" invisible="model_name != 'product.product'"/>
+                            </group>
+                            <group>
+                                <field name="namespace"/>
+                                <field name="key"/>
+                                <field name="metafield_type"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="value"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_shopify_metafield_value" model="ir.actions.act_window">
+            <field name="name">Product Sheet Metafields</field>
+            <field name="res_model">shopify.metafield.value</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- ============================================================= -->
+        <!-- 8. REFUND MAPPING                                             -->
+        <!-- ============================================================= -->
+        <record id="view_shopify_refund_mapping_list" model="ir.ui.view">
+            <field name="name">shopify.refund.mapping.list</field>
+            <field name="model">shopify.refund.mapping</field>
+            <field name="arch" type="xml">
+                <list string="Order Refunds" decoration-success="state == 'processed'" decoration-danger="state == 'error'">
+                    <field name="shopify_refund_id"/>
+                    <field name="shopify_order_number"/>
+                    <field name="order_id"/>
+                    <field name="partner_id"/>
+                    <field name="amount"/>
+                    <field name="currency_id" column_invisible="True"/>
+                    <field name="credit_note_id"/>
+                    <field name="date_refund"/>
+                    <field name="instance_id"/>
+                    <field name="state" widget="badge" decoration-success="state == 'processed'" decoration-danger="state == 'error'"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_shopify_refund_mapping_form" model="ir.ui.view">
+            <field name="name">shopify.refund.mapping.form</field>
+            <field name="model">shopify.refund.mapping</field>
+            <field name="arch" type="xml">
+                <form string="Shopify Order Refund">
+                    <header>
+                        <button name="action_process_refund" string="Process Refund" type="object" class="btn-primary" invisible="state == 'processed'"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,processed"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title mb-3">
+                            <span class="text-muted small fw-semibold">Shopify Order Refund</span>
+                            <h1>
+                                <field name="display_name" class="fw-bold" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Shopify Details">
+                                <field name="shopify_refund_id"/>
+                                <field name="shopify_order_id"/>
+                                <field name="shopify_order_number"/>
+                                <field name="date_refund"/>
+                                <field name="instance_id"/>
+                            </group>
+                            <group string="Odoo Integration">
+                                <field name="order_id"/>
+                                <field name="partner_id"/>
+                                <field name="amount"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="credit_note_id"/>
+                                <field name="return_picking_id"/>
+                            </group>
+                        </group>
+                        <group string="Reason &amp; Notes">
+                            <field name="reason"/>
+                            <field name="error_message" invisible="not error_message"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_shopify_refund_mapping" model="ir.actions.act_window">
+            <field name="name">Order Refunds</field>
+            <field name="res_model">shopify.refund.mapping</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- ============================================================= -->
+        <!-- 9. CATEGORY / COLLECTION MAPPING                              -->
+        <!-- ============================================================= -->
+        <record id="view_shopify_category_mapping_list" model="ir.ui.view">
+            <field name="name">shopify.category.mapping.list</field>
+            <field name="model">shopify.category.mapping</field>
+            <field name="arch" type="xml">
+                <list string="Category Mappings">
+                    <field name="category_id"/>
+                    <field name="shopify_collection_id"/>
+                    <field name="shopify_collection_title"/>
+                    <field name="shopify_collection_type" widget="badge"/>
+                    <field name="shopify_handle"/>
+                    <field name="instance_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_shopify_category_mapping_form" model="ir.ui.view">
+            <field name="name">shopify.category.mapping.form</field>
+            <field name="model">shopify.category.mapping</field>
+            <field name="arch" type="xml">
+                <form string="Category Mapping">
+                    <sheet>
+                        <div class="oe_title mb-3">
+                            <span class="text-muted small fw-semibold">Shopify Collection / Category</span>
+                            <h1>
+                                <field name="display_name" class="fw-bold" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Odoo Details">
+                                <field name="category_id"/>
+                                <field name="instance_id"/>
+                            </group>
+                            <group string="Shopify Details">
+                                <field name="shopify_collection_id"/>
+                                <field name="shopify_collection_title"/>
+                                <field name="shopify_collection_type"/>
+                                <field name="shopify_handle"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_shopify_category_mapping_search" model="ir.ui.view">
+            <field name="name">shopify.category.mapping.search</field>
+            <field name="model">shopify.category.mapping</field>
+            <field name="arch" type="xml">
+                <search string="Search Category Mappings">
+                    <field name="category_id"/>
+                    <field name="shopify_collection_title"/>
+                    <field name="shopify_collection_id"/>
+                    <field name="instance_id"/>
+                    <group>
+                        <filter string="Store" name="group_by_instance" context="{'group_by': 'instance_id'}"/>
+                        <filter string="Type" name="group_by_type" context="{'group_by': 'shopify_collection_type'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_shopify_category_mapping" model="ir.actions.act_window">
+            <field name="name">Categories</field>
+            <field name="res_model">shopify.category.mapping</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_shopify_category_mapping_search"/>
+        </record>
+    </data>
+</odoo>

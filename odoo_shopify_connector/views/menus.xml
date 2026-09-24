@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Top-Level Root Menu -->
+        <menuitem id="menu_shopify_root"
+                  name="Shopify Connector"
+                  web_icon="odoo_shopify_connector,static/description/icon.png"
+                  sequence="25"/>
+
+        <!-- Operations Category -->
+        <menuitem id="menu_shopify_operations_category"
+                  name="Operations"
+                  parent="menu_shopify_root"
+                  sequence="10"/>
+
+        <menuitem id="menu_shopify_store_insights"
+                  name="Store Insights"
+                  parent="menu_shopify_operations_category"
+                  action="action_shopify_store_insights"
+                  sequence="5"/>
+
+        <menuitem id="menu_shopify_instances"
+                  name="Shopify Stores"
+                  parent="menu_shopify_operations_category"
+                  action="action_shopify_instance"
+                  sequence="10"/>
+
+        <menuitem id="menu_shopify_sync_wizard"
+                  name="Sync Wizard"
+                  parent="menu_shopify_operations_category"
+                  action="action_shopify_sync_wizard"
+                  sequence="20"/>
+
+        <menuitem id="menu_shopify_feeds"
+                  name="Staging Feeds"
+                  parent="menu_shopify_operations_category"
+                  action="action_shopify_feed"
+                  sequence="30"/>
+
+        <!-- Mappings Category -->
+        <menuitem id="menu_shopify_mappings_category"
+                  name="Mappings"
+                  parent="menu_shopify_root"
+                  sequence="20"/>
+
+        <menuitem id="menu_shopify_template_mappings"
+                  name="Products"
+                  parent="menu_shopify_mappings_category"
+                  action="action_shopify_template_mapping"
+                  sequence="10"/>
+
+        <menuitem id="menu_shopify_product_mappings"
+                  name="Variants"
+                  parent="menu_shopify_mappings_category"
+                  action="action_shopify_product_mapping"
+                  sequence="20"/>
+
+        <menuitem id="menu_shopify_category_mappings"
+                  name="Categories"
+                  parent="menu_shopify_mappings_category"
+                  action="action_shopify_category_mapping"
+                  sequence="25"/>
+
+        <menuitem id="menu_shopify_order_mappings"
+                  name="Orders"
+                  parent="menu_shopify_mappings_category"
+                  action="action_shopify_order_mapping"
+                  sequence="30"/>
+
+        <menuitem id="menu_shopify_partner_mappings"
+                  name="Customers"
+                  parent="menu_shopify_mappings_category"
+                  action="action_shopify_partner_mapping"
+                  sequence="40"/>
+
+        <menuitem id="menu_shopify_refund_mappings"
+                  name="Refunds"
+                  parent="menu_shopify_mappings_category"
+                  action="action_shopify_refund_mapping"
+                  sequence="45"/>
+
+        <menuitem id="menu_shopify_location_mappings"
+                  name="Locations"
+                  parent="menu_shopify_mappings_category"
+                  action="action_shopify_location_mapping"
+                  sequence="50"/>
+
+        <menuitem id="menu_shopify_metafield_mappings"
+                  name="Metafields"
+                  parent="menu_shopify_mappings_category"
+                  action="action_shopify_metafield_mapping"
+                  sequence="55"/>
+
+        <menuitem id="menu_shopify_metafield_values"
+                  name="Product Sheet Metafields"
+                  parent="menu_shopify_mappings_category"
+                  action="action_shopify_metafield_value"
+                  sequence="57"/>
+
+        <menuitem id="menu_shopify_tax_mappings"
+                  name="Taxes"
+                  parent="menu_shopify_mappings_category"
+                  action="action_shopify_tax_mapping"
+                  sequence="60"/>
+
+        <!-- Audit & Logs Category -->
+        <menuitem id="menu_shopify_logs_category"
+                  name="Audit &amp; Logs"
+                  parent="menu_shopify_root"
+                  sequence="30"/>
+
+        <menuitem id="menu_shopify_sync_history"
+                  name="Sync History"
+                  parent="menu_shopify_logs_category"
+                  action="action_shopify_sync_history"
+                  sequence="10"/>
+    </data>
+</odoo>

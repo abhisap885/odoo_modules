@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_shopify_product_export_wizard_form" model="ir.ui.view">
+            <field name="name">shopify.product.export.wizard.form</field>
+            <field name="model">shopify.product.export.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Export Product to Shopify">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="template_id"/>
+                                <field name="instance_id" options="{'no_create': True}"/>
+                            </group>
+                            <group>
+                                <field name="publish"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="action_export_product" string="Export Now" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
