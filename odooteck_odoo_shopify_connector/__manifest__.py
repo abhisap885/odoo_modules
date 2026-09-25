@@ -56,7 +56,7 @@ Shopify Odoo Automation
     "data": [
         # 1. Security (Privileges, Groups, Access Control Lists)
         "security/security.xml",
-        "security/ir.model.access.csv",
+        "security/ir.access.csv",
 
         # 2. System Data & Scheduled Actions
         "data/data.xml",
