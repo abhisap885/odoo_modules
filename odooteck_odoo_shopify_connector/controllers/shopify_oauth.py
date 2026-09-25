@@ -69,7 +69,7 @@ class ShopifyOAuthController(http.Controller):
             return Response(f"OAuth connection failed: {str(e)}", status=500)
 
         # Redirect user back to Odoo backend instance form view
-        action = request.env.ref("odoo_shopify_connector.action_shopify_instance", raise_if_not_found=False)
+        action = request.env.ref("odooteck_odoo_shopify_connector.action_shopify_instance", raise_if_not_found=False)
         action_id = action.id if action else ""
         redirect_url = f"/web#id={instance.id}&cids=1&model=shopify.instance&view_type=form"
         if action_id:

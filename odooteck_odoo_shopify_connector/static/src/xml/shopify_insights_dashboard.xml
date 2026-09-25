@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <templates id="template" xml:space="preserve">
 
-    <t t-name="odoo_shopify_connector.ShopifyStoreInsightsDashboard">
+    <t t-name="odooteck_odoo_shopify_connector.ShopifyStoreInsightsDashboard">
         <div class="shopify-insights-container h-100 overflow-auto position-relative p-3 p-md-4">
             <!-- Dynamic Ambient Glow & Mesh Grid Background Layer -->
             <div class="shopify-insights-ambient-field" aria-hidden="true">

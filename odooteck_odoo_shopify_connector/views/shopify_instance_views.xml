@@ -25,7 +25,7 @@
             <field name="name">shopify.instance.kanban</field>
             <field name="model">shopify.instance</field>
             <field name="arch" type="xml">
-                <kanban class="o_kanban_dashboard o_shopify_kanban" sample="1" on_create="odoo_shopify_connector.action_shopify_store_create_wizard">
+                <kanban class="o_kanban_dashboard o_shopify_kanban" sample="1" on_create="odooteck_odoo_shopify_connector.action_shopify_store_create_wizard">
                     <field name="id"/>
                     <field name="name"/>
                     <field name="state"/>

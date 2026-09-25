@@ -1381,7 +1381,7 @@ class TestShopifyConnector(TransactionCase):
     def test_15_single_product_export_and_bidirectional_update_with_delete_detection(self):
         """Verify single product export wizard, bidirectional update buttons, and deleted on shopify tracking."""
         from unittest.mock import patch
-        from odoo.addons.odoo_shopify_connector.models.shopify_client import ShopifyNotFoundError
+        from odoo.addons.odooteck_odoo_shopify_connector.models.shopify_client import ShopifyNotFoundError
 
         self.instance.write({"state": "confirmed"})
 
@@ -1512,7 +1512,7 @@ class TestShopifyConnector(TransactionCase):
 
     def test_26_kanban_view_and_metrics(self):
         """Verify Shopify Store kanban view architecture and all metric actions."""
-        kanban_view = self.env.ref("odoo_shopify_connector.view_shopify_instance_kanban")
+        kanban_view = self.env.ref("odooteck_odoo_shopify_connector.view_shopify_instance_kanban")
         self.assertTrue(kanban_view)
         self.assertEqual(kanban_view.type, "kanban")
 
@@ -1528,13 +1528,13 @@ class TestShopifyConnector(TransactionCase):
         self.assertEqual(self.instance.action_view_history()["res_model"], "shopify.sync.history")
 
         # Verify action window view_mode includes kanban first
-        act = self.env.ref("odoo_shopify_connector.action_shopify_instance")
+        act = self.env.ref("odooteck_odoo_shopify_connector.action_shopify_instance")
         self.assertTrue(act.view_mode.startswith("kanban"))
 
     def test_27_form_view_and_connection_animation(self):
         """Verify modern form view structure and rainbow_man connection celebration animation."""
         from unittest.mock import patch
-        form_view = self.env.ref("odoo_shopify_connector.view_shopify_instance_form")
+        form_view = self.env.ref("odooteck_odoo_shopify_connector.view_shopify_instance_form")
         self.assertTrue(form_view)
         self.assertEqual(form_view.type, "form")
 
@@ -1645,9 +1645,9 @@ class TestShopifyConnector(TransactionCase):
         self.assertEqual(sync_act.get("res_model"), "shopify.sync.wizard")
 
         # 6. Verify Wizard View & Action Definitions
-        view_wiz = self.env.ref("odoo_shopify_connector.view_shopify_onboarding_wizard_form")
+        view_wiz = self.env.ref("odooteck_odoo_shopify_connector.view_shopify_onboarding_wizard_form")
         self.assertTrue(view_wiz)
-        act_wiz = self.env.ref("odoo_shopify_connector.action_shopify_onboarding_wizard")
+        act_wiz = self.env.ref("odooteck_odoo_shopify_connector.action_shopify_onboarding_wizard")
         self.assertTrue(act_wiz)
 
     def test_39_store_create_wizard(self):
@@ -1655,7 +1655,7 @@ class TestShopifyConnector(TransactionCase):
         from odoo.exceptions import ValidationError
 
         # 1. Verify Wizard Window Action
-        action_ref = self.env.ref("odoo_shopify_connector.action_shopify_store_create_wizard")
+        action_ref = self.env.ref("odooteck_odoo_shopify_connector.action_shopify_store_create_wizard")
         self.assertTrue(action_ref)
         self.assertEqual(action_ref.target, "new")
         self.assertEqual(action_ref.res_model, "shopify.store.create.wizard")

@@ -62,10 +62,10 @@ A Shopify Odoo connector for eCommerce data synchronization on Odoo 19:
     ],
     "assets": {
         "web.assets_backend": [
-            "odoo_shopify_connector/static/src/scss/shopify_kanban.scss",
-            "odoo_shopify_connector/static/src/scss/shopify_insights.scss",
-            "odoo_shopify_connector/static/src/js/shopify_insights_dashboard.js",
-            "odoo_shopify_connector/static/src/xml/shopify_insights_dashboard.xml",
+            "odooteck_odoo_shopify_connector/static/src/scss/shopify_kanban.scss",
+            "odooteck_odoo_shopify_connector/static/src/scss/shopify_insights.scss",
+            "odooteck_odoo_shopify_connector/static/src/js/shopify_insights_dashboard.js",
+            "odooteck_odoo_shopify_connector/static/src/xml/shopify_insights_dashboard.xml",
         ],
     },
     "images": ["static/description/banner.gif"],

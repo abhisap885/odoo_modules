@@ -99,9 +99,9 @@
 ## Installation Guide
 
 1. **Place the Module**:
-   Ensure the `odoo_shopify_connector` directory is located in your custom Odoo addons path:
+   Ensure the `odooteck_odoo_shopify_connector` directory is located in your custom Odoo addons path:
    ```text
-   C:\odoosetup19\odoo_shopify_connector
+   C:\odoosetup19\odooteck_odoo_shopify_connector
    ```
 
 2. **Update Addons Path**:
@@ -377,7 +377,7 @@ Every operation (manual sync, webhook execution, cron run, fulfillment push) pro
 ## Technical Architecture & Models
 
 ```text
-odoo_shopify_connector/
+odooteck_odoo_shopify_connector/
 ├── controllers/
 │   └── shopify_webhook.py       # Public HTTP controller for HMAC verified webhooks
 ├── data/

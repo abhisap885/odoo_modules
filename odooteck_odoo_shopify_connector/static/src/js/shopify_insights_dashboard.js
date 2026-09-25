@@ -8,7 +8,7 @@ import { loadBundle } from "@web/core/assets";
 import { _t } from "@web/core/l10n/translation";
 
 export class ShopifyStoreInsightsDashboard extends Component {
-    static template = "odoo_shopify_connector.ShopifyStoreInsightsDashboard";
+    static template = "odooteck_odoo_shopify_connector.ShopifyStoreInsightsDashboard";
     static props = { ...standardActionServiceProps };
 
     setup() {
