@@ -55,17 +55,27 @@
     <h3 style="margin-bottom: 8px; color: #1f2937;">Synchronization history</h3>
     <img src="07_sync_history.png" alt="Shopify synchronization history with results and log details" style="display: block; width: 100%; max-width: 1050px; height: auto; margin: 0 auto 34px;"/>
 
-    <table role="presentation" width="100%" cellpadding="22" cellspacing="0" bgcolor="#f3f7f6" style="border: 1px solid #d1e7df; margin: 24px 0;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#f3f7f6" style="border: 1px solid #d1e7df; margin: 24px 0;">
         <tr>
-            <td>
-                <h2 style="margin: 0 0 8px; color: #111827;">Request a demo</h2>
-                <p style="margin: 0 0 16px; color: #374151;">
-                    Want to see whether the connector fits your workflow? Click below to open a pre-filled email request. Add your Odoo version, number of Shopify stores and preferred demo time before sending.
+            <td style="padding: 24px;">
+                <h2 style="margin: 0 0 8px; color: #111827;">Request a personal demo</h2>
+                <p style="margin: 0 0 18px; color: #4b5563; line-height: 1.6;">
+                    Tell us a little about your setup. Your email app will open with these details, ready for you to review and send.
                 </p>
-                <p style="margin: 0 0 10px;">
-                    <a href="mailto:odooteck.apps@gmail.com?subject=Demo%20Request%20-%20Shopify%20Odoo%20Connector&amp;body=Hi%20Odooteck%2C%0A%0AI%20would%20like%20to%20request%20a%20demo.%0A%0AName%3A%0ACompany%3A%0AWork%20email%3A%0AOdoo%20version%3A%0ANumber%20of%20Shopify%20stores%3A%0AWhat%20I%20would%20like%20to%20see%3A%0APreferred%20time%3A%0A" style="display: inline-block; padding: 10px 18px; border: 1px solid #047857; background-color: #e6f4ef; color: #065f46; font-weight: bold; text-decoration: none;">Request a Demo by Email</a>
-                </p>
-                <p style="margin: 0; color: #374151;">Support and demo requests: <a href="mailto:odooteck.apps@gmail.com" style="color: #047857;">odooteck.apps@gmail.com</a></p>
+                <form action="mailto:odooteck.apps@gmail.com?subject=Shopify%20Odoo%20Connector%20Demo%20Request" method="post" enctype="text/plain" style="margin: 0;">
+                    <table role="presentation" width="100%" cellpadding="7" cellspacing="0" style="background-color: #ffffff; border: 1px solid #e5e7eb;">
+                        <tr><td width="32%" style="color: #374151; font-weight: bold;">Name</td><td><input type="text" name="Name" placeholder="Your name" required="required" style="box-sizing: border-box; width: 100%; padding: 10px; border: 1px solid #d1d5db;"/></td></tr>
+                        <tr><td style="color: #374151; font-weight: bold;">Company</td><td><input type="text" name="Company" placeholder="Company name" style="box-sizing: border-box; width: 100%; padding: 10px; border: 1px solid #d1d5db;"/></td></tr>
+                        <tr><td style="color: #374151; font-weight: bold;">Business email</td><td><input type="email" name="Business email" placeholder="you@company.com" required="required" style="box-sizing: border-box; width: 100%; padding: 10px; border: 1px solid #d1d5db;"/></td></tr>
+                        <tr><td style="color: #374151; font-weight: bold;">Odoo version / hosting</td><td><input type="text" name="Odoo version and hosting" placeholder="e.g. Odoo 19, Odoo.sh" style="box-sizing: border-box; width: 100%; padding: 10px; border: 1px solid #d1d5db;"/></td></tr>
+                        <tr><td style="color: #374151; font-weight: bold;">Shopify stores</td><td><input type="text" name="Number of Shopify stores" placeholder="Number of stores" style="box-sizing: border-box; width: 100%; padding: 10px; border: 1px solid #d1d5db;"/></td></tr>
+                        <tr><td style="color: #374151; font-weight: bold;">Demo topics / preferred time</td><td><textarea name="Demo topics and preferred date/time (include timezone)" rows="3" placeholder="What would you like to see? When are you available? Include your timezone." style="box-sizing: border-box; width: 100%; padding: 10px; border: 1px solid #d1d5db;"></textarea></td></tr>
+                    </table>
+                    <p style="margin: 16px 0 10px;">
+                        <button type="submit" style="padding: 11px 18px; border: 0; background-color: #047857; color: #ffffff; font-weight: bold; cursor: pointer;">Continue by Email</button>
+                    </p>
+                </form>
+                <p style="margin: 0; color: #6b7280; font-size: 13px;">No email app opened? Contact <a href="mailto:odooteck.apps@gmail.com" style="color: #047857;">odooteck.apps@gmail.com</a>.</p>
             </td>
         </tr>
     </table>
