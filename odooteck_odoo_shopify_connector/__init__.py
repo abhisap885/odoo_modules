@@ -6,15 +6,18 @@ from . import models
 from . import wizard
 from . import controllers
 
-def pre_init_check(*args, **kwargs):
+from odoo.exceptions import ValidationError
+
+TARGET_ODOO_SERIES = "20.0"
+
+def pre_init_check(env):
+    """Block installation on wrong Odoo series."""
     from odoo.service import common
-    from odoo.exceptions import UserError
     version_info = common.exp_version()
-    server_serie = version_info.get("server_serie", "")
-    if server_serie and not server_serie.startswith("19"):
-        try:
-            val = float(server_serie.split("~")[-1].split("a")[0].split("b")[0])
-            if not (18.0 < val <= 19.0):
-                raise UserError(f"Shopify Odoo Connector requires Odoo 19.0 series, detected: {server_serie}")
-        except (ValueError, TypeError):
-            pass
+    server_serie = version_info.get("server_serie")
+    if server_serie != TARGET_ODOO_SERIES:
+        raise ValidationError(
+            "Module supports Odoo series {} — found {}.".format(
+                TARGET_ODOO_SERIES, server_serie
+            )
+        )

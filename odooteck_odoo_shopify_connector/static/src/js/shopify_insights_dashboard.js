@@ -3,7 +3,7 @@
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
-import { Component, onWillStart, onMounted, onWillUnmount, useRef, useState } from "@odoo/owl";
+import { Component, onWillStart, onMounted, onWillUnmount, useRef, useReactive } from "@odoo/owl";
 import { loadBundle } from "@web/core/assets";
 import { _t } from "@web/core/l10n/translation";
 
@@ -29,7 +29,7 @@ export class ShopifyStoreInsightsDashboard extends Component {
                                   this.props.action?.context?.default_instance_id ||
                                   null;
 
-        this.state = useState({
+        this.state = useReactive({
             isLoading: true,
             selectedInstanceId: initialInstanceId,
             selectedPeriod: "all",
