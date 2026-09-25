@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Train 1: Mumbai Rajdhani (NDLS -> MMCT) -->
+        <record id="train_rajdhani_12952" model="train.train">
+            <field name="name">Mumbai Tejas Rajdhani Express</field>
+            <field name="number">12952</field>
+            <field name="train_type">rajdhani</field>
+            <field name="source_station_id" ref="station_ndls"/>
+            <field name="destination_station_id" ref="station_mmct"/>
+            <field name="departure_time">16:55</field>
+            <field name="arrival_time">08:35</field>
+            <field name="duration_hours">15.6</field>
+            <field name="running_days">Daily</field>
+        </record>
+
+        <record id="fare_12952_1a" model="train.fare.rule">
+            <field name="train_id" ref="train_rajdhani_12952"/>
+            <field name="travel_class">1A</field>
+            <field name="base_fare">4250.0</field>
+            <field name="total_seats">24</field>
+            <field name="available_seats">18</field>
+        </record>
+
+        <record id="fare_12952_2a" model="train.fare.rule">
+            <field name="train_id" ref="train_rajdhani_12952"/>
+            <field name="travel_class">2A</field>
+            <field name="base_fare">2850.0</field>
+            <field name="total_seats">52</field>
+            <field name="available_seats">44</field>
+        </record>
+
+        <record id="fare_12952_3a" model="train.fare.rule">
+            <field name="train_id" ref="train_rajdhani_12952"/>
+            <field name="travel_class">3A</field>
+            <field name="base_fare">2050.0</field>
+            <field name="total_seats">72</field>
+            <field name="available_seats">60</field>
+        </record>
+
+        <!-- Train 2: Vande Bharat Express (NDLS -> BSB) -->
+        <record id="train_vande_bharat_22436" model="train.train">
+            <field name="name">Vande Bharat Express</field>
+            <field name="number">22436</field>
+            <field name="train_type">vande_bharat</field>
+            <field name="source_station_id" ref="station_ndls"/>
+            <field name="destination_station_id" ref="station_bsb"/>
+            <field name="departure_time">06:00</field>
+            <field name="arrival_time">14:00</field>
+            <field name="duration_hours">8.0</field>
+            <field name="running_days">Tue, Wed, Fri, Sat, Sun</field>
+        </record>
+
+        <record id="fare_22436_cc" model="train.fare.rule">
+            <field name="train_id" ref="train_vande_bharat_22436"/>
+            <field name="travel_class">CC</field>
+            <field name="base_fare">1750.0</field>
+            <field name="total_seats">78</field>
+            <field name="available_seats">55</field>
+        </record>
+
+        <record id="fare_22436_ec" model="train.fare.rule">
+            <field name="train_id" ref="train_vande_bharat_22436"/>
+            <field name="travel_class">EC</field>
+            <field name="base_fare">3300.0</field>
+            <field name="total_seats">32</field>
+            <field name="available_seats">20</field>
+        </record>
+
+        <!-- Train 3: Howrah Rajdhani (NDLS -> HWH) -->
+        <record id="train_rajdhani_12302" model="train.train">
+            <field name="name">Howrah Rajdhani Express</field>
+            <field name="number">12302</field>
+            <field name="train_type">rajdhani</field>
+            <field name="source_station_id" ref="station_ndls"/>
+            <field name="destination_station_id" ref="station_hwh"/>
+            <field name="departure_time">16:50</field>
+            <field name="arrival_time">09:55</field>
+            <field name="duration_hours">17.0</field>
+            <field name="running_days">Daily</field>
+        </record>
+
+        <record id="fare_12302_2a" model="train.fare.rule">
+            <field name="train_id" ref="train_rajdhani_12302"/>
+            <field name="travel_class">2A</field>
+            <field name="base_fare">2950.0</field>
+            <field name="total_seats">48</field>
+            <field name="available_seats">38</field>
+        </record>
+
+        <record id="fare_12302_3a" model="train.fare.rule">
+            <field name="train_id" ref="train_rajdhani_12302"/>
+            <field name="travel_class">3A</field>
+            <field name="base_fare">2150.0</field>
+            <field name="total_seats">72</field>
+            <field name="available_seats">62</field>
+        </record>
+
+        <!-- Train 4: Karnataka Express (NDLS -> SBC) -->
+        <record id="train_karnataka_12628" model="train.train">
+            <field name="name">Karnataka Express</field>
+            <field name="number">12628</field>
+            <field name="train_type">superfast</field>
+            <field name="source_station_id" ref="station_ndls"/>
+            <field name="destination_station_id" ref="station_sbc"/>
+            <field name="departure_time">20:20</field>
+            <field name="arrival_time">12:00</field>
+            <field name="duration_hours">39.6</field>
+            <field name="running_days">Daily</field>
+        </record>
+
+        <record id="fare_12628_sl" model="train.fare.rule">
+            <field name="train_id" ref="train_karnataka_12628"/>
+            <field name="travel_class">SL</field>
+            <field name="base_fare">890.0</field>
+            <field name="total_seats">120</field>
+            <field name="available_seats">95</field>
+        </record>
+
+        <record id="fare_12628_3a" model="train.fare.rule">
+            <field name="train_id" ref="train_karnataka_12628"/>
+            <field name="travel_class">3A</field>
+            <field name="base_fare">2350.0</field>
+            <field name="total_seats">64</field>
+            <field name="available_seats">48</field>
+        </record>
+    </data>
+</odoo>

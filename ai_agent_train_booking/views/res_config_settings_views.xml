@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_train_ai" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.train.ai</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="70"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Train AI Agent" string="Train AI Agent" name="ai_agent_train_booking">
+                    <block title="Train AI Agent Settings">
+                        <setting string="Default AI Agent" help="Select the default agent that handles automatic train reservations.">
+                            <field name="train_ai_agent_id"/>
+                        </setting>
+                        <setting string="Auto-Confirm Bookings" help="Automatically finalize reservation and assign coach/berths upon booking.">
+                            <field name="auto_confirm_bookings"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_train_ai_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="base.res_config_settings_view_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="context">{'module' : 'ai_agent_train_booking', 'bin_size': False}</field>
+    </record>
+</odoo>

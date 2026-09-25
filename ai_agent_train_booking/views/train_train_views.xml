@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_train_train_list" model="ir.ui.view">
+        <field name="name">train.train.list</field>
+        <field name="model">train.train</field>
+        <field name="arch" type="xml">
+            <list string="Trains">
+                <field name="number"/>
+                <field name="name"/>
+                <field name="train_type" widget="badge"/>
+                <field name="source_station_id"/>
+                <field name="destination_station_id"/>
+                <field name="departure_time"/>
+                <field name="arrival_time"/>
+                <field name="duration_hours"/>
+                <field name="running_days"/>
+                <field name="booking_count"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_train_train_form" model="ir.ui.view">
+        <field name="name">train.train.form</field>
+        <field name="model">train.train</field>
+        <field name="arch" type="xml">
+            <form string="Train Details">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="number" string="Train Number"/>
+                        <h1>
+                            <field name="number" placeholder="e.g. 12952"/>
+                        </h1>
+                        <label for="name" string="Train Name"/>
+                        <h2>
+                            <field name="name" placeholder="e.g. Mumbai Tejas Rajdhani Express"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group string="Route &amp; Timing">
+                            <field name="train_type"/>
+                            <field name="source_station_id"/>
+                            <field name="destination_station_id"/>
+                            <field name="departure_time"/>
+                            <field name="arrival_time"/>
+                            <field name="duration_hours"/>
+                            <field name="running_days"/>
+                        </group>
+                        <group string="Operational Status">
+                            <field name="active" widget="boolean_toggle"/>
+                            <field name="booking_count" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Class &amp; Fare Rules" name="fares">
+                            <field name="fare_rule_ids">
+                                <list editable="bottom">
+                                    <field name="travel_class"/>
+                                    <field name="base_fare"/>
+                                    <field name="total_seats"/>
+                                    <field name="available_seats"/>
+                                    <field name="currency_id" column_invisible="True"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Bookings" name="bookings">
+                            <field name="booking_ids" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="journey_date"/>
+                                    <field name="travel_class"/>
+                                    <field name="passenger_count"/>
+                                    <field name="total_fare"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_train_train_search" model="ir.ui.view">
+        <field name="name">train.train.search</field>
+        <field name="model">train.train</field>
+        <field name="arch" type="xml">
+            <search string="Search Trains">
+                <field name="number"/>
+                <field name="name"/>
+                <field name="source_station_id"/>
+                <field name="destination_station_id"/>
+                <field name="train_type"/>
+                <filter name="vande_bharat" string="Vande Bharat" domain="[('train_type','=','vande_bharat')]"/>
+                <filter name="rajdhani" string="Rajdhani" domain="[('train_type','=','rajdhani')]"/>
+                <filter name="shatabdi" string="Shatabdi" domain="[('train_type','=','shatabdi')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_train_train" model="ir.actions.act_window">
+        <field name="name">Trains</field>
+        <field name="res_model">train.train</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add trains, routes, travel classes, and seat quotas.
+            </p>
+        </field>
+    </record>
+</odoo>

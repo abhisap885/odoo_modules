@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Shopify Odoo Connector. Copyright (c) Odooteck (<https://www.odooteck.com/>).
+# Part of Shopify Odoo Connector. Copyright (c) Odooteck.
 # See LICENSE file for full copyright and licensing details.
 
 import json
@@ -1695,3 +1695,7 @@ class TestShopifyConnector(TransactionCase):
         self.assertEqual(new_inst.warehouse_id.id, self.warehouse.id)
         self.assertEqual(new_inst.company_id.id, self.company.id)
         self.assertEqual(new_inst.state, "draft")
+
+
+
+

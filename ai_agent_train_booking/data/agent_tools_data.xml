@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="tool_search_trains" model="ai.agent.tool">
+            <field name="name">search_trains</field>
+            <field name="label">Search Trains</field>
+            <field name="description">Search for available trains between origin and destination stations on a given date.</field>
+            <field name="parameters_schema">{
+  "type": "object",
+  "properties": {
+    "origin": {"type": "string", "description": "Origin station code (e.g. NDLS) or city name (e.g. Delhi)"},
+    "destination": {"type": "string", "description": "Destination station code (e.g. MMCT) or city name (e.g. Mumbai)"},
+    "date": {"type": "string", "description": "Journey date in YYYY-MM-DD format"}
+  },
+  "required": ["origin", "destination"]
+}</field>
+        </record>
+
+        <record id="tool_check_seat_availability" model="ai.agent.tool">
+            <field name="name">check_seat_availability</field>
+            <field name="label">Check Seat Availability</field>
+            <field name="description">Check remaining seat inventory and fare for a specific train number and travel class (1A, 2A, 3A, CC, EC, SL).</field>
+            <field name="parameters_schema">{
+  "type": "object",
+  "properties": {
+    "train_number": {"type": "string", "description": "Train number (e.g. 12952) or train name"},
+    "travel_class": {"type": "string", "description": "Class code: 1A, 2A, 3A, CC, EC, SL"},
+    "date": {"type": "string", "description": "Journey date in YYYY-MM-DD format"}
+  },
+  "required": ["train_number", "travel_class"]
+}</field>
+        </record>
+
+        <record id="tool_book_train_ticket" model="ai.agent.tool">
+            <field name="name">book_train_ticket</field>
+            <field name="label">Book Train Ticket</field>
+            <field name="description">Create a train ticket reservation in Odoo with passenger details and calculate fare.</field>
+            <field name="parameters_schema">{
+  "type": "object",
+  "properties": {
+    "train_number": {"type": "string", "description": "Train number (e.g. 12952)"},
+    "travel_class": {"type": "string", "description": "Class code: 1A, 2A, 3A, CC, EC, SL"},
+    "journey_date": {"type": "string", "description": "Date of journey YYYY-MM-DD"},
+    "passengers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "age": {"type": "integer"},
+          "gender": {"type": "string", "enum": ["male", "female", "other"]},
+          "berth_preference": {"type": "string", "enum": ["lower", "middle", "upper", "side_lower", "side_upper", "window", "no_preference"]}
+        },
+        "required": ["name"]
+      }
+    },
+    "customer_name": {"type": "string"},
+    "customer_email": {"type": "string"}
+  },
+  "required": ["train_number", "travel_class", "journey_date"]
+}</field>
+        </record>
+
+        <record id="tool_confirm_ticket" model="ai.agent.tool">
+            <field name="name">confirm_ticket</field>
+            <field name="label">Confirm Ticket</field>
+            <field name="description">Confirm a draft/reserved ticket, allocate coach and berth numbers, and finalize booking.</field>
+            <field name="parameters_schema">{
+  "type": "object",
+  "properties": {
+    "pnr": {"type": "string", "description": "The PNR number of the booking to confirm (e.g. PNR-2849102847)"},
+    "booking_id": {"type": "integer", "description": "Optional Odoo internal ID of the booking"}
+  },
+  "required": ["pnr"]
+}</field>
+        </record>
+
+        <record id="tool_get_pnr_status" model="ai.agent.tool">
+            <field name="name">get_pnr_status</field>
+            <field name="label">Check PNR Status</field>
+            <field name="description">Retrieve real-time reservation status, coach, and berth details for a given PNR.</field>
+            <field name="parameters_schema">{
+  "type": "object",
+  "properties": {
+    "pnr": {"type": "string", "description": "The 10-digit PNR number to check (e.g. PNR-1029384756)"}
+  },
+  "required": ["pnr"]
+}</field>
+        </record>
+
+        <record id="tool_cancel_ticket" model="ai.agent.tool">
+            <field name="name">cancel_ticket</field>
+            <field name="label">Cancel Ticket</field>
+            <field name="description">Cancel an existing train ticket booking and return allocated seats to the inventory.</field>
+            <field name="parameters_schema">{
+  "type": "object",
+  "properties": {
+    "pnr": {"type": "string", "description": "The PNR number to cancel"},
+    "reason": {"type": "string", "description": "Reason for ticket cancellation"}
+  },
+  "required": ["pnr"]
+}</field>
+        </record>
+    </data>
+</odoo>

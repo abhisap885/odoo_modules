@@ -2,7 +2,7 @@
 
 [![Odoo Version](https://img.shields.io/badge/Odoo-19.0-blue.svg)](https://www.odoo.com)
 [![License](https://img.shields.io/badge/License-LGPL--3-green.svg)](https://www.gnu.org/licenses/lgpl-3.0.html)
-[![Author](https://img.shields.io/badge/Author-Odooteck-orange.svg)](https://www.odooteck.com)
+![Author](https://img.shields.io/badge/Author-Odooteck-orange.svg)
 
 **Shopify Odoo Connector** is a modern, standalone, enterprise-grade integration bridge connecting one or multiple Shopify stores with **Odoo 19**. Developed strictly adhering to modern Odoo 19 architecture standards, it communicates directly with the **Shopify Admin REST API** without requiring third-party middleware, external subscription services, or proprietary dependencies.
 
@@ -436,6 +436,6 @@ odooteck_odoo_shopify_connector/
 
 ## Copyright & Licensing
 
-- **Author**: [Odooteck](https://www.odooteck.com)
+- **Author**: Odooteck
 - **License**: LGPL-3 (GNU Lesser General Public License v3.0)
-- **Copyright**: (c) Odooteck (<https://www.odooteck.com/>). All rights reserved.
+- **Copyright**: (c) Odooteck. All rights reserved.

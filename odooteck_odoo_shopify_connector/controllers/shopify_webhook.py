@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Shopify Odoo Connector. Copyright (c) Odooteck (<https://www.odooteck.com/>).
+# Part of Shopify Odoo Connector. Copyright (c) Odooteck.
 # See LICENSE file for full copyright and licensing details.
 
 import hmac
@@ -59,7 +59,7 @@ class ShopifyWebhookController(http.Controller):
             return Response("Malformed JSON", status=400)
 
         ext_id = str(payload.get("id"))
-
+        
         # Dedicated handler for direct refund webhooks
         if "refund" in topic:
             order_id = str(payload.get("order_id") or "")

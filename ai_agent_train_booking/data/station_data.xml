@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="station_ndls" model="train.station">
+            <field name="name">New Delhi</field>
+            <field name="code">NDLS</field>
+            <field name="city">New Delhi</field>
+            <field name="state_name">Delhi</field>
+            <field name="zone">Northern Railway (NR)</field>
+        </record>
+
+        <record id="station_mmct" model="train.station">
+            <field name="name">Mumbai Central</field>
+            <field name="code">MMCT</field>
+            <field name="city">Mumbai</field>
+            <field name="state_name">Maharashtra</field>
+            <field name="zone">Western Railway (WR)</field>
+        </record>
+
+        <record id="station_csmt" model="train.station">
+            <field name="name">Chhatrapati Shivaji Maharaj Terminus</field>
+            <field name="code">CSMT</field>
+            <field name="city">Mumbai</field>
+            <field name="state_name">Maharashtra</field>
+            <field name="zone">Central Railway (CR)</field>
+        </record>
+
+        <record id="station_hwh" model="train.station">
+            <field name="name">Howrah Junction</field>
+            <field name="code">HWH</field>
+            <field name="city">Kolkata</field>
+            <field name="state_name">West Bengal</field>
+            <field name="zone">Eastern Railway (ER)</field>
+        </record>
+
+        <record id="station_sbc" model="train.station">
+            <field name="name">KSR Bengaluru City</field>
+            <field name="code">SBC</field>
+            <field name="city">Bengaluru</field>
+            <field name="state_name">Karnataka</field>
+            <field name="zone">South Western Railway (SWR)</field>
+        </record>
+
+        <record id="station_mas" model="train.station">
+            <field name="name">MGR Chennai Central</field>
+            <field name="code">MAS</field>
+            <field name="city">Chennai</field>
+            <field name="state_name">Tamil Nadu</field>
+            <field name="zone">Southern Railway (SR)</field>
+        </record>
+
+        <record id="station_pnbe" model="train.station">
+            <field name="name">Patna Junction</field>
+            <field name="code">PNBE</field>
+            <field name="city">Patna</field>
+            <field name="state_name">Bihar</field>
+            <field name="zone">East Central Railway (ECR)</field>
+        </record>
+
+        <record id="station_bsb" model="train.station">
+            <field name="name">Varanasi Junction</field>
+            <field name="code">BSB</field>
+            <field name="city">Varanasi</field>
+            <field name="state_name">Uttar Pradesh</field>
+            <field name="zone">Northern Railway (NR)</field>
+        </record>
+
+        <record id="station_adi" model="train.station">
+            <field name="name">Ahmedabad Junction</field>
+            <field name="code">ADI</field>
+            <field name="city">Ahmedabad</field>
+            <field name="state_name">Gujarat</field>
+            <field name="zone">Western Railway (WR)</field>
+        </record>
+    </data>
+</odoo>

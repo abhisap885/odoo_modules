@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_train_booking_payment_wizard_form" model="ir.ui.view">
+        <field name="name">train.booking.payment.wizard.form</field>
+        <field name="model">train.booking.payment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="IRCTC Payment Checkout">
+                <sheet>
+                    <!-- Header Banner -->
+                    <div class="alert alert-primary d-flex align-items-center mb-3">
+                        <i class="fa fa-shield fa-2x me-3" title="Security" aria-label="Security"></i>
+                        <div>
+                            <h4 class="mb-1">🚆 IRCTC Secure Payment Gateway</h4>
+                            <span>Logged-in User ID: <strong><field name="irctc_username" readonly="1" class="text-primary"/></strong></span>
+                        </div>
+                    </div>
+
+                    <!-- Payment Pending State -->
+                    <div invisible="state != 'payment'">
+                        <div class="card p-3 mb-3 bg-light">
+                            <h5 class="text-dark mb-2">Booking Summary</h5>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="mb-1"><strong>PNR:</strong> <field name="pnr" readonly="1"/></p>
+                                    <p class="mb-1"><strong>Train:</strong> <field name="train_display" readonly="1"/></p>
+                                    <p class="mb-1"><strong>Route:</strong> <field name="route_display" readonly="1"/></p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="mb-1"><strong>Date:</strong> <field name="journey_date" readonly="1"/></p>
+                                    <p class="mb-1"><strong>Class:</strong> <field name="travel_class" readonly="1"/></p>
+                                    <p class="mb-1"><strong>Passenger(s):</strong> <field name="passengers_summary" readonly="1"/></p>
+                                </div>
+                            </div>
+                            <hr class="my-2"/>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="mb-0 text-success">Total Amount: <field name="total_amount" widget="monetary" class="fw-bold"/></h4>
+                                <field name="currency_id" invisible="1"/>
+                            </div>
+                        </div>
+
+                        <!-- Direct IRCTC Redirect Section -->
+                        <div class="card p-3 mb-3 border-primary bg-light">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="text-primary mb-1"><i class="fa fa-external-link me-2" title="External Link" aria-label="External Link"></i>Official IRCTC Portal Redirection</h5>
+                                    <p class="mb-1 text-muted">Aap seedha official IRCTC portal par redirect hokar booking aur payment complete kar sakte hain:</p>
+                                    <p class="mb-0"><strong>Username: </strong><field name="irctc_username" readonly="1" class="text-primary fw-bold"/> | <strong>Password: </strong><field name="irctc_password" readonly="1" class="text-dark fw-bold"/></p>
+                                </div>
+                                <div>
+                                    <button name="action_redirect_to_irctc" string="🌐 Open IRCTC Portal" type="object" class="btn btn-primary me-2" icon="fa-external-link"/>
+                                    <button name="action_redirect_to_confirmtkt" string="🚆 Pre-filled Route" type="object" class="btn btn-info" icon="fa-train"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <group string="Select Payment Method">
+                            <field name="payment_method" widget="radio"/>
+                            <field name="upi_id_input" invisible="payment_method not in ('upi_vpa', 'upi_qr')"/>
+                        </group>
+
+                        <div class="alert alert-info" invisible="payment_method != 'upi_qr'">
+                            <p class="mb-0"><i class="fa fa-qrcode fa-lg me-2" title="QR Code" aria-label="QR Code"></i><strong>Instant UPI QR:</strong> Click below to verify transaction using your linked UPI handle (<strong><field name="upi_id_input" readonly="1"/></strong>) or scan via PhonePe / Google Pay / Paytm.</p>
+                        </div>
+                    </div>
+
+                    <!-- Payment Success State -->
+                    <div invisible="state != 'success'" class="text-center py-4">
+                        <i class="fa fa-check-circle text-success fa-5x mb-3" title="Success" aria-label="Success"></i>
+                        <h2 class="text-success fw-bold">Payment Completed &amp; Ticket Confirmed!</h2>
+                        <p class="lead">Your real reservation has been authorized under IRCTC account <strong><field name="irctc_username" readonly="1"/></strong>.</p>
+                        <div class="card p-3 my-3 d-inline-block text-start" style="min-width: 350px;">
+                            <p class="mb-1"><strong>PNR Number:</strong> <field name="pnr" readonly="1" class="text-primary fs-5"/></p>
+                            <p class="mb-1"><strong>Transaction ID:</strong> <field name="transaction_id" readonly="1"/></p>
+                            <p class="mb-1"><strong>Total Paid:</strong> <field name="total_amount" widget="monetary" readonly="1"/></p>
+                        </div>
+                    </div>
+
+                    <footer>
+                        <button name="action_confirm_payment" string="Pay Now &amp; Issue Ticket" type="object" class="btn-success btn-lg" invisible="state != 'payment'" icon="fa-lock"/>
+                        <button name="action_view_booking" string="Open Confirmed Ticket" type="object" class="btn-primary btn-lg" invisible="state != 'success'" icon="fa-ticket"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" invisible="state != 'payment'"/>
+                        <button string="Close" class="btn-secondary" special="cancel" invisible="state != 'success'"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_train_booking_payment_wizard" model="ir.actions.act_window">
+        <field name="name">IRCTC Payment Checkout</field>
+        <field name="res_model">train.booking.payment.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Shopify Odoo Connector. Copyright (c) Odooteck (<https://www.odooteck.com/>).
+# Part of Shopify Odoo Connector. Copyright (c) Odooteck.
 # See LICENSE file for full copyright and licensing details.
 
 import json
@@ -1241,7 +1241,7 @@ class ShopifyInstance(models.Model):
         client = self.get_api_client()
         locations = client.get_locations()
         loc_map_model = self.env["shopify.location.mapping"]
-
+        
         default_stock_loc = self.location_id or (self.warehouse_id.lot_stock_id if self.warehouse_id else False)
         if not default_stock_loc:
             default_stock_loc = self.env["stock.location"].search([

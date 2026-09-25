@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_agent_booking_wizard_form" model="ir.ui.view">
+        <field name="name">agent.booking.wizard.form</field>
+        <field name="model">agent.booking.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Train Booking AI Agent Console">
+                <sheet>
+                    <div class="oe_title">
+                        <h2>🚆 Autonomous Train Booking AI Console</h2>
+                        <p class="text-muted">Instruct the agent in natural language to search, check seats, book, or check PNR automatically.</p>
+                    </div>
+
+                    <!-- Active IRCTC Banner -->
+                    <div class="alert alert-info d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <i class="fa fa-id-card-o fa-lg me-2" title="IRCTC Account" aria-label="IRCTC Account"></i>
+                            <strong>Active IRCTC Account: </strong>
+                            <field name="irctc_account_id" options="{'no_create': True}" class="d-inline-block ms-1 fw-bold text-primary"/>
+                        </div>
+                        <button name="action_open_irctc_accounts" string="Manage IRCTC Accounts" type="object" class="btn btn-sm btn-outline-primary"/>
+                    </div>
+
+                    <!-- Input Mode -->
+                    <group invisible="state != 'input'">
+                        <group>
+                            <field name="agent_id" options="{'no_create': True}"/>
+                            <field name="preset_prompt"/>
+                        </group>
+                    </group>
+                    <group invisible="state != 'input'">
+                        <field name="prompt" placeholder="e.g. Book 1 ticket from New Delhi (NDLS) to Mumbai (MMCT) tomorrow in 2AC for Rajesh Kumar, 34, Male" rows="4"/>
+                    </group>
+
+                    <!-- Result Mode -->
+                    <group invisible="state != 'result'">
+                        <field name="booking_id" readonly="1" invisible="not booking_id"/>
+                        <field name="task_id" readonly="1"/>
+                    </group>
+                    <div invisible="state != 'result'" class="alert alert-info">
+                        <field name="execution_output" readonly="1" widget="text" style="white-space: pre-wrap; font-family: sans-serif;"/>
+                    </div>
+
+                    <footer>
+                        <button name="action_run_agent" string="Run AI Agent" type="object" class="btn-primary" invisible="state != 'input'" icon="fa-paper-plane"/>
+                        <button name="action_view_booking" string="Open Booking Record" type="object" class="btn-success" invisible="not booking_id" icon="fa-ticket"/>
+                        <button name="action_view_task" string="View Full Agent Trace" type="object" class="btn-info" invisible="not task_id" icon="fa-history"/>
+                        <button name="action_new_prompt" string="Ask Another Request" type="object" class="btn-secondary" invisible="state != 'result'" icon="fa-refresh"/>
+                        <button string="Close" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_agent_booking_wizard" model="ir.actions.act_window">
+        <field name="name">Train Booking AI Agent Console</field>
+        <field name="res_model">agent.booking.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

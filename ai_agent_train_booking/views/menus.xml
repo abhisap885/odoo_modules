@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Root Menu -->
+    <menuitem id="menu_train_ai_root"
+              name="Train AI Agent"
+              web_icon="ai_agent_train_booking,static/description/icon.png"
+              sequence="20"/>
+
+    <!-- 1. Reservations (Default landing page: All Bookings) -->
+    <menuitem id="menu_train_reservations"
+              name="Bookings"
+              parent="menu_train_ai_root"
+              sequence="10"/>
+
+    <menuitem id="menu_action_all_bookings"
+              name="All Bookings"
+              parent="menu_train_reservations"
+              action="action_train_booking_all"
+              sequence="10"/>
+
+    <menuitem id="menu_action_pending_bookings"
+              name="Draft / Payment Pending"
+              parent="menu_train_reservations"
+              action="action_train_booking_pending"
+              sequence="20"/>
+
+    <menuitem id="menu_action_confirmed_bookings"
+              name="Confirmed Bookings"
+              parent="menu_train_reservations"
+              action="action_train_booking_confirmed"
+              sequence="30"/>
+
+    <!-- 2. Direct IRCTC Accounts Menu (Right on top navbar!) -->
+    <menuitem id="menu_irctc_top"
+              name="IRCTC Accounts"
+              parent="menu_train_ai_root"
+              sequence="20"/>
+
+    <menuitem id="menu_action_irctc_accounts_direct"
+              name="IRCTC Login &amp; Credentials"
+              parent="menu_irctc_top"
+              action="action_irctc_credential"
+              sequence="10"/>
+
+    <!-- 3. AI Agent Category -->
+    <menuitem id="menu_ai_workspace"
+              name="AI Agent"
+              parent="menu_train_ai_root"
+              sequence="30"/>
+
+    <menuitem id="menu_action_agents"
+              name="AI Agents"
+              parent="menu_ai_workspace"
+              action="action_ai_agent"
+              sequence="10"/>
+
+    <menuitem id="menu_action_wizard"
+              name="Quick Agent Console"
+              parent="menu_ai_workspace"
+              action="action_agent_booking_wizard"
+              sequence="20"/>
+
+    <menuitem id="menu_action_tasks"
+              name="Tasks &amp; Tool Traces"
+              parent="menu_ai_workspace"
+              action="action_ai_agent_task"
+              sequence="30"/>
+
+    <menuitem id="menu_action_tools"
+              name="Agent Tools"
+              parent="menu_ai_workspace"
+              action="action_ai_agent_tool"
+              sequence="40"/>
+
+    <!-- 4. Operations -->
+    <menuitem id="menu_train_operations"
+              name="Operations"
+              parent="menu_train_ai_root"
+              sequence="40"/>
+
+    <menuitem id="menu_action_trains"
+              name="Trains"
+              parent="menu_train_operations"
+              action="action_train_train"
+              sequence="10"/>
+
+    <menuitem id="menu_action_stations"
+              name="Railway Stations"
+              parent="menu_train_operations"
+              action="action_train_station"
+              sequence="20"/>
+
+    <!-- 5. Configuration -->
+    <menuitem id="menu_train_configuration"
+              name="Configuration"
+              parent="menu_train_ai_root"
+              sequence="50"/>
+
+    <menuitem id="menu_action_irctc_accounts"
+              name="IRCTC Accounts"
+              parent="menu_train_configuration"
+              action="action_irctc_credential"
+              sequence="10"/>
+
+    <menuitem id="menu_action_settings"
+              name="Settings"
+              parent="menu_train_configuration"
+              action="action_train_ai_config_settings"
+              sequence="20"/>
+</odoo>

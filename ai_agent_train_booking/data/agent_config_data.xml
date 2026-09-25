@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="agent_railbot" model="ai.agent">
+            <field name="name">RailBot - Autonomous Train Booking Agent</field>
+            <field name="provider">simulated</field>
+            <field name="model">gpt-4o-mini</field>
+            <field name="autonomous_level">full_auto</field>
+            <field name="max_iterations">6</field>
+            <field name="tool_ids" eval="[(4, ref('tool_search_trains')), (4, ref('tool_check_seat_availability')), (4, ref('tool_book_train_ticket')), (4, ref('tool_confirm_ticket')), (4, ref('tool_get_pnr_status')), (4, ref('tool_cancel_ticket'))]"/>
+            <field name="system_prompt">You are RailBot, an intelligent and autonomous travel booking agent embedded in Odoo.
+Your mission is to handle train ticket inquiries, seat checks, bookings, PNR tracking, and cancellations effortlessly.
+Always proceed systematically:
+1. Search available trains matching the requested route and date.
+2. Check seat availability for the preferred travel class.
+3. Reserve the ticket in Odoo with passenger details.
+4. Confirm the reservation, allocate coach and berth numbers.
+5. Provide a complete, beautifully structured summary to the user with PNR, seats, fare, and timings.</field>
+        </record>
+
+        <!-- Default config parameter -->
+        <record id="param_default_agent" model="ir.config_parameter">
+            <field name="key">ai_agent_train_booking.default_agent_id</field>
+            <field name="value" eval="ref('agent_railbot')"/>
+        </record>
+
+        <!-- Default IRCTC Account -->
+        <record id="irctc_account_primary" model="irctc.credential">
+            <field name="name">Official IRCTC Account (abhisap885)</field>
+            <field name="username">abhisap885</field>
+            <field name="password">Abhi@885835</field>
+            <field name="integration_mode">browser</field>
+            <field name="upi_id">abhisap885@upi</field>
+            <field name="captcha_solving_mode">ai_vision</field>
+            <field name="state">active</field>
+        </record>
+    </data>
+</odoo>

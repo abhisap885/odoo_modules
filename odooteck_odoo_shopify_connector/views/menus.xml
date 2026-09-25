@@ -4,7 +4,7 @@
         <!-- Top-Level Root Menu -->
         <menuitem id="menu_shopify_root"
                   name="Shopify Connector"
-                  web_icon="odooteck_odoo_shopify_connector,static/description/icon.png"
+                  web_icon="odooteck_odoo_shopify_connector,static/description/app_icon.png"
                   sequence="25"/>
 
         <!-- Operations Category -->

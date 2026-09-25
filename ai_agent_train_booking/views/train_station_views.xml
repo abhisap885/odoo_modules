@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_train_station_list" model="ir.ui.view">
+        <field name="name">train.station.list</field>
+        <field name="model">train.station</field>
+        <field name="arch" type="xml">
+            <list string="Stations">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="city"/>
+                <field name="state_name"/>
+                <field name="zone"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_train_station_form" model="ir.ui.view">
+        <field name="name">train.station.form</field>
+        <field name="model">train.station</field>
+        <field name="arch" type="xml">
+            <form string="Railway Station">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="code" string="Station Code"/>
+                        <h1>
+                            <field name="code" placeholder="e.g. NDLS"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="city"/>
+                        </group>
+                        <group>
+                            <field name="state_name"/>
+                            <field name="zone"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Originating Trains">
+                            <field name="originating_train_ids" readonly="1">
+                                <list>
+                                    <field name="number"/>
+                                    <field name="name"/>
+                                    <field name="destination_station_id"/>
+                                    <field name="departure_time"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Terminating Trains">
+                            <field name="terminating_train_ids" readonly="1">
+                                <list>
+                                    <field name="number"/>
+                                    <field name="name"/>
+                                    <field name="source_station_id"/>
+                                    <field name="arrival_time"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_train_station_search" model="ir.ui.view">
+        <field name="name">train.station.search</field>
+        <field name="model">train.station</field>
+        <field name="arch" type="xml">
+            <search string="Search Stations">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="city"/>
+                <field name="zone"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_train_station" model="ir.actions.act_window">
+        <field name="name">Railway Stations</field>
+        <field name="res_model">train.station</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Register railway stations (e.g. NDLS, MMCT, HWH, SBC).
+            </p>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ai_agent_list" model="ir.ui.view">
+        <field name="name">ai.agent.list</field>
+        <field name="model">ai.agent</field>
+        <field name="arch" type="xml">
+            <list string="AI Agents">
+                <field name="name"/>
+                <field name="provider" widget="badge"/>
+                <field name="model"/>
+                <field name="autonomous_level" widget="badge"/>
+                <field name="task_count"/>
+                <field name="booking_count"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ai_agent_form" model="ir.ui.view">
+        <field name="name">ai.agent.form</field>
+        <field name="model">ai.agent</field>
+        <field name="arch" type="xml">
+            <form string="AI Agent Configuration">
+                <header>
+                    <button name="action_open_wizard" string="Run Agent Console" type="object" class="btn-primary" icon="fa-terminal"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_tasks" type="object" class="oe_stat_button" icon="fa-tasks">
+                            <field name="task_count" widget="statinfo" string="Tasks"/>
+                        </button>
+                        <button name="action_view_bookings" type="object" class="oe_stat_button" icon="fa-ticket">
+                            <field name="booking_count" widget="statinfo" string="Bookings"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" string="Agent Name"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. RailBot - Autonomous Train Agent"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="AI Provider &amp; Model">
+                            <field name="provider"/>
+                            <field name="api_key" password="True" invisible="provider == 'simulated'"/>
+                            <field name="model" invisible="provider == 'simulated'"/>
+                            <field name="base_url" invisible="provider == 'simulated'"/>
+                        </group>
+                        <group string="Autonomy &amp; Guardrails">
+                            <field name="autonomous_level"/>
+                            <field name="max_iterations"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Enabled Agent Tools" name="tools">
+                            <field name="tool_ids" widget="many2many_tags"/>
+                        </page>
+                        <page string="System Persona &amp; Instructions" name="prompt">
+                            <field name="system_prompt" placeholder="Instructions directing the agent's behavior, tone, and decision rules..."/>
+                        </page>
+                        <page string="Execution Tasks" name="tasks">
+                            <field name="task_ids" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="prompt"/>
+                                    <field name="state" widget="badge"/>
+                                    <field name="step_count"/>
+                                    <field name="execution_time"/>
+                                    <field name="booking_id"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ai_agent" model="ir.actions.act_window">
+        <field name="name">AI Agents</field>
+        <field name="res_model">ai.agent</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- AI Agent Tool Views -->
+    <record id="view_ai_agent_tool_list" model="ir.ui.view">
+        <field name="name">ai.agent.tool.list</field>
+        <field name="model">ai.agent.tool</field>
+        <field name="arch" type="xml">
+            <list string="Agent Tools">
+                <field name="name"/>
+                <field name="label"/>
+                <field name="description"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ai_agent_tool_form" model="ir.ui.view">
+        <field name="name">ai.agent.tool.form</field>
+        <field name="model">ai.agent.tool</field>
+        <field name="arch" type="xml">
+            <form string="Agent Tool Definition">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="label"/>
+                        </group>
+                        <group>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                    <notebook>
+                        <page string="Parameters JSON Schema">
+                            <field name="parameters_schema" widget="text" style="font-family: monospace;"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ai_agent_tool" model="ir.actions.act_window">
+        <field name="name">Agent Tools</field>
+        <field name="res_model">ai.agent.tool</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

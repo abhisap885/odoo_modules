@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ai_agent_task_list" model="ir.ui.view">
+        <field name="name">ai.agent.task.list</field>
+        <field name="model">ai.agent.task</field>
+        <field name="arch" type="xml">
+            <list string="AI Tasks" decoration-success="state == 'done'" decoration-warning="state == 'waiting_approval'" decoration-danger="state == 'failed'">
+                <field name="name"/>
+                <field name="agent_id"/>
+                <field name="prompt"/>
+                <field name="step_count"/>
+                <field name="execution_time"/>
+                <field name="booking_id"/>
+                <field name="state" widget="badge" decoration-success="state == 'done'" decoration-warning="state == 'waiting_approval'" decoration-danger="state == 'failed'"/>
+                <field name="create_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ai_agent_task_form" model="ir.ui.view">
+        <field name="name">ai.agent.task.form</field>
+        <field name="model">ai.agent.task</field>
+        <field name="arch" type="xml">
+            <form string="AI Agent Execution Task">
+                <header>
+                    <button name="action_run" string="Run / Re-Execute" type="object" class="btn-primary" icon="fa-play"/>
+                    <button name="action_approve_and_confirm" string="Approve &amp; Confirm Booking" type="object" class="btn-success" invisible="state != 'waiting_approval'"/>
+                    <button name="action_view_booking" string="View Created Booking" type="object" class="btn-secondary" invisible="not booking_id"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,running,waiting_approval,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Task Reference"/>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Task Overview">
+                            <field name="agent_id"/>
+                            <field name="execution_time"/>
+                            <field name="step_count"/>
+                        </group>
+                        <group string="Outcome">
+                            <field name="booking_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="User Instruction / Goal">
+                        <field name="prompt" nolabel="1" placeholder="Describe the goal for the autonomous agent..."/>
+                    </group>
+                    <notebook>
+                        <page string="Execution Steps / Tool Calling Trace" name="steps">
+                            <field name="step_ids" readonly="1">
+                                <list>
+                                    <field name="sequence"/>
+                                    <field name="step_type" widget="badge"/>
+                                    <field name="thought"/>
+                                    <field name="tool_name"/>
+                                    <field name="is_error" widget="boolean_toggle"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Agent Final Response" name="response">
+                            <field name="final_response" widget="text"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ai_agent_task_search" model="ir.ui.view">
+        <field name="name">ai.agent.task.search</field>
+        <field name="model">ai.agent.task</field>
+        <field name="arch" type="xml">
+            <search string="Search Tasks">
+                <field name="name"/>
+                <field name="agent_id"/>
+                <field name="prompt"/>
+                <filter name="done" string="Completed" domain="[('state','=','done')]"/>
+                <filter name="waiting_approval" string="Waiting Approval" domain="[('state','=','waiting_approval')]"/>
+                <filter name="failed" string="Failed" domain="[('state','=','failed')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ai_agent_task" model="ir.actions.act_window">
+        <field name="name">Agent Tasks &amp; Traces</field>
+        <field name="res_model">ai.agent.task</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

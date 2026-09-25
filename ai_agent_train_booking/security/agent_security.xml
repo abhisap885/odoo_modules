@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="module_category_train_ai" model="ir.module.category">
+            <field name="name">Train AI Agent</field>
+            <field name="description">Manage AI agents, automated train ticketing, and passenger reservations.</field>
+            <field name="sequence">25</field>
+        </record>
+
+        <record id="privilege_train_agent" model="res.groups.privilege">
+            <field name="name">Train AI Agent</field>
+            <field name="sequence">10</field>
+            <field name="category_id" ref="module_category_train_ai"/>
+        </record>
+
+        <record id="group_train_agent_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="sequence">10</field>
+            <field name="privilege_id" ref="privilege_train_agent"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">Can use train agent console and view bookings.</field>
+        </record>
+
+        <record id="group_train_agent_manager" model="res.groups">
+            <field name="name">Administrator</field>
+            <field name="sequence">20</field>
+            <field name="privilege_id" ref="privilege_train_agent"/>
+            <field name="implied_ids" eval="[(4, ref('group_train_agent_user'))]"/>
+            <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+            <field name="comment">Can manage train schedules, AI agents, and system configuration.</field>
+        </record>
+    </data>
+</odoo>

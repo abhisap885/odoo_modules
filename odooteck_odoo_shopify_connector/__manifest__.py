@@ -1,31 +1,32 @@
 # -*- coding: utf-8 -*-
-# Part of Shopify Odoo Connector. Copyright (c) Odooteck (<https://www.odooteck.com/>).
+# Part of Shopify Odoo Connector. Copyright (c) Odooteck.
 # See LICENSE file for full copyright and licensing details.
 
 {
-    "name": "Shopify Odoo Connector",
-    "summary": "Shopify connector for Odoo 19: eCommerce product, order, customer, inventory and fulfillment sync.",
+    "name": "Shopify Odoo Connector | All-in-One Multi-Store Shopify Integration",
+    "summary": "Shopify Odoo Connector for Odoo 19: Real-time stock sync, automated webhook order import, staging feeds queue, multi-store & multi-company, bi-directional product variants mapping, auto-invoicing, zero dependencies.",
     "description": """
-Shopify Odoo Connector
-========================================
-A Shopify Odoo connector for eCommerce data synchronization on Odoo 19:
-- Product, variant, order, customer, inventory, and fulfillment synchronization.
-- Direct Shopify Admin REST API integration (no third-party dependencies).
-- Multi-instance support: Connect and manage multiple Shopify stores in one Odoo database.
-- Staging queue (Feeds) for resilient, loss-free data ingestion.
-- Bidirectional mapping for products, variants, orders, customers, collections, and taxes.
-- Real-time stock level synchronization from Odoo warehouses to Shopify locations.
-- Fulfillment tracking synchronization upon delivery confirmation.
-- Secure webhooks with HMAC-SHA256 signature verification.
-- Odoo 19 3-Tier Security compliant (res.groups.privilege).
+Shopify Odoo Connector — Enterprise Edition (Odoo 19)
+=====================================================
+The most powerful, lossless, and standalone Shopify integration engineered specifically for Odoo 19.
+
+Key Integration Highlights:
+---------------------------
+* Direct Shopify Admin REST & GraphQL API integration (100% standalone, zero 3rd-party dependencies).
+* Multi-Store & Multi-Company: Connect and manage unlimited Shopify storefronts with strict multi-company segregation.
+* Resilient Staging Feeds Queue (`shopify.feed`): Lossless buffer for incoming webhooks and batch syncs.
+* Real-Time Bi-Directional Stock Sync: Instant stock updates from Odoo warehouses to Shopify locations with loop-prevention guards.
+* Automated Order-to-Cash Reconciliation: Automatic confirmation, customer matching, tax mapping, invoice generation, and bank payment reconciliation.
+* Product & Matrix Variant Mapping: Full bi-directional sync with 1-click Push/Pull on product forms and automatic HTTP 404 delete detection.
+* Comprehensive Audit Trail: Full API payload logging, sync history, error traces, and customer mapping directory.
+* Native Odoo 19 3-Tier Security model (`res.groups.privilege`).
+
+Compatible with Odoo 19.0 Community, Enterprise, Odoo.sh, and On-Premise.
     """,
     "author": "Odooteck",
-    "website": "https://www.odooteck.com",
     "category": "eCommerce",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.0.1",
     "license": "LGPL-3",
-    "price": 100.0,
-    "currency": "USD",
     "depends": [
         "base",
         "sale_management",
@@ -68,7 +69,7 @@ A Shopify Odoo connector for eCommerce data synchronization on Odoo 19:
             "odooteck_odoo_shopify_connector/static/src/xml/shopify_insights_dashboard.xml",
         ],
     },
-    "images": ["static/description/banner.gif"],
+    "images": ["static/description/banner.png", "static/description/sync_flow.gif"],
     "application": True,
     "installable": True,
     "auto_install": False,

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_train_booking_list" model="ir.ui.view">
+        <field name="name">train.booking.list</field>
+        <field name="model">train.booking</field>
+        <field name="arch" type="xml">
+            <list string="Train Bookings" decoration-success="state == 'confirmed'" decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="train_id"/>
+                <field name="source_station_id"/>
+                <field name="destination_station_id"/>
+                <field name="journey_date"/>
+                <field name="travel_class"/>
+                <field name="passenger_count"/>
+                <field name="total_fare" widget="monetary"/>
+                <field name="booking_type" widget="badge"/>
+                <field name="state" widget="badge" decoration-success="state == 'confirmed'" decoration-warning="state == 'draft'" decoration-danger="state == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_train_booking_form" model="ir.ui.view">
+        <field name="name">train.booking.form</field>
+        <field name="model">train.booking</field>
+        <field name="arch" type="xml">
+            <form string="Train Ticket Reservation">
+                <header>
+                    <button name="action_book_on_irctc" string="🌐 Redirect to IRCTC (irctc.co.in)" type="object" class="btn-primary" icon="fa-external-link"/>
+                    <button name="action_open_confirmtkt" string="🚆 Pre-filled Route (ConfirmTkt)" type="object" class="btn-info" icon="fa-train"/>
+                    <button name="action_open_payment" string="💳 Proceed to Payment Checkout" type="object" class="btn-success" invisible="state == 'confirmed'" icon="fa-credit-card"/>
+                    <button name="action_confirm" string="Confirm Booking" type="object" class="btn-secondary" invisible="state != 'draft'"/>
+                    <button name="action_cancel" string="Cancel Ticket" type="object" invisible="state == 'cancelled'"/>
+                    <button name="action_reset_draft" string="Reset to Draft" type="object" invisible="state != 'cancelled'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,cancelled"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="PNR Number"/>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Journey Details">
+                            <field name="train_id" readonly="state != 'draft'"/>
+                            <field name="source_station_id" readonly="1"/>
+                            <field name="destination_station_id" readonly="1"/>
+                            <field name="journey_date" readonly="state != 'draft'"/>
+                            <field name="travel_class" readonly="state != 'draft'"/>
+                        </group>
+                        <group string="Customer &amp; Status">
+                            <field name="partner_id" readonly="state != 'draft'"/>
+                            <field name="irctc_account_id"/>
+                            <field name="is_real_irctc" readonly="1" invisible="not is_real_irctc"/>
+                            <field name="irctc_txn_id" readonly="1" invisible="not irctc_txn_id"/>
+                            <field name="booking_type" readonly="1"/>
+                            <field name="ai_task_id" readonly="1" invisible="not ai_task_id"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="total_fare" widget="monetary" readonly="1"/>
+                            <field name="booking_date" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Passenger List &amp; Berth Allocation" name="passengers">
+                            <field name="passenger_ids" readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="age"/>
+                                    <field name="gender"/>
+                                    <field name="berth_preference"/>
+                                    <field name="allocated_coach" readonly="1"/>
+                                    <field name="allocated_berth" readonly="1"/>
+                                    <field name="allocated_berth_type" readonly="1"/>
+                                    <field name="fare"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="AI Trace &amp; Notes" name="notes">
+                            <group>
+                                <field name="booking_notes" placeholder="Agentic AI logs or special instructions..."/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_train_booking_search" model="ir.ui.view">
+        <field name="name">train.booking.search</field>
+        <field name="model">train.booking</field>
+        <field name="arch" type="xml">
+            <search string="Search Bookings">
+                <field name="name" string="PNR Number"/>
+                <field name="partner_id"/>
+                <field name="train_id"/>
+                <filter name="confirmed" string="Confirmed" domain="[('state','=','confirmed')]"/>
+                <filter name="draft" string="Reserved / Draft" domain="[('state','=','draft')]"/>
+                <filter name="agentic_ai" string="Booked by AI Agent" domain="[('booking_type','=','agentic_ai')]"/>
+                <group>
+                    <filter name="group_train" string="Train" context="{'group_by': 'train_id'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_date" string="Journey Date" context="{'group_by': 'journey_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_train_booking_all" model="ir.actions.act_window">
+        <field name="name">All Train Bookings</field>
+        <field name="res_model">train.booking</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No train bookings recorded yet. Use the AI Agent to book tickets automatically!
+            </p>
+        </field>
+    </record>
+
+    <record id="action_train_booking_confirmed" model="ir.actions.act_window">
+        <field name="name">Confirmed Bookings</field>
+        <field name="res_model">train.booking</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('state', '=', 'confirmed')]</field>
+    </record>
+
+    <record id="action_train_booking_pending" model="ir.actions.act_window">
+        <field name="name">Draft / Pending Bookings</field>
+        <field name="res_model">train.booking</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('state', '=', 'draft')]</field>
+    </record>
+</odoo>

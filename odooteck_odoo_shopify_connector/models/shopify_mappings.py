@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Shopify Odoo Connector. Copyright (c) Odooteck (<https://www.odooteck.com/>).
+# Part of Shopify Odoo Connector. Copyright (c) Odooteck.
 # See LICENSE file for full copyright and licensing details.
 
 from odoo import models, fields, api, _
@@ -490,7 +490,7 @@ class ShopifyRefundMapping(models.Model):
         move_model = self.env["account.move"]
         order = self.order_id
         product = self.instance_id.discount_product_id or self.env["product.product"].search([("type", "=", "service")], limit=1)
-
+        
         invoice_vals = {
             "move_type": "out_refund",
             "partner_id": order.partner_id.id,
