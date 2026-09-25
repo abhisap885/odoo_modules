@@ -69,7 +69,7 @@ Compatible with Odoo 19 Community and Enterprise, Odoo.sh, and On-Premise.
             "odooteck_odoo_shopify_connector/static/src/xml/shopify_insights_dashboard.xml",
         ],
     },
-    "images": ["static/description/banner.png", "static/description/Banner.gif"],
+    "images": ["static/description/Banner.gif"],
     "application": True,
     "installable": True,
     "auto_install": False,
