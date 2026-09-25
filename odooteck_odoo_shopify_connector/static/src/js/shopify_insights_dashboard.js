@@ -2,7 +2,7 @@
 
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
-import { Component, onWillStart, onMounted, onWillUnmount, useRef, useReactive } from "@odoo/owl";
+import { Component, onWillStart, onMounted, onWillUnmount, signal, useReactive } from "@odoo/owl";
 import { loadBundle } from "@web/core/assets";
 import { _t } from "@web/core/l10n/translation";
 
@@ -10,16 +10,16 @@ export class ShopifyStoreInsightsDashboard extends Component {
     static template = "odooteck_odoo_shopify_connector.ShopifyStoreInsightsDashboard";
     static props = ["*"];
 
+    salesTrendCanvas = signal.ref();
+    financialStatusCanvas = signal.ref();
+    fulfillmentStatusCanvas = signal.ref();
+    topProductsCanvas = signal.ref();
+    categoryCanvas = signal.ref();
+
     setup() {
         this.orm = useService("orm");
         this.action = useService("action");
         this.notification = useService("notification");
-
-        this.salesTrendCanvas = useRef("salesTrendChart");
-        this.financialStatusCanvas = useRef("financialStatusChart");
-        this.fulfillmentStatusCanvas = useRef("fulfillmentStatusChart");
-        this.topProductsCanvas = useRef("topProductsChart");
-        this.categoryCanvas = useRef("categoryChart");
 
         this.chartInstances = {};
 
@@ -124,7 +124,7 @@ export class ShopifyStoreInsightsDashboard extends Component {
     }
 
     renderSalesTrendChart(data) {
-        const el = this.salesTrendCanvas.el;
+        const el = this.salesTrendCanvas();
         if (!el) return;
 
         const trend = data.sales_trend || { labels: [], revenue: [], orders: [] };
@@ -234,7 +234,7 @@ export class ShopifyStoreInsightsDashboard extends Component {
     }
 
     renderFinancialStatusChart(data) {
-        const el = this.financialStatusCanvas.el;
+        const el = this.financialStatusCanvas();
         if (!el) return;
 
         const fin = data.financial_breakdown || { labels: [], counts: [], colors: [] };
@@ -286,7 +286,7 @@ export class ShopifyStoreInsightsDashboard extends Component {
     }
 
     renderFulfillmentStatusChart(data) {
-        const el = this.fulfillmentStatusCanvas.el;
+        const el = this.fulfillmentStatusCanvas();
         if (!el) return;
 
         const ful = data.fulfillment_breakdown || { labels: [], counts: [], colors: [] };
@@ -338,7 +338,7 @@ export class ShopifyStoreInsightsDashboard extends Component {
     }
 
     renderTopProductsChart(data) {
-        const el = this.topProductsCanvas.el;
+        const el = this.topProductsCanvas();
         if (!el) return;
 
         const prods = data.top_products || [];
@@ -404,7 +404,7 @@ export class ShopifyStoreInsightsDashboard extends Component {
     }
 
     renderCategoryChart(data) {
-        const el = this.categoryCanvas.el;
+        const el = this.categoryCanvas();
         if (!el) return;
 
         const cats = data.top_categories || { labels: [], values: [], colors: [] };

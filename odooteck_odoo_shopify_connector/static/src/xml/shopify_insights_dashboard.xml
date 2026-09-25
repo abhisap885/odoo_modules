@@ -262,7 +262,7 @@
                                 </span>
                             </div>
                             <div class="shopify-chart-container position-relative" style="height: 320px;">
-                                <canvas t-ref="salesTrendChart"/>
+                                <canvas t-ref="this.salesTrendCanvas"/>
                             </div>
                         </div>
                     </div>
@@ -280,7 +280,7 @@
                                 </span>
                             </div>
                             <div class="shopify-chart-container position-relative" style="height: 320px;">
-                                <canvas t-ref="financialStatusChart"/>
+                                <canvas t-ref="this.financialStatusCanvas"/>
                             </div>
                         </div>
                     </div>
@@ -301,7 +301,7 @@
                                 </span>
                             </div>
                             <div class="shopify-chart-container position-relative" style="height: 280px;">
-                                <canvas t-ref="fulfillmentStatusChart"/>
+                                <canvas t-ref="this.fulfillmentStatusCanvas"/>
                             </div>
                         </div>
                     </div>
@@ -319,7 +319,7 @@
                                 </span>
                             </div>
                             <div class="shopify-chart-container position-relative" style="height: 280px;">
-                                <canvas t-ref="topProductsChart"/>
+                                <canvas t-ref="this.topProductsCanvas"/>
                             </div>
                         </div>
                     </div>
@@ -337,7 +337,7 @@
                                 </span>
                             </div>
                             <div class="shopify-chart-container position-relative" style="height: 280px;">
-                                <canvas t-ref="categoryChart"/>
+                                <canvas t-ref="this.categoryCanvas"/>
                             </div>
                         </div>
                     </div>
