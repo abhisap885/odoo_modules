@@ -3,30 +3,30 @@
 # See LICENSE file for full copyright and licensing details.
 
 {
-    "name": "Shopify Odoo Connector | All-in-One Multi-Store Shopify Integration",
-    "summary": "Shopify Odoo Connector for Odoo 19: Real-time stock sync, automated webhook order import, staging feeds queue, multi-store & multi-company, bi-directional product variants mapping, auto-invoicing, zero dependencies.",
+    "name": "Shopify Connector for Odoo 19",
+    "summary": "Connect Shopify stores with Odoo 19 for product, order, customer, inventory, and fulfillment workflows.",
     "description": """
-Shopify Odoo Connector — Enterprise Edition (Odoo 19)
-=====================================================
-The most powerful, lossless, and standalone Shopify integration engineered specifically for Odoo 19.
+Shopify Connector for Odoo 19
+=============================
 
-Key Integration Highlights:
----------------------------
-* Direct Shopify Admin REST & GraphQL API integration (100% standalone, zero 3rd-party dependencies).
-* Multi-Store & Multi-Company: Connect and manage unlimited Shopify storefronts with strict multi-company segregation.
-* Resilient Staging Feeds Queue (`shopify.feed`): Lossless buffer for incoming webhooks and batch syncs.
-* Real-Time Bi-Directional Stock Sync: Instant stock updates from Odoo warehouses to Shopify locations with loop-prevention guards.
-* Automated Order-to-Cash Reconciliation: Automatic confirmation, customer matching, tax mapping, invoice generation, and bank payment reconciliation.
-* Product & Matrix Variant Mapping: Full bi-directional sync with 1-click Push/Pull on product forms and automatic HTTP 404 delete detection.
-* Comprehensive Audit Trail: Full API payload logging, sync history, error traces, and customer mapping directory.
-* Native Odoo 19 3-Tier Security model (`res.groups.privilege`).
+Connect Shopify stores to Odoo 19 and manage integration activity from your Odoo workspace.
 
-Compatible with Odoo 19.0 Community, Enterprise, Odoo.sh, and On-Premise.
+Features include:
+* Configure multiple Shopify store connections.
+* Review product, variant, order, customer, and collection staging feeds.
+* Maintain Shopify-to-Odoo product, variant, and order mappings.
+* Sync stock levels to Shopify locations and update fulfillment information after delivery validation.
+* Verify incoming webhooks with HMAC-SHA256 signatures.
+* Review synchronization history, results, record counts, and logs.
+
+Compatible with Odoo 19 Community and Enterprise, Odoo.sh, and On-Premise.
     """,
     "author": "Odooteck",
     "category": "eCommerce",
-    "version": "19.0.1.0.1",
-    "license": "LGPL-3",
+    "version": "19.0.1.0.0",
+    "license": "OPL-1",
+    "price": 100.0,
+    "currency": "USD",
     "depends": [
         "base",
         "sale_management",
