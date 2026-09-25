@@ -3,26 +3,46 @@
 # See LICENSE file for full copyright and licensing details.
 
 {
-    "name": "Shopify Connector for Odoo 19",
-    "summary": "Connect Shopify stores with Odoo 19 for product, order, customer, inventory, and fulfillment workflows.",
+    "name": "Shopify Odoo Connector",
+    "summary": """
+        Sync Shopify with Odoo — products, orders, customers, inventory & fulfillment.
+        Multi-store support, real-time webhooks, automated staging feeds, and full audit logs.
+        Works with Odoo 19 Community, Enterprise, Odoo.sh and On-Premise.
+    """,
     "description": """
-Shopify Connector for Odoo 19
-=============================
-
-Connect Shopify stores to Odoo 19 and manage integration activity from your Odoo workspace.
-
-Features include:
-* Configure multiple Shopify store connections.
-* Review product, variant, order, customer, and collection staging feeds.
-* Maintain Shopify-to-Odoo product, variant, and order mappings.
-* Sync stock levels to Shopify locations and update fulfillment information after delivery validation.
-* Verify incoming webhooks with HMAC-SHA256 signatures.
-* Review synchronization history, results, record counts, and logs.
-
-Compatible with Odoo 19 Community and Enterprise, Odoo.sh, and On-Premise.
+Shopify Odoo Connector
+Shopify Odoo Integration
+Shopify Connector for Odoo
+Odoo Shopify Sync
+Shopify Odoo Product Sync
+Shopify Odoo Order Sync
+Shopify Odoo Inventory Sync
+Shopify Odoo Customer Sync
+Shopify Odoo Fulfillment
+Shopify Multi Store Odoo
+Shopify Webhook Odoo
+Shopify Odoo eCommerce
+Shopify Odoo 19
+Shopify Odoo 18
+Shopify Odoo 20
+Odoo Shopify Integration App
+Shopify Connector Odoo Community
+Shopify Connector Odoo Enterprise
+Shopify Odoo Mapping
+Shopify Staging Feed Odoo
+Shopify Odoo Sync History
+Shopify Stock Sync Odoo
+Shopify Product Import Odoo
+Shopify Order Import Odoo
+Shopify Customer Import Odoo
+Odoo eCommerce Shopify Bridge
+Shopify Odoo Automation
     """,
     "author": "Odooteck",
+    "website": "https://store.odooteck.com/odoo-shopify-connector.html",
+    "live_test_url": "https://odoodemo.odooteck.com/?module=odooteck_odoo_shopify_connector&version=19.0",
     "category": "eCommerce",
+    "sequence": 1,
     "version": "19.0.1.0.0",
     "license": "OPL-1",
     "price": 100.0,
