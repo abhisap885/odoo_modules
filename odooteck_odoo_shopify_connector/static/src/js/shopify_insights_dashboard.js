@@ -2,14 +2,13 @@
 
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
-import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 import { Component, onWillStart, onMounted, onWillUnmount, useRef, useReactive } from "@odoo/owl";
 import { loadBundle } from "@web/core/assets";
 import { _t } from "@web/core/l10n/translation";
 
 export class ShopifyStoreInsightsDashboard extends Component {
     static template = "odooteck_odoo_shopify_connector.ShopifyStoreInsightsDashboard";
-    static props = { ...standardActionServiceProps };
+    static props = ["*"];
 
     setup() {
         this.orm = useService("orm");
