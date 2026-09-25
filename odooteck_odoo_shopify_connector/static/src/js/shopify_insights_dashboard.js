@@ -2,7 +2,7 @@
 
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
-import { Component, onWillStart, onMounted, onWillUnmount, signal, useReactive } from "@odoo/owl";
+import { Component, onWillStart, onMounted, onWillUnmount, signal, proxy } from "@odoo/owl";
 import { loadBundle } from "@web/core/assets";
 import { _t } from "@web/core/l10n/translation";
 
@@ -28,7 +28,7 @@ export class ShopifyStoreInsightsDashboard extends Component {
                                   this.props.action?.context?.default_instance_id ||
                                   null;
 
-        this.state = useReactive({
+        this.state = proxy({
             isLoading: true,
             selectedInstanceId: initialInstanceId,
             selectedPeriod: "all",
