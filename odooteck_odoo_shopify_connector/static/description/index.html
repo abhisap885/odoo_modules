@@ -55,75 +55,20 @@
     <h3 style="margin-bottom: 8px; color: #1f2937;">Synchronization history</h3>
     <img src="07_sync_history.png" alt="Shopify synchronization history with results and log details" style="display: block; width: 100%; max-width: 1050px; height: auto; margin: 0 auto 34px;"/>
 
-    <!-- Demo Request — pure HTML details/summary (no JS, works on Odoo App Store) -->
-    <details style="margin: 28px 0; border: 1px solid #e0e4e8; border-radius: 10px; background: #f4f6f8; overflow: hidden;">
-        <summary style="display: block; padding: 14px 28px; background-color: #2875c7; color: #ffffff; font-weight: bold; font-size: 15px; cursor: pointer; text-align: center; list-style: none; border-radius: 0;">&#9656; Request a Demo</summary>
-        <div style="padding: 28px;">
-            <h2 style="margin: 0 0 6px; color: #172b4d; text-align: center;">Try the Shopify Odoo Connector</h2>
-            <p style="margin: 0 0 22px; color: #65758b; text-align: center; font-size: 14px;">Request a guided walkthrough. Complete the form and send your request by email.</p>
-            <form action="mailto:odooteck.apps@gmail.com?subject=Shopify%20Odoo%20Connector%20Demo%20Request" method="post" enctype="text/plain" style="margin: 0;">
-                <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td width="50%" valign="top" style="padding: 0 8px 14px 0;">
-                            <label for="demo-product" style="display: block; margin-bottom: 6px; color: #24364b; font-weight: bold; font-size: 14px;">Product</label>
-                            <select id="demo-product" name="Product" style="box-sizing: border-box; width: 100%; padding: 10px 12px; border: 1px solid #d5dce5; border-radius: 5px; background-color: #ffffff; color: #344054; font-size: 14px;">
-                                <option value="Shopify Odoo Connector" selected="selected">Shopify Odoo Connector</option>
-                            </select>
-                        </td>
-                        <td width="50%" valign="top" style="padding: 0 0 14px 8px;">
-                            <label for="demo-odoo-version" style="display: block; margin-bottom: 6px; color: #24364b; font-weight: bold; font-size: 14px;">Odoo Version</label>
-                            <select id="demo-odoo-version" name="Odoo Version" required="required" style="box-sizing: border-box; width: 100%; padding: 10px 12px; border: 1px solid #d5dce5; border-radius: 5px; background-color: #ffffff; color: #344054; font-size: 14px;">
-                                <option value="" disabled="disabled" selected="selected">Choose your version</option>
-                                <option value="Odoo 18.0">Odoo 18.0</option>
-                                <option value="Odoo 19.0">Odoo 19.0</option>
-                                <option value="Odoo 20.0">Odoo 20.0</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="50%" valign="top" style="padding: 0 8px 14px 0;">
-                            <label for="demo-name" style="display: block; margin-bottom: 6px; color: #24364b; font-weight: bold; font-size: 14px;">Name</label>
-                            <input id="demo-name" type="text" name="Name" required="required" placeholder="Your full name" style="box-sizing: border-box; width: 100%; padding: 10px 12px; border: 1px solid #d5dce5; border-radius: 5px; background-color: #ffffff; font-size: 14px;"/>
-                        </td>
-                        <td width="50%" valign="top" style="padding: 0 0 14px 8px;">
-                            <label for="demo-company" style="display: block; margin-bottom: 6px; color: #24364b; font-weight: bold; font-size: 14px;">Company (Optional)</label>
-                            <input id="demo-company" type="text" name="Company" placeholder="Your company" style="box-sizing: border-box; width: 100%; padding: 10px 12px; border: 1px solid #d5dce5; border-radius: 5px; background-color: #ffffff; font-size: 14px;"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" style="padding: 0 0 14px;">
-                            <label for="demo-email" style="display: block; margin-bottom: 6px; color: #24364b; font-weight: bold; font-size: 14px;">Work E-mail</label>
-                            <input id="demo-email" type="email" name="Work Email" required="required" placeholder="you@company.com" style="box-sizing: border-box; width: 100%; padding: 10px 12px; border: 1px solid #d5dce5; border-radius: 5px; background-color: #ffffff; font-size: 14px;"/>
-                            <span style="display: block; margin-top: 5px; color: #65758b; font-size: 13px;">We will use this address to reply about your demo request.</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" style="padding: 0 0 14px;">
-                            <label for="demo-shopify-stores" style="display: block; margin-bottom: 6px; color: #24364b; font-weight: bold; font-size: 14px;">Number of Shopify Stores</label>
-                            <input id="demo-shopify-stores" type="number" min="1" name="Number of Shopify Stores" placeholder="e.g. 1" style="box-sizing: border-box; width: 100%; max-width: 220px; padding: 10px 12px; border: 1px solid #d5dce5; border-radius: 5px; background-color: #ffffff; font-size: 14px;"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" style="padding: 0 0 16px;">
-                            <label for="demo-topics" style="display: block; margin-bottom: 6px; color: #24364b; font-weight: bold; font-size: 14px;">What would you like to see?</label>
-                            <textarea id="demo-topics" name="Demo Topics and Preferred Time" rows="3" placeholder="Tell us which workflows you would like to explore and your preferred time (include timezone)." style="box-sizing: border-box; width: 100%; padding: 10px 12px; border: 1px solid #d5dce5; border-radius: 5px; background-color: #ffffff; font-size: 14px;"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" style="padding: 0 0 18px; color: #65758b; font-size: 14px;">
-                            <label><input type="checkbox" name="Contact Consent" value="I agree to be contacted about this demo request" required="required"/> I agree that Odooteck may store my email address and contact me about this demo request.</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <input type="submit" value="Send Demo Request" style="display: block; width: 100%; padding: 13px; border: 0; border-radius: 6px; background-color: #2875c7; color: #ffffff; font-size: 16px; font-weight: bold; cursor: pointer;"/>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-            <p style="margin: 14px 0 0; color: #65758b; text-align: center; font-size: 13px;">Your email app will open with your details. Review the message and press Send to submit.</p>
-        </div>
-    </details>
+    <!-- Demo Request Button — mailto link, always works on Odoo App Store -->
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin: 32px 0;">
+        <tr>
+            <td align="center">
+                <a href="mailto:odooteck.apps@gmail.com?subject=Demo%20Request%20%E2%80%94%20Shopify%20Odoo%20Connector&amp;body=Hi%20Odooteck%20Team%2C%0A%0AI%20would%20like%20to%20request%20a%20demo%20for%20the%20Shopify%20Odoo%20Connector.%0A%0A---%20Please%20fill%20in%20your%20details%20below%20---%0A%0AName%3A%20%0ACompany%3A%20%0AWork%20Email%3A%20%0AOdoo%20Version%20(18.0%20%2F%2019.0%20%2F%2020.0)%3A%20%0ANumber%20of%20Shopify%20Stores%3A%20%0AWhat%20would%20you%20like%20to%20see%3A%20%0APreferred%20Time%20%2B%20Timezone%3A%20%0A%0AThank%20you!" style="display: inline-block; padding: 14px 36px; border-radius: 7px; background-color: #2875c7; color: #ffffff; font-weight: bold; font-size: 16px; text-decoration: none; letter-spacing: 0.3px;">&#128197; Request a Demo</a>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" style="padding-top: 10px; color: #65758b; font-size: 13px;">
+                Clicking will open your email app with a pre-filled demo request template.
+            </td>
+        </tr>
+    </table>
+
 
 </div>
 </body>
