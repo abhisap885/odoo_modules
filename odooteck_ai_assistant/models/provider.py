@@ -98,3 +98,31 @@ class OTAIProvider(models.Model):
         except (requests.RequestException, KeyError, IndexError, TypeError, ValueError) as exc:
             _logger.warning("AI provider %s failed: %s", self.id, exc)
             raise ValidationError(_("AI provider is temporarily unavailable.")) from exc
+
+
+    def request_embedding(self, text):
+        self.ensure_one()
+        if self.kind == "gemini":
+            endpoint = "https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent"
+            payload = {"model": "models/text-embedding-004", "content": {"parts": [{"text": text}]}}
+            headers = {"x-goog-api-key": self.api_key, "Content-Type": "application/json"}
+        else:
+            # Assume OpenAI compatible for embeddings
+            endpoint = "https://api.openai.com/v1/embeddings"
+            if self.kind == "compatible" and self.endpoint:
+                endpoint = self.endpoint.replace("/chat/completions", "/embeddings")
+            payload = {"model": "text-embedding-3-small", "input": text}
+            headers = {"Content-Type": "application/json"}
+            if self.api_key:
+                headers["Authorization"] = f"Bearer {self.api_key}"
+                
+        try:
+            response = requests.post(endpoint, json=payload, headers=headers, timeout=10)
+            response.raise_for_status()
+            data = response.json()
+            if self.kind == "gemini":
+                return data["embedding"]["values"]
+            return data["data"][0]["embedding"]
+        except Exception as exc:
+            _logger.warning("Embedding failed: %s", exc)
+            return []
