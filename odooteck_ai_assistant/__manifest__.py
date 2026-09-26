@@ -29,5 +29,6 @@
         ],
     },
     "application": True,
+    "images": ["static/description/banner.gif"],
     "installable": True,
 }
