@@ -41,19 +41,38 @@ class OTAIKnowledgeImport(models.TransientModel):
         if not isinstance(rows, list) or not rows or len(rows) > 200:
             raise ValidationError(_("The file must contain between 1 and 200 knowledge entries."))
         values = []
+        provider = self.bot_id.provider_id
         for index, row in enumerate(rows, 1):
             if not isinstance(row, dict):
                 raise ValidationError(_("Every knowledge entry must be an object or CSV row."))
             answer = str(row.get("answer") or "").strip()
             if not answer or len(answer) > 10000:
                 raise ValidationError(_("Entry %s needs an answer under 10,000 characters.") % index)
-            values.append({
-                "bot_id": self.bot_id.id,
-                "name": str(row.get("name") or row.get("question") or "Article %s" % index)[:150],
-                "question": str(row.get("question") or "")[:250],
-                "keywords": str(row.get("keywords") or "")[:500],
-                "answer": answer,
-                "source_url": str(row.get("source_url") or "")[:500],
-            })
+            
+            # Chunking logic (simple split by newlines if very long)
+            chunks = [answer]
+            if len(answer) > 2000:
+                chunks = [answer[i:i+2000] for i in range(0, len(answer), 2000)]
+                
+            for c_idx, chunk in enumerate(chunks):
+                name = str(row.get("name") or row.get("question") or "Article %s" % index)[:150]
+                if len(chunks) > 1:
+                    name += f" (Part {c_idx+1})"
+                    
+                emb = "[]"
+                if provider and provider.kind != 'groq':
+                    vector = provider.request_embedding(chunk)
+                    if vector:
+                        emb = json.dumps(vector)
+                        
+                values.append({
+                    "bot_id": self.bot_id.id,
+                    "name": name,
+                    "question": str(row.get("question") or "")[:250],
+                    "keywords": str(row.get("keywords") or "")[:500],
+                    "answer": chunk,
+                    "source_url": str(row.get("source_url") or "")[:500],
+                    "embedding": emb,
+                })
         self.env["ot.ai.knowledge"].create(values)
         return {"type": "ir.actions.act_window_close"}
