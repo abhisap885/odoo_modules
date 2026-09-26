@@ -40,7 +40,6 @@ Shopify Odoo Automation
     """,
     "author": "Odooteck",
     "website": "https://store.odooteck.com/odoo-shopify-connector.html",
-    "live_test_url": "https://odoodemo.odooteck.com/?module=odooteck_odoo_shopify_connector&version=20.0",
     "category": "eCommerce",
     "sequence": 1,
     "version": "2.0.0",
