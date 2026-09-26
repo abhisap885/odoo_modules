@@ -4,571 +4,885 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Shopify Odoo Connector | Multi-Store Shopify Integration for Odoo 19 | Odooteck</title>
-    <meta name="description" content="Shopify Odoo Connector for Odoo 19 Community &amp; Enterprise. Bi-directional real-time sync for products, variants, multi-location stock, sales orders, customers, custom metafields, refunds, and fulfillment tracking via Shopify GraphQL API. Zero middleware fees."/>
-    <meta name="keywords" content="Shopify Odoo Connector, Odoo Shopify Integration, Shopify Connector for Odoo 19, Odoo 19 Shopify Connector, Shopify Multi Store Odoo, Shopify Inventory Sync, Shopify Stock by Location, Shopify Order Sync, Shopify Customer Sync, Shopify Metafields Sync, Shopify Refund Credit Note, Shopify Webhook HMAC, Odoo eCommerce Bridge, Odooteck"/>
-    <meta name="author" content="Odooteck"/>
-    <meta name="robots" content="index, follow"/>
 </head>
-<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1e293b; background-color: #e2e8f0; margin: 0; padding: 0;">
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1e293b; background-color: #f8fafc; margin: 0; padding: 0;">
 
-<!-- ========================================================================= -->
-<!-- SELF-CONTAINED 3D GLASS CANVAS (Survives Odoo sanitizer with deep orbs)   -->
-<!-- ========================================================================= -->
-<div style="width: 100%; min-height: 100%; padding: 40px 18px; background-color: #eef2f6; background-image: radial-gradient(circle at 8% 6%, rgba(0, 128, 96, 0.28) 0%, transparent 40%), radial-gradient(circle at 92% 10%, rgba(2, 132, 199, 0.26) 0%, transparent 42%), radial-gradient(circle at 50% 32%, rgba(113, 75, 103, 0.18) 0%, transparent 46%), radial-gradient(circle at 12% 65%, rgba(16, 185, 129, 0.24) 0%, transparent 40%), radial-gradient(circle at 88% 75%, rgba(99, 102, 241, 0.22) 0%, transparent 42%), radial-gradient(circle at 50% 95%, rgba(0, 128, 96, 0.20) 0%, transparent 40%); border-radius: 24px; box-sizing: border-box;">
+<div class="container-fluid p-0" style="background-color: #f8fafc;">
+<div class="container py-4" style="max-width: 1140px; margin: 0 auto; padding-left: 15px; padding-right: 15px;">
 
-    <!-- ===================================================================== -->
-    <!-- MAIN 3D FROSTED GLASS CONTAINER (PHYSICAL BEVELS & ELEVATION SHADOWS) -->
-    <!-- ===================================================================== -->
-    <div style="max-width: 1140px; margin: 0 auto; padding: 38px 30px; background: rgba(255, 255, 255, 0.72); backdrop-filter: blur(28px) saturate(190%); -webkit-backdrop-filter: blur(28px) saturate(190%); border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.75); box-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.14), 0 12px 24px -8px rgba(0, 0, 0, 0.08), inset 0 2px 2px rgba(255, 255, 255, 1), inset 0 -2px 4px rgba(0, 0, 0, 0.04); box-sizing: border-box;">
-
-        <!-- ======================================================== -->
-        <!-- 1. TOP BRAND HEADER WITH 3D ICON & BANNER                -->
-        <!-- ======================================================== -->
-        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 26px; padding: 18px 22px; background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.6); border-radius: 16px; box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.95);">
-            <div style="display: flex; align-items: center; gap: 16px;">
-                <img src="icon.png" alt="Shopify Odoo Connector App Icon - Odoo 19" style="width: 60px; height: 60px; border-radius: 16px; box-shadow: 0 10px 25px -4px rgba(0, 128, 96, 0.35), 0 4px 8px -2px rgba(0, 0, 0, 0.1), inset 0 2px 2px rgba(255, 255, 255, 0.8); display: block; border: 1px solid rgba(255, 255, 255, 0.9);"/>
-                <div>
-                    <span style="display: block; font-size: 12px; font-weight: 800; color: #047857; text-transform: uppercase; letter-spacing: 0.8px;">
-                        ODOO 19 &nbsp;|&nbsp; SHOPIFY CONNECTOR
+    <!-- ======================================================== -->
+    <!-- 1. TOP BRAND HEADER                                      -->
+    <!-- ======================================================== -->
+    <div class="card border mb-4" style="border: 1px solid #cbd5e1; border-radius: 14px; background-color: #ffffff;">
+        <div class="card-body p-3 p-md-4">
+            <div class="d-flex align-items-center justify-content-between flex-wrap">
+                <div class="d-flex align-items-center mb-2 mb-md-0">
+                    <img src="icon.png" alt="Shopify Odoo Connector Icon" style="width: 58px; height: 58px; border-radius: 12px; border: 1px solid #e2e8f0; display: block; margin-right: 16px;"/>
+                    <div>
+                        <div style="font-size: 11px; font-weight: 800; color: #008060; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 2px;">
+                            ODOO 19 &bull; NATIVE INTEGRATION
+                        </div>
+                        <h1 style="font-size: 22px; font-weight: 800; color: #0f172a; margin: 0; line-height: 1.2;">
+                            Shopify Odoo Connector
+                        </h1>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center flex-wrap">
+                    <span class="badge" style="background-color: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; font-size: 13px; font-weight: 700; padding: 8px 14px; border-radius: 30px; margin-right: 8px; margin-bottom: 4px; display: inline-block;">
+                        &check; Verified by Odooteck
                     </span>
-                    <span style="display: block; font-size: 23px; font-weight: 800; color: #0f172a; line-height: 1.2;">
-                        Shopify Connector for Odoo 19
-                    </span>
-                </div>
-            </div>
-            <div style="margin-top: 6px;">
-                <span style="background: linear-gradient(135deg, rgba(236, 253, 245, 0.95), rgba(209, 250, 229, 0.9)); color: #047857; font-size: 13px; font-weight: 700; padding: 7px 18px; border-radius: 9999px; border: 1px solid rgba(167, 243, 208, 0.9); box-shadow: 0 4px 12px rgba(0, 128, 96, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.9);">
-                    By Odooteck &bull; Verified Native App
-                </span>
-            </div>
-        </div>
-
-        <!-- Main Hero Banner (3D Elevated Frame) -->
-        <div style="margin-bottom: 30px; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.7); box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.12), 0 8px 16px -4px rgba(0, 0, 0, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.9);">
-            <img src="banner.png" alt="Shopify Odoo Connector for Odoo 19 - Multi-Store eCommerce ERP Integration Banner" style="display: block; width: 100%; max-width: 1120px; height: auto; margin: 0 auto;"/>
-        </div>
-
-        <!-- Hero Introduction (SEO Optimized) -->
-        <div style="margin-bottom: 34px;">
-            <h1 style="margin: 0 0 14px; color: #0f172a; font-size: 32px; font-weight: 800; line-height: 1.3;">
-                Shopify Odoo Connector: All-in-One Multi-Store Shopify &amp; Odoo 19 Integration
-            </h1>
-            <p style="margin: 0 0 18px; font-size: 17px; color: #334155; line-height: 1.65;">
-                Connect unlimited Shopify stores with Odoo 19. Synchronize product catalogs, variant SKUs, multi-location warehouse inventory, sales orders, customer contacts, declarative metafields, order refunds, and real-time delivery tracking directly from your Odoo workspace. Communicates natively via Shopify GraphQL API with zero middleware subscriptions or third-party cloud lock-in.
-            </p>
-
-            <!-- ======================================================== -->
-            <!-- 3D COMPATIBILITY, DEPLOYMENT & EDITIONS MATRIX          -->
-            <!-- ======================================================== -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 22px;">
-                
-                <!-- Card 1: Odoo Compatibility -->
-                <div style="background: linear-gradient(145deg, rgba(255, 255, 255, 0.82) 0%, rgba(248, 250, 252, 0.65) 100%); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2.5px solid #ffffff; border-left: 1.5px solid rgba(255, 255, 255, 0.9); border-right: 1.5px solid rgba(226, 232, 240, 0.7); border-bottom: 3.5px solid rgba(203, 213, 225, 0.85); border-radius: 16px; padding: 18px 20px; box-shadow: 0 14px 28px -5px rgba(15, 23, 42, 0.07), 0 4px 10px -2px rgba(15, 23, 42, 0.03), inset 0 2px 2px rgba(255, 255, 255, 0.95), inset 0 -2px 3px rgba(0, 0, 0, 0.02);">
-                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-                        <div style="width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(135deg, #714B67 0%, #8b557f 100%); display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 6px 14px rgba(113, 75, 103, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.6); flex-shrink: 0;">
-                            ⚙️
-                        </div>
-                        <div>
-                            <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #714B67;">Odoo Compatibility</div>
-                            <div style="font-size: 16px; font-weight: 800; color: #0f172a; line-height: 1.2;">Odoo 19 Certified</div>
-                        </div>
-                    </div>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 20px; font-size: 12.5px; font-weight: 700; background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%); border: 1px solid #cbd5e1; border-top: 1.5px solid #ffffff; border-bottom: 2.5px solid #94a3b8; box-shadow: 0 3px 6px rgba(15, 23, 42, 0.05), inset 0 1px 1px #ffffff; color: #0f172a;">
-                            <span style="width: 7px; height: 7px; border-radius: 50%; background: #714B67; display: inline-block;"></span>
-                            Community (CE)
-                        </span>
-                        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 20px; font-size: 12.5px; font-weight: 700; background: linear-gradient(180deg, #ffffff 0%, #f3e8ff 100%); border: 1px solid #d8b4fe; border-top: 1.5px solid #ffffff; border-bottom: 2.5px solid #a855f7; box-shadow: 0 3px 6px rgba(147, 51, 234, 0.12), inset 0 1px 1px #ffffff; color: #581c87;">
-                            <span style="width: 7px; height: 7px; border-radius: 50%; background: #9333ea; display: inline-block;"></span>
-                            Enterprise (EE)
-                        </span>
-                    </div>
-                    <div style="margin-top: 10px; font-size: 12px; color: #64748b; font-weight: 500;">
-                        100% native <code style="background: rgba(241, 245, 249, 0.9); padding: 1px 5px; border-radius: 4px; font-size: 11px;">&lt;list&gt;</code> views &amp; 3-tier security
-                    </div>
-                </div>
-
-                <!-- Card 2: Deployment Modes -->
-                <div style="background: linear-gradient(145deg, rgba(255, 255, 255, 0.82) 0%, rgba(248, 250, 252, 0.65) 100%); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2.5px solid #ffffff; border-left: 1.5px solid rgba(255, 255, 255, 0.9); border-right: 1.5px solid rgba(226, 232, 240, 0.7); border-bottom: 3.5px solid rgba(203, 213, 225, 0.85); border-radius: 16px; padding: 18px 20px; box-shadow: 0 14px 28px -5px rgba(15, 23, 42, 0.07), 0 4px 10px -2px rgba(15, 23, 42, 0.03), inset 0 2px 2px rgba(255, 255, 255, 0.95), inset 0 -2px 3px rgba(0, 0, 0, 0.02);">
-                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-                        <div style="width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 6px 14px rgba(2, 132, 199, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.6); flex-shrink: 0;">
-                            ☁️
-                        </div>
-                        <div>
-                            <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #0284c7;">Deployment Ready</div>
-                            <div style="font-size: 16px; font-weight: 800; color: #0f172a; line-height: 1.2;">Zero Middleware</div>
-                        </div>
-                    </div>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 20px; font-size: 12.5px; font-weight: 700; background: linear-gradient(180deg, #ffffff 0%, #e0f2fe 100%); border: 1px solid #7dd3fc; border-top: 1.5px solid #ffffff; border-bottom: 2.5px solid #0284c7; box-shadow: 0 3px 6px rgba(2, 132, 199, 0.12), inset 0 1px 1px #ffffff; color: #0369a1;">
-                            <span style="width: 7px; height: 7px; border-radius: 50%; background: #0284c7; display: inline-block;"></span>
-                            Odoo.sh
-                        </span>
-                        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 20px; font-size: 12.5px; font-weight: 700; background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%); border: 1px solid #cbd5e1; border-top: 1.5px solid #ffffff; border-bottom: 2.5px solid #94a3b8; box-shadow: 0 3px 6px rgba(15, 23, 42, 0.05), inset 0 1px 1px #ffffff; color: #0f172a;">
-                            <span style="width: 7px; height: 7px; border-radius: 50%; background: #64748b; display: inline-block;"></span>
-                            Self-Hosted
-                        </span>
-                        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 20px; font-size: 12.5px; font-weight: 700; background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%); border: 1px solid #cbd5e1; border-top: 1.5px solid #ffffff; border-bottom: 2.5px solid #94a3b8; box-shadow: 0 3px 6px rgba(15, 23, 42, 0.05), inset 0 1px 1px #ffffff; color: #0f172a;">
-                            <span style="width: 7px; height: 7px; border-radius: 50%; background: #64748b; display: inline-block;"></span>
-                            On-Premise
-                        </span>
-                    </div>
-                    <div style="margin-top: 10px; font-size: 12px; color: #64748b; font-weight: 500;">
-                        Docker, Linux, Kubernetes &amp; Python 3.12+ ready
-                    </div>
-                </div>
-
-                <!-- Card 3: Shopify Editions -->
-                <div style="background: linear-gradient(145deg, rgba(255, 255, 255, 0.82) 0%, rgba(248, 250, 252, 0.65) 100%); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2.5px solid #ffffff; border-left: 1.5px solid rgba(255, 255, 255, 0.9); border-right: 1.5px solid rgba(226, 232, 240, 0.7); border-bottom: 3.5px solid rgba(203, 213, 225, 0.85); border-radius: 16px; padding: 18px 20px; box-shadow: 0 14px 28px -5px rgba(15, 23, 42, 0.07), 0 4px 10px -2px rgba(15, 23, 42, 0.03), inset 0 2px 2px rgba(255, 255, 255, 0.95), inset 0 -2px 3px rgba(0, 0, 0, 0.02);">
-                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-                        <div style="width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(135deg, #008060 0%, #004c3f 100%); display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 6px 14px rgba(0, 128, 96, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.6); flex-shrink: 0;">
-                            🛍️
-                        </div>
-                        <div>
-                            <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #008060;">Shopify Editions</div>
-                            <div style="font-size: 16px; font-weight: 800; color: #0f172a; line-height: 1.2;">All Plans Supported</div>
-                        </div>
-                    </div>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 20px; font-size: 12.5px; font-weight: 700; background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%); border: 1px solid #cbd5e1; border-top: 1.5px solid #ffffff; border-bottom: 2.5px solid #94a3b8; box-shadow: 0 3px 6px rgba(15, 23, 42, 0.05), inset 0 1px 1px #ffffff; color: #0f172a;">
-                            <span style="width: 7px; height: 7px; border-radius: 50%; background: #008060; display: inline-block;"></span>
-                            Basic &amp; Shopify
-                        </span>
-                        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 20px; font-size: 12.5px; font-weight: 700; background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%); border: 1px solid #cbd5e1; border-top: 1.5px solid #ffffff; border-bottom: 2.5px solid #94a3b8; box-shadow: 0 3px 6px rgba(15, 23, 42, 0.05), inset 0 1px 1px #ffffff; color: #0f172a;">
-                            <span style="width: 7px; height: 7px; border-radius: 50%; background: #008060; display: inline-block;"></span>
-                            Advanced
-                        </span>
-                        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 20px; font-size: 12.5px; font-weight: 700; background: linear-gradient(180deg, #ffffff 0%, #dcfce7 100%); border: 1px solid #86efac; border-top: 1.5px solid #ffffff; border-bottom: 2.5px solid #16a34a; box-shadow: 0 3px 6px rgba(22, 163, 74, 0.15), inset 0 1px 1px #ffffff; color: #14532d;">
-                            <span style="width: 7px; height: 7px; border-radius: 50%; background: #16a34a; display: inline-block;"></span>
-                            Shopify Plus ⭐
-                        </span>
-                    </div>
-                    <div style="margin-top: 10px; font-size: 12px; color: #64748b; font-weight: 500;">
-                        Unlimited store connections via Shopify GraphQL API
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- ======================================================== -->
-        <!-- 2. KEY FEATURES (3D RAISED CARDS)                        -->
-        <!-- ======================================================== -->
-        <div style="margin-bottom: 44px;">
-            <h2 style="color: #0f172a; font-size: 24px; font-weight: 700; border-bottom: 2px solid #008060; padding-bottom: 8px; margin: 0 0 22px;">
-                Key Features &amp; Capabilities
-            </h2>
-
-            <!-- Feature Grid (3D Raised Frosted Cards) -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px;">
-                
-                <div style="background: rgba(255, 255, 255, 0.68); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.7); border-radius: 16px; padding: 20px; box-shadow: 0 12px 28px -5px rgba(15, 23, 42, 0.06), 0 4px 8px -2px rgba(0, 0, 0, 0.03), inset 0 2px 2px rgba(255, 255, 255, 0.95), inset 0 -2px 3px rgba(0, 0, 0, 0.02);">
-                    <div style="font-weight: 700; color: #0f172a; font-size: 16px; margin-bottom: 6px;">
-                        🏬 Multi-Store Shopify Integration
-                    </div>
-                    <p style="font-size: 14px; color: #475569; margin: 0; line-height: 1.55;">
-                        Connect and operate multiple Shopify stores from a single Odoo 19 instance with store-specific warehouses, pricelists, currencies, companies, and sales teams.
-                    </p>
-                </div>
-
-                <div style="background: rgba(255, 255, 255, 0.68); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.7); border-radius: 16px; padding: 20px; box-shadow: 0 12px 28px -5px rgba(15, 23, 42, 0.06), 0 4px 8px -2px rgba(0, 0, 0, 0.03), inset 0 2px 2px rgba(255, 255, 255, 0.95), inset 0 -2px 3px rgba(0, 0, 0, 0.02);">
-                    <div style="font-weight: 700; color: #0f172a; font-size: 16px; margin-bottom: 6px;">
-                        🛡️ Lossless Staging Feeds Queue
-                    </div>
-                    <p style="font-size: 14px; color: #475569; margin: 0; line-height: 1.55;">
-                        Incoming product, variant, order, customer, and collection payloads land in staging queues with full raw JSON inspection, error diagnostics, and one-click re-processing.
-                    </p>
-                </div>
-
-                <div style="background: rgba(255, 255, 255, 0.68); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.7); border-radius: 16px; padding: 20px; box-shadow: 0 12px 28px -5px rgba(15, 23, 42, 0.06), 0 4px 8px -2px rgba(0, 0, 0, 0.03), inset 0 2px 2px rgba(255, 255, 255, 0.95), inset 0 -2px 3px rgba(0, 0, 0, 0.02);">
-                    <div style="font-weight: 700; color: #0f172a; font-size: 16px; margin-bottom: 6px;">
-                        🔄 Bi-directional Product &amp; Variant Sync
-                    </div>
-                    <p style="font-size: 14px; color: #475569; margin: 0; line-height: 1.55;">
-                        Export products from Odoo to Shopify, or import Shopify catalogs into Odoo with automatic SKU, barcode, title, description, and multi-variant matrix cross-referencing.
-                    </p>
-                </div>
-
-                <div style="background: rgba(255, 255, 255, 0.68); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.7); border-radius: 16px; padding: 20px; box-shadow: 0 12px 28px -5px rgba(15, 23, 42, 0.06), 0 4px 8px -2px rgba(0, 0, 0, 0.03), inset 0 2px 2px rgba(255, 255, 255, 0.95), inset 0 -2px 3px rgba(0, 0, 0, 0.02);">
-                    <div style="font-weight: 700; color: #0f172a; font-size: 16px; margin-bottom: 6px;">
-                        📍 Multi-Location Stock Sync (Import &amp; Export)
-                    </div>
-                    <p style="font-size: 14px; color: #475569; margin: 0; line-height: 1.55;">
-                        Pair individual Shopify fulfillment locations with Odoo warehouses and stock locations. Push on-hand quantities, import Shopify stock counts, and route order deliveries automatically.
-                    </p>
-                </div>
-
-                <div style="background: rgba(255, 255, 255, 0.68); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.7); border-radius: 16px; padding: 20px; box-shadow: 0 12px 28px -5px rgba(15, 23, 42, 0.06), 0 4px 8px -2px rgba(0, 0, 0, 0.03), inset 0 2px 2px rgba(255, 255, 255, 0.95), inset 0 -2px 3px rgba(0, 0, 0, 0.02);">
-                    <div style="font-weight: 700; color: #0f172a; font-size: 16px; margin-bottom: 6px;">
-                        📦 Automated Delivery Fulfillment Tracking
-                    </div>
-                    <p style="font-size: 14px; color: #475569; margin: 0; line-height: 1.55;">
-                        Validating a delivery order in Odoo immediately pushes tracking reference numbers and carrier names to Shopify, fulfilling orders and notifying customers automatically.
-                    </p>
-                </div>
-
-                <div style="background: rgba(255, 255, 255, 0.68); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.7); border-radius: 16px; padding: 20px; box-shadow: 0 12px 28px -5px rgba(15, 23, 42, 0.06), 0 4px 8px -2px rgba(0, 0, 0, 0.03), inset 0 2px 2px rgba(255, 255, 255, 0.95), inset 0 -2px 3px rgba(0, 0, 0, 0.02);">
-                    <div style="font-weight: 700; color: #0f172a; font-size: 16px; margin-bottom: 6px;">
-                        🏷️ Declarative Metafields Mapping Engine
-                    </div>
-                    <p style="font-size: 14px; color: #475569; margin: 0; line-height: 1.55;">
-                        Map custom Shopify metafields (materials, care guides, SEO titles, JSON data) directly to native or custom Odoo fields with zero coding and bi-directional direction control.
-                    </p>
-                </div>
-
-                <div style="background: rgba(255, 255, 255, 0.68); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.7); border-radius: 16px; padding: 20px; box-shadow: 0 12px 28px -5px rgba(15, 23, 42, 0.06), 0 4px 8px -2px rgba(0, 0, 0, 0.03), inset 0 2px 2px rgba(255, 255, 255, 0.95), inset 0 -2px 3px rgba(0, 0, 0, 0.02);">
-                    <div style="font-weight: 700; color: #0f172a; font-size: 16px; margin-bottom: 6px;">
-                        💳 Automated Refunds &amp; Credit Notes
-                    </div>
-                    <p style="font-size: 14px; color: #475569; margin: 0; line-height: 1.55;">
-                        When orders are refunded in Shopify, the connector captures refund events, generates matching Customer Credit Notes in Odoo, and provides optional auto-posting.
-                    </p>
-                </div>
-
-                <div style="background: rgba(255, 255, 255, 0.68); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.7); border-radius: 16px; padding: 20px; box-shadow: 0 12px 28px -5px rgba(15, 23, 42, 0.06), 0 4px 8px -2px rgba(0, 0, 0, 0.03), inset 0 2px 2px rgba(255, 255, 255, 0.95), inset 0 -2px 3px rgba(0, 0, 0, 0.02);">
-                    <div style="font-weight: 700; color: #0f172a; font-size: 16px; margin-bottom: 6px;">
-                        ⚡ Real-Time HMAC Webhooks &amp; Audit Logs
-                    </div>
-                    <p style="font-size: 14px; color: #475569; margin: 0; line-height: 1.55;">
-                        Secure webhook ingestion with cryptographic HMAC-SHA256 signature verification, scheduled cron automation, and complete sync history logging.
-                    </p>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- ======================================================== -->
-        <!-- 3. HOW THE WORKFLOW WORKS (INTERACTIVE REPLAY ON HOVER)  -->
-        <!-- ======================================================== -->
-        <div style="margin-top: 40px; margin-bottom: 48px;">
-            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; border-bottom: 2px solid #008060; padding-bottom: 8px; margin-bottom: 14px;">
-                <h2 style="color: #0f172a; font-size: 24px; font-weight: 700; margin: 0;">
-                    How the Workflow Works
-                </h2>
-                <!-- Interactive Replay Indicator Badge -->
-                <span style="font-size: 13px; font-weight: 700; color: #008060; background: rgba(236, 253, 245, 0.95); padding: 5px 14px; border-radius: 9999px; border: 1px solid rgba(167, 243, 208, 0.9); box-shadow: 0 4px 10px rgba(0, 128, 96, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.9); display: inline-flex; align-items: center; gap: 6px;">
-                    <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background-color: #10b981; box-shadow: 0 0 8px #10b981;"></span>
-                    Hover or Click Image to Replay Animation ↻
-                </span>
-            </div>
-            <p style="font-size: 16px; color: #475569; margin: 0 0 20px;">
-                Shopify events enter a staging feed for review and processing into Odoo records, ensuring zero data loss and reliable synchronization.
-            </p>
-
-            <!-- 3D Interactive Workflow Frame with Replay Handler -->
-            <div onmouseenter="var img=this.querySelector('.workflow-anim-img'); if(img){ img.src='sync_flow.gif?t='+Date.now(); }" onclick="var img=this.querySelector('.workflow-anim-img'); if(img){ img.src='sync_flow.gif?t='+Date.now(); }" style="cursor: pointer; border-radius: 18px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.7); box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.15), 0 8px 16px -4px rgba(0, 0, 0, 0.06), inset 0 2px 2px rgba(255, 255, 255, 0.95), inset 0 -2px 4px rgba(0, 0, 0, 0.04); margin-bottom: 24px; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);">
-                
-                <!-- 3D Window Titlebar with Traffic Light Buttons -->
-                <div style="background: rgba(248, 250, 252, 0.90); padding: 10px 18px; border-bottom: 1px solid rgba(226, 232, 240, 0.85); display: flex; align-items: center; justify-content: space-between;">
-                    <div style="display: flex; align-items: center; gap: 7px;">
-                        <span style="width: 11px; height: 11px; border-radius: 50%; background: linear-gradient(135deg, #f87171, #ef4444); display: inline-block; box-shadow: 0 1px 3px rgba(239, 68, 68, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.6);"></span>
-                        <span style="width: 11px; height: 11px; border-radius: 50%; background: linear-gradient(135deg, #fbbf24, #f59e0b); display: inline-block; box-shadow: 0 1px 3px rgba(245, 158, 11, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.6);"></span>
-                        <span style="width: 11px; height: 11px; border-radius: 50%; background: linear-gradient(135deg, #34d399, #10b981); display: inline-block; box-shadow: 0 1px 3px rgba(16, 185, 129, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.6);"></span>
-                        <span style="margin-left: 8px; font-size: 13px; font-weight: 700; color: #334155;">Shopify to Odoo 19 Data Pipeline</span>
-                    </div>
-                    <span style="font-size: 12px; color: #008060; font-weight: 700; background: rgba(236, 253, 245, 0.8); padding: 2px 10px; border-radius: 6px; border: 1px solid rgba(167, 243, 208, 0.7);">
-                        Click / Hover to Replay ↻
+                    <span class="badge" style="background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; font-size: 13px; font-weight: 700; padding: 8px 14px; border-radius: 30px; margin-bottom: 4px; display: inline-block;">
+                        GraphQL API &bull; Zero Middleware
                     </span>
                 </div>
-
-                <img class="workflow-anim-img" src="sync_flow.gif" alt="Shopify to Odoo 19 Real-Time Order, Inventory and Delivery Tracking Data Flow Pipeline" onmouseenter="this.src='sync_flow.gif?t='+Date.now();" onclick="this.src='sync_flow.gif?t='+Date.now();" style="display: block; width: 100%; max-width: 1000px; height: auto; margin: 0 auto;"/>
-            </div>
-
-            <!-- 3-Step Explanation (3D Frosted Glass Cards) -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
-                <div style="background: rgba(255, 255, 255, 0.68); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.6); border-radius: 14px; padding: 18px; box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.95);">
-                    <div style="font-size: 12px; font-weight: 800; color: #008060; text-transform: uppercase;">Step 1: Event Ingestion</div>
-                    <div style="font-size: 15px; font-weight: 700; color: #0f172a; margin: 4px 0;">Webhooks, Cron or Manual Sync</div>
-                    <p style="font-size: 13px; color: #475569; margin: 0; line-height: 1.5;">Shopify triggers an HMAC-verified webhook or Odoo fetches records via scheduled cron or the manual Sync Wizard.</p>
-                </div>
-                <div style="background: rgba(255, 255, 255, 0.68); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.6); border-radius: 14px; padding: 18px; box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.95);">
-                    <div style="font-size: 12px; font-weight: 800; color: #2563eb; text-transform: uppercase;">Step 2: Staging Queue</div>
-                    <div style="font-size: 15px; font-weight: 700; color: #0f172a; margin: 4px 0;">Safe Raw Payload Buffer</div>
-                    <p style="font-size: 13px; color: #475569; margin: 0; line-height: 1.5;">Incoming payloads are staged in <code style="background-color: rgba(241, 245, 249, 0.9); padding: 2px 4px; border-radius: 4px;">shopify.feed</code>. If tax or mapping rules are missing, inspect raw JSON and re-process with one click.</p>
-                </div>
-                <div style="background: rgba(255, 255, 255, 0.68); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.6); border-radius: 14px; padding: 18px; box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.95);">
-                    <div style="font-size: 12px; font-weight: 800; color: #714b67; text-transform: uppercase;">Step 3: Core Odoo Processing</div>
-                    <div style="font-size: 15px; font-weight: 700; color: #0f172a; margin: 4px 0;">Orders, Stock &amp; Invoices</div>
-                    <p style="font-size: 13px; color: #475569; margin: 0; line-height: 1.5;">Feeds convert into Sales Orders, stock moves in mapped warehouses, invoices generate, and tracking numbers push back to Shopify.</p>
-                </div>
             </div>
         </div>
-
-        <!-- ======================================================== -->
-        <!-- 4. EXPLORE THE CONNECTOR (3D WINDOW MOCKUPS)             -->
-        <!-- ======================================================== -->
-        <div style="margin-top: 40px; margin-bottom: 48px;">
-            <h2 style="color: #0f172a; font-size: 24px; font-weight: 700; border-bottom: 2px solid #008060; padding-bottom: 8px; margin: 0 0 14px;">
-                Explore the Connector
-            </h2>
-            <p style="font-size: 16px; color: #475569; margin: 0 0 28px;">
-                These screenshots show the main operational areas and dashboards of the Odoo connector.
-            </p>
-
-            <!-- Screenshot 1: Store Dashboard & Insights (3D Window Frame) -->
-            <div style="background: rgba(255, 255, 255, 0.70); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.7); border-radius: 18px; padding: 22px; margin-bottom: 34px; box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.10), 0 6px 12px -3px rgba(0, 0, 0, 0.04), inset 0 2px 2px rgba(255, 255, 255, 0.95);">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(226, 232, 240, 0.8);">
-                    <div style="display: flex; align-items: center; gap: 7px;">
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #f59e0b; display: inline-block;"></span>
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
-                        <span style="margin-left: 8px; font-size: 14px; font-weight: 700; color: #0f172a;">Store Dashboard and Insights</span>
-                    </div>
-                    <span style="font-size: 12px; color: #64748b; font-weight: 600;">Real-Time KPI Control</span>
-                </div>
-                <p style="font-size: 14px; color: #475569; margin: 0 0 16px;">
-                    Real-time overview of Shopify operations in Odoo, including total synced orders, GMV revenue, active stores, staging feed status, and health metrics.
-                </p>
-                <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(226, 232, 240, 0.85); box-shadow: 0 6px 16px rgba(0,0,0,0.05);">
-                    <img src="01_store_insights.png" alt="Shopify Store Insights Analytics Dashboard in Odoo 19 - Sales Volume, Order Sync, and Staging Health" style="display: block; width: 100%; max-width: 1050px; height: auto; margin: 0 auto;"/>
-                </div>
-            </div>
-
-            <!-- Screenshot 2: Store Connections (3D Window Frame) -->
-            <div style="background: rgba(255, 255, 255, 0.70); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.7); border-radius: 18px; padding: 22px; margin-bottom: 34px; box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.10), 0 6px 12px -3px rgba(0, 0, 0, 0.04), inset 0 2px 2px rgba(255, 255, 255, 0.95);">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(226, 232, 240, 0.8);">
-                    <div style="display: flex; align-items: center; gap: 7px;">
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #f59e0b; display: inline-block;"></span>
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
-                        <span style="margin-left: 8px; font-size: 14px; font-weight: 700; color: #0f172a;">Store Connections</span>
-                    </div>
-                    <span style="font-size: 12px; color: #64748b; font-weight: 600;">Multi-Store Kanban</span>
-                </div>
-                <p style="font-size: 14px; color: #475569; margin: 0 0 16px;">
-                    Kanban view of all connected Shopify store instances with live connection indicators, store URLs, pricelists, and quick sync action buttons.
-                </p>
-                <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(226, 232, 240, 0.85); box-shadow: 0 6px 16px rgba(0,0,0,0.05);">
-                    <img src="02_stores_kanban.png" alt="Odoo 19 Multi-Store Shopify Instances Kanban View with Live Connection Status" style="display: block; width: 100%; max-width: 1050px; height: auto; margin: 0 auto;"/>
-                </div>
-            </div>
-
-            <!-- Screenshot 3: Store Configuration & Settings (3D Window Frame) -->
-            <div style="background: rgba(255, 255, 255, 0.70); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.7); border-radius: 18px; padding: 22px; margin-bottom: 34px; box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.10), 0 6px 12px -3px rgba(0, 0, 0, 0.04), inset 0 2px 2px rgba(255, 255, 255, 0.95);">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(226, 232, 240, 0.8);">
-                    <div style="display: flex; align-items: center; gap: 7px;">
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #f59e0b; display: inline-block;"></span>
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
-                        <span style="margin-left: 8px; font-size: 14px; font-weight: 700; color: #0f172a;">Store Configuration and Settings</span>
-                    </div>
-                    <span style="font-size: 12px; color: #64748b; font-weight: 600;">Shopify OAuth 2.0 &amp; Tokens</span>
-                </div>
-                <p style="font-size: 14px; color: #475569; margin: 0 0 16px;">
-                    Flexible authentication via Shopify OAuth 2.0 (1-Click Redirect) or Direct Admin API Token. Configure default warehouses, pricelists, delivery products, and auto-invoicing rules.
-                </p>
-                <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(226, 232, 240, 0.85); box-shadow: 0 6px 16px rgba(0,0,0,0.05);">
-                    <img src="03_store_instance_form.png" alt="Shopify Store Instance Configuration, GraphQL API Settings, and OAuth 2.0 in Odoo 19" style="display: block; width: 100%; max-width: 1050px; height: auto; margin: 0 auto;"/>
-                </div>
-            </div>
-
-            <!-- Screenshot 4: Staging Feeds (3D Window Frame) -->
-            <div style="background: rgba(255, 255, 255, 0.70); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.7); border-radius: 18px; padding: 22px; margin-bottom: 34px; box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.10), 0 6px 12px -3px rgba(0, 0, 0, 0.04), inset 0 2px 2px rgba(255, 255, 255, 0.95);">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(226, 232, 240, 0.8);">
-                    <div style="display: flex; align-items: center; gap: 7px;">
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #f59e0b; display: inline-block;"></span>
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
-                        <span style="margin-left: 8px; font-size: 14px; font-weight: 700; color: #0f172a;">Staging Feeds</span>
-                    </div>
-                    <span style="font-size: 12px; color: #64748b; font-weight: 600;">Safe Payload Queue</span>
-                </div>
-                <p style="font-size: 14px; color: #475569; margin: 0 0 16px;">
-                    Shopify product and order staging feeds queue with processing states (Pending, Processed, Failed). Inspect raw JSON payloads and re-process failed records anytime.
-                </p>
-                <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(226, 232, 240, 0.85); box-shadow: 0 6px 16px rgba(0,0,0,0.05);">
-                    <img src="04_staging_feeds.png" alt="Lossless Shopify Staging Feeds Queue in Odoo 19 - Product, Order, and Customer Payloads" style="display: block; width: 100%; max-width: 1050px; height: auto; margin: 0 auto;"/>
-                </div>
-            </div>
-
-            <!-- Screenshot 5: Product and Variant Mappings (3D Window Frame) -->
-            <div style="background: rgba(255, 255, 255, 0.70); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.7); border-radius: 18px; padding: 22px; margin-bottom: 34px; box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.10), 0 6px 12px -3px rgba(0, 0, 0, 0.04), inset 0 2px 2px rgba(255, 255, 255, 0.95);">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(226, 232, 240, 0.8);">
-                    <div style="display: flex; align-items: center; gap: 7px;">
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #f59e0b; display: inline-block;"></span>
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
-                        <span style="margin-left: 8px; font-size: 14px; font-weight: 700; color: #0f172a;">Product and Variant Mappings</span>
-                    </div>
-                    <span style="font-size: 12px; color: #64748b; font-weight: 600;">SKU &amp; Barcode Cross-Ref</span>
-                </div>
-                <p style="font-size: 14px; color: #475569; margin: 0 0 16px;">
-                    Complete cross-reference of Odoo product templates and variants with Shopify Product IDs, Variant IDs, and Inventory Item IDs.
-                </p>
-                <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(226, 232, 240, 0.85); box-shadow: 0 6px 16px rgba(0,0,0,0.05);">
-                    <img src="05_product_mappings.png" alt="Shopify Product and Variant SKU Mapping Table in Odoo 19" style="display: block; width: 100%; max-width: 1050px; height: auto; margin: 0 auto;"/>
-                </div>
-            </div>
-
-            <!-- Screenshot 6: Multi-Location Warehouse Mappings (3D Window Frame) -->
-            <div style="background: rgba(255, 255, 255, 0.70); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.7); border-radius: 18px; padding: 22px; margin-bottom: 34px; box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.10), 0 6px 12px -3px rgba(0, 0, 0, 0.04), inset 0 2px 2px rgba(255, 255, 255, 0.95);">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(226, 232, 240, 0.8);">
-                    <div style="display: flex; align-items: center; gap: 7px;">
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #f59e0b; display: inline-block;"></span>
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
-                        <span style="margin-left: 8px; font-size: 14px; font-weight: 700; color: #0f172a;">Multi-Location Warehouse Mappings</span>
-                    </div>
-                    <span style="font-size: 12px; color: #64748b; font-weight: 600;">Location Routing</span>
-                </div>
-                <p style="font-size: 14px; color: #475569; margin: 0 0 16px;">
-                    Pair discovered Shopify fulfillment locations with Odoo warehouses and internal stock locations for accurate stock push, stock import, and order routing.
-                </p>
-                <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(226, 232, 240, 0.85); box-shadow: 0 6px 16px rgba(0,0,0,0.05);">
-                    <img src="09_location_mappings.png" alt="Shopify Multi-Location Fulfillment Warehouse Mapping in Odoo 19" style="display: block; width: 100%; max-width: 1050px; height: auto; margin: 0 auto;"/>
-                </div>
-            </div>
-
-            <!-- Screenshot 7: Order Mappings (3D Window Frame) -->
-            <div style="background: rgba(255, 255, 255, 0.70); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.7); border-radius: 18px; padding: 22px; margin-bottom: 34px; box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.10), 0 6px 12px -3px rgba(0, 0, 0, 0.04), inset 0 2px 2px rgba(255, 255, 255, 0.95);">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(226, 232, 240, 0.8);">
-                    <div style="display: flex; align-items: center; gap: 7px;">
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #f59e0b; display: inline-block;"></span>
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
-                        <span style="margin-left: 8px; font-size: 14px; font-weight: 700; color: #0f172a;">Order Mappings</span>
-                    </div>
-                    <span style="font-size: 12px; color: #64748b; font-weight: 600;">Orders &amp; Financial Tracking</span>
-                </div>
-                <p style="font-size: 14px; color: #475569; margin: 0 0 16px;">
-                    Shopify orders mapped directly to Odoo sales orders, financial status (Paid, Pending, Refunded), fulfillment status, and customer contacts.
-                </p>
-                <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(226, 232, 240, 0.85); box-shadow: 0 6px 16px rgba(0,0,0,0.05);">
-                    <img src="06_order_mappings.png" alt="Shopify Sales Order and Financial Status Mapping in Odoo 19" style="display: block; width: 100%; max-width: 1050px; height: auto; margin: 0 auto;"/>
-                </div>
-            </div>
-
-            <!-- Screenshot 8: Sync Wizard (3D Window Frame) -->
-            <div style="background: rgba(255, 255, 255, 0.70); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.7); border-radius: 18px; padding: 22px; margin-bottom: 34px; box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.10), 0 6px 12px -3px rgba(0, 0, 0, 0.04), inset 0 2px 2px rgba(255, 255, 255, 0.95);">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(226, 232, 240, 0.8);">
-                    <div style="display: flex; align-items: center; gap: 7px;">
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #f59e0b; display: inline-block;"></span>
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
-                        <span style="margin-left: 8px; font-size: 14px; font-weight: 700; color: #0f172a;">Interactive Sync Wizard</span>
-                    </div>
-                    <span style="font-size: 12px; color: #64748b; font-weight: 600;">Manual Batch Operations</span>
-                </div>
-                <p style="font-size: 14px; color: #475569; margin: 0 0 16px;">
-                    On-demand manual synchronization with granular filters: select target entity (Orders, Products, Customers, Inventory, Refunds), date range, and record batch size.
-                </p>
-                <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(226, 232, 240, 0.85); box-shadow: 0 6px 16px rgba(0,0,0,0.05);">
-                    <img src="10_sync_wizard.png" alt="Interactive Shopify Sync Operations Wizard for Incremental Import and Export in Odoo 19" style="display: block; width: 100%; max-width: 1050px; height: auto; margin: 0 auto;"/>
-                </div>
-            </div>
-
-            <!-- Screenshot 9: Synchronization History (3D Window Frame) -->
-            <div style="background: rgba(255, 255, 255, 0.70); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.7); border-radius: 18px; padding: 22px; margin-bottom: 34px; box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.10), 0 6px 12px -3px rgba(0, 0, 0, 0.04), inset 0 2px 2px rgba(255, 255, 255, 0.95);">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(226, 232, 240, 0.8);">
-                    <div style="display: flex; align-items: center; gap: 7px;">
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #f59e0b; display: inline-block;"></span>
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
-                        <span style="margin-left: 8px; font-size: 14px; font-weight: 700; color: #0f172a;">Synchronization History</span>
-                    </div>
-                    <span style="font-size: 12px; color: #64748b; font-weight: 600;">Complete Audit Trail</span>
-                </div>
-                <p style="font-size: 14px; color: #475569; margin: 0 0 16px;">
-                    Shopify synchronization audit trail with execution results (Success, Warning, Error), processed record counts, and full error log tracebacks.
-                </p>
-                <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(226, 232, 240, 0.85); box-shadow: 0 6px 16px rgba(0,0,0,0.05);">
-                    <img src="07_sync_history.png" alt="Detailed Shopify Synchronization Audit History and Execution Logs in Odoo 19" style="display: block; width: 100%; max-width: 1050px; height: auto; margin: 0 auto;"/>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- ======================================================== -->
-        <!-- 5. ODOO 19 STANDARDS & SPECIFICATIONS (3D CARD)          -->
-        <!-- ======================================================== -->
-        <div style="background: rgba(255, 255, 255, 0.68); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 2px solid rgba(203, 213, 225, 0.7); border-radius: 16px; padding: 24px; margin-bottom: 40px; box-shadow: 0 12px 28px -5px rgba(15, 23, 42, 0.05), inset 0 2px 2px rgba(255, 255, 255, 0.95);">
-            <h3 style="color: #0f172a; font-size: 20px; font-weight: 700; margin: 0 0 16px;">
-                Technical Standards &amp; Architecture
-            </h3>
-            <table role="presentation" width="100%" cellpadding="8" cellspacing="0" style="font-size: 14px; border-collapse: collapse;">
-                <tr style="border-bottom: 1px solid rgba(226, 232, 240, 0.85);">
-                    <td style="width: 28%; font-weight: 700; color: #0f172a;">Odoo Framework</td>
-                    <td style="color: #475569;">Odoo 19.0 (Community &amp; Enterprise)</td>
-                </tr>
-                <tr style="border-bottom: 1px solid rgba(226, 232, 240, 0.85);">
-                    <td style="font-weight: 700; color: #0f172a;">View Architecture</td>
-                    <td style="color: #475569;">Native modern <code style="background-color: rgba(241, 245, 249, 0.85); padding: 2px 4px; border-radius: 4px;">&lt;list&gt;</code> views (deprecated <code style="background-color: rgba(241, 245, 249, 0.85); padding: 2px 4px; border-radius: 4px;">&lt;tree&gt;</code> removed)</td>
-                </tr>
-                <tr style="border-bottom: 1px solid rgba(226, 232, 240, 0.85);">
-                    <td style="font-weight: 700; color: #0f172a;">Security Model</td>
-                    <td style="color: #475569;">Strict 3-Tier Security (<code style="background-color: rgba(241, 245, 249, 0.85); padding: 2px 4px; border-radius: 4px;">ir.module.category</code> &rarr; <code style="background-color: rgba(241, 245, 249, 0.85); padding: 2px 4px; border-radius: 4px;">res.groups.privilege</code> &rarr; <code style="background-color: rgba(241, 245, 249, 0.85); padding: 2px 4px; border-radius: 4px;">res.groups</code>)</td>
-                </tr>
-                <tr style="border-bottom: 1px solid rgba(226, 232, 240, 0.85);">
-                    <td style="font-weight: 700; color: #0f172a;">Data Integrity</td>
-                    <td style="color: #475569;">Declarative SQL unique constraints via <code style="background-color: rgba(241, 245, 249, 0.85); padding: 2px 4px; border-radius: 4px;">models.Constraint</code></td>
-                </tr>
-                <tr>
-                    <td style="font-weight: 700; color: #0f172a;">Shopify GraphQL API</td>
-                    <td style="color: #475569;">Direct client with cursor-based pagination, optimized GraphQL queries, and intelligent rate-limit handling</td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- ======================================================== -->
-        <!-- 6. HIGH-INTENT SEARCH TOPICS & SEO TAGS (3D PILL GRID)  -->
-        <!-- ======================================================== -->
-        <div style="margin-bottom: 40px;">
-            <h3 style="color: #0f172a; font-size: 19px; font-weight: 700; margin: 0 0 14px;">
-                Supported Scenarios &amp; Search Capabilities
-            </h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                <span style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 1px solid rgba(203, 213, 225, 0.7); color: #334155; font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">Shopify Odoo Connector</span>
-                <span style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 1px solid rgba(203, 213, 225, 0.7); color: #334155; font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">Odoo 19 Shopify Integration</span>
-                <span style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 1px solid rgba(203, 213, 225, 0.7); color: #334155; font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">Multi-Store Shopify Odoo</span>
-                <span style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 1px solid rgba(203, 213, 225, 0.7); color: #334155; font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">Multi-Location Inventory Sync</span>
-                <span style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 1px solid rgba(203, 213, 225, 0.7); color: #334155; font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">Shopify GraphQL API</span>
-                <span style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 1px solid rgba(203, 213, 225, 0.7); color: #334155; font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">Real-Time HMAC Webhooks</span>
-                <span style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 1px solid rgba(203, 213, 225, 0.7); color: #334155; font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">Shopify Sales Order Ingestion</span>
-                <span style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 1px solid rgba(203, 213, 225, 0.7); color: #334155; font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">Automated Refund Credit Notes</span>
-                <span style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 1px solid rgba(203, 213, 225, 0.7); color: #334155; font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">Declarative Metafields Mapping</span>
-                <span style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 1px solid rgba(203, 213, 225, 0.7); color: #334155; font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">Carrier Fulfillment Tracking</span>
-                <span style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 1px solid rgba(203, 213, 225, 0.7); color: #334155; font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">Lossless Staging Feeds</span>
-                <span style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 1px solid rgba(203, 213, 225, 0.7); color: #334155; font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">SKU &amp; Barcode Matrix</span>
-                <span style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 1px solid rgba(203, 213, 225, 0.7); color: #334155; font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">Odoo Community &amp; Enterprise</span>
-                <span style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.95); border-top: 2px solid rgba(255, 255, 255, 1); border-bottom: 1px solid rgba(203, 213, 225, 0.7); color: #334155; font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">Zero Middleware Subscriptions</span>
-            </div>
-        </div>
-
-        <!-- ======================================================== -->
-        <!-- 7. DEMO REQUEST CTA (3D TACTILE BUTTON)                  -->
-        <!-- ======================================================== -->
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin: 36px 0; background: linear-gradient(135deg, rgba(240, 253, 244, 0.85), rgba(220, 252, 231, 0.75)); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 2px solid rgba(134, 239, 172, 0.85); border-radius: 18px; padding: 30px 22px; box-shadow: 0 16px 36px -6px rgba(0, 128, 96, 0.12), inset 0 2px 2px rgba(255, 255, 255, 0.95), inset 0 -2px 4px rgba(0, 0, 0, 0.02);">
-            <tr>
-                <td align="center">
-                    <div style="font-size: 13px; font-weight: 800; color: #047857; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px;">
-                        LIVE DEMO &amp; IMPLEMENTATION SUPPORT
-                    </div>
-                    <h3 style="font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 10px;">
-                        Schedule a Live Walkthrough of Shopify Odoo Connector
-                    </h3>
-                    <p style="font-size: 14px; color: #374151; max-width: 600px; margin: 0 0 22px; line-height: 1.5;">
-                        Need a guided demo or have questions about multi-store inventory routing? Click below to request a live consultation with our implementation team.
-                    </p>
-                    <a href="mailto:odooteck.apps@gmail.com?subject=Demo%20Request%20%E2%80%94%20Shopify%20Odoo%20Connector&amp;body=Dear%20Odooteck%20Team%2C%0A%0AI%27m%20interested%20in%20scheduling%20a%20live%20demo%20of%20the%20Shopify%20Odoo%20Connector.%20Please%20find%20my%20details%20below.%0A%0A%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%0A%20%20Contact%20Information%0A%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%0A%0A%F0%9F%91%A4%20%20Name%20%20%20%20%20%20%20%20%20%20%20%3A%0A%0A%F0%9F%8F%A2%20%20Company%20%20%20%20%20%20%20%20%3A%0A%0A%F0%9F%93%A7%20%20Work%20Email%20%20%20%20%20%3A%0A%0A%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%0A%20%20Demo%20Details%0A%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%0A%0A%F0%9F%94%A7%20%20Odoo%20Version%20%20%20%20%20%20%20%20%20%20%20%20%3A%20Odoo%2019%0A%0A%F0%9F%9B%92%20%20Number%20of%20Shopify%20Stores%20%3A%0A%0A%F0%9F%92%A1%20%20What%20I%27d%20like%20to%20see%20%20%20%20%20%3A%0A%0A%F0%9F%97%93%20%20Preferred%20Date%20%26%20Time%20%20%20%20%3A%0A%0A%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%E2%94%81%0A%0AThank%20you%20for%20your%20time!%0ALooking%20forward%20to%20connecting%20with%20the%20Odooteck%20team." style="display: inline-block; padding: 15px 36px; border-radius: 10px; background: linear-gradient(180deg, #009670 0%, #008060 60%, #00694e 100%); color: #ffffff; font-weight: 700; font-size: 15px; text-decoration: none; letter-spacing: 0.3px; box-shadow: 0 10px 25px -4px rgba(0, 128, 96, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.4), inset 0 -2px 0 rgba(0, 60, 40, 0.3); border: 1px solid #005a42;">
-                        &#128197; Request a Live Demo
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td align="center" style="padding-top: 12px; color: #4b5563; font-size: 13px;">
-                    Clicking will open your email client with a pre-filled demo template.
-                </td>
-            </tr>
-        </table>
-
-        <!-- Footer -->
-        <div style="text-align: center; padding: 18px 0; border-top: 1px solid rgba(226, 232, 240, 0.85); color: #64748b; font-size: 13px;">
-            <p style="margin: 0 0 4px;"><strong>Shopify Odoo Connector</strong> &bull; Developed by <strong>Odooteck</strong></p>
-            <p style="margin: 0;">Licensed under Odoo Proprietary License v1.0 (OPL-1). All trademarks belong to their respective owners.</p>
-        </div>
-
     </div>
 
+    <!-- ======================================================== -->
+    <!-- 2. MAIN HERO BANNER                                      -->
+    <!-- ======================================================== -->
+    <div class="card border mb-4" style="border: 1px solid #cbd5e1; border-radius: 14px; overflow: hidden; background-color: #ffffff;">
+        <img src="banner.png" alt="Shopify Odoo Connector for Odoo 19 Banner" class="img-fluid" style="display: block; width: 100%; height: auto;"/>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- 3. HERO HEADLINE & COMPATIBILITY MATRIX                  -->
+    <!-- ======================================================== -->
+    <div class="mb-4">
+        <h2 style="font-size: 28px; font-weight: 800; color: #0f172a; margin-top: 0; margin-bottom: 12px; line-height: 1.3;">
+            Shopify Odoo Connector: All-in-One Multi-Store Shopify &amp; Odoo 19 Integration
+        </h2>
+        <p style="font-size: 16px; color: #475569; line-height: 1.6; margin-bottom: 22px;">
+            Connect unlimited Shopify stores directly to Odoo 19. Synchronize product catalogs, variant SKUs, multi-location warehouse inventory, sales orders, customer profiles, custom declarative metafields, order refunds, and real-time delivery fulfillment tracking directly from your Odoo workspace. Communicates natively via Shopify Admin GraphQL API with zero middleware subscriptions, external services, or vendor lock-in.
+        </p>
+
+        <!-- 3-Pillar Compatibility Row (Bootstrap Grid) -->
+        <div class="row g-3">
+            <!-- Pillar 1: Odoo Compatibility -->
+            <div class="col-12 col-md-4">
+                <div class="card h-100 border" style="border: 1px solid #e2e8f0; border-top: 3px solid #714B67; border-radius: 12px; background-color: #ffffff;">
+                    <div class="card-body p-3">
+                        <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: #714B67; letter-spacing: 0.5px; margin-bottom: 4px;">
+                            Odoo Compatibility
+                        </div>
+                        <div style="font-size: 17px; font-weight: 800; color: #0f172a; margin-bottom: 12px;">
+                            Odoo 19 Certified
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <span class="badge" style="background-color: #f8fafc; color: #0f172a; border: 1px solid #cbd5e1; font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 20px; margin-right: 6px; margin-bottom: 6px; display: inline-block;">
+                                &bull; Community (CE)
+                            </span>
+                            <span class="badge" style="background-color: #faf5ff; color: #581c87; border: 1px solid #d8b4fe; font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 20px; margin-bottom: 6px; display: inline-block;">
+                                &bull; Enterprise (EE)
+                            </span>
+                        </div>
+                        <div style="font-size: 12px; color: #64748b;">
+                            100% native <code>&lt;list&gt;</code> views &amp; modern 3-tier security model
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pillar 2: Deployment Ready -->
+            <div class="col-12 col-md-4">
+                <div class="card h-100 border" style="border: 1px solid #e2e8f0; border-top: 3px solid #0284c7; border-radius: 12px; background-color: #ffffff;">
+                    <div class="card-body p-3">
+                        <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: #0284c7; letter-spacing: 0.5px; margin-bottom: 4px;">
+                            Deployment Modes
+                        </div>
+                        <div style="font-size: 17px; font-weight: 800; color: #0f172a; margin-bottom: 12px;">
+                            Zero Cloud Middleware
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <span class="badge" style="background-color: #f0f9ff; color: #0369a1; border: 1px solid #7dd3fc; font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 20px; margin-right: 6px; margin-bottom: 6px; display: inline-block;">
+                                &bull; Odoo.sh
+                            </span>
+                            <span class="badge" style="background-color: #f8fafc; color: #0f172a; border: 1px solid #cbd5e1; font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 20px; margin-right: 6px; margin-bottom: 6px; display: inline-block;">
+                                &bull; On-Premise
+                            </span>
+                            <span class="badge" style="background-color: #f8fafc; color: #0f172a; border: 1px solid #cbd5e1; font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 20px; margin-bottom: 6px; display: inline-block;">
+                                &bull; Docker / Linux
+                            </span>
+                        </div>
+                        <div style="font-size: 12px; color: #64748b;">
+                            Runs natively in Python 3.10+ / 3.12 without external daemons
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pillar 3: Shopify Editions -->
+            <div class="col-12 col-md-4">
+                <div class="card h-100 border" style="border: 1px solid #e2e8f0; border-top: 3px solid #008060; border-radius: 12px; background-color: #ffffff;">
+                    <div class="card-body p-3">
+                        <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: #008060; letter-spacing: 0.5px; margin-bottom: 4px;">
+                            Shopify Support
+                        </div>
+                        <div style="font-size: 17px; font-weight: 800; color: #0f172a; margin-bottom: 12px;">
+                            All Shopify Plans
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <span class="badge" style="background-color: #f8fafc; color: #0f172a; border: 1px solid #cbd5e1; font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 20px; margin-right: 6px; margin-bottom: 6px; display: inline-block;">
+                                &bull; Basic &amp; Shopify
+                            </span>
+                            <span class="badge" style="background-color: #f8fafc; color: #0f172a; border: 1px solid #cbd5e1; font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 20px; margin-right: 6px; margin-bottom: 6px; display: inline-block;">
+                                &bull; Advanced
+                            </span>
+                            <span class="badge" style="background-color: #f0fdf4; color: #166534; border: 1px solid #86efac; font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 20px; margin-bottom: 6px; display: inline-block;">
+                                &bull; Shopify Plus &starf;
+                            </span>
+                        </div>
+                        <div style="font-size: 12px; color: #64748b;">
+                            Unlimited store instances via Custom App GraphQL credentials
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- 4. QUICK SECTION JUMP MENU                               -->
+    <!-- ======================================================== -->
+    <div class="card border mb-4" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+        <div class="card-body p-2 p-md-3">
+            <div class="d-flex align-items-center justify-content-center flex-wrap" style="text-align: center;">
+                <a href="#features" class="btn btn-sm btn-outline-secondary m-1" style="border-radius: 20px; font-weight: 600; padding: 6px 14px;">&star; Key Features</a>
+                <a href="#workflow" class="btn btn-sm btn-outline-secondary m-1" style="border-radius: 20px; font-weight: 600; padding: 6px 14px;">&circlearrowright; How It Works</a>
+                <a href="#screenshots" class="btn btn-sm btn-outline-secondary m-1" style="border-radius: 20px; font-weight: 600; padding: 6px 14px;">&camera; Visual Tour</a>
+                <a href="#user-guide" class="btn btn-sm btn-success m-1" style="background-color: #008060; border-color: #008060; border-radius: 20px; font-weight: 700; padding: 6px 16px;">&book; Step-by-Step User Guide</a>
+                <a href="#architecture" class="btn btn-sm btn-outline-secondary m-1" style="border-radius: 20px; font-weight: 600; padding: 6px 14px;">&gear; Architecture</a>
+                <a href="#faq" class="btn btn-sm btn-outline-secondary m-1" style="border-radius: 20px; font-weight: 600; padding: 6px 14px;">&quest; FAQ &amp; Support</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- 5. KEY FEATURES & CAPABILITIES                           -->
+    <!-- ======================================================== -->
+    <div id="features" class="mb-5">
+        <div style="border-bottom: 2px solid #008060; padding-bottom: 8px; margin-bottom: 20px;">
+            <h3 style="font-size: 22px; font-weight: 800; color: #0f172a; margin: 0;">
+                Key Features &amp; Capabilities
+            </h3>
+        </div>
+
+        <div class="row g-3">
+            <!-- Feature 1 -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card h-100 border" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+                    <div class="card-body p-3">
+                        <div style="font-size: 22px; margin-bottom: 8px;">🏬</div>
+                        <h4 style="font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">
+                            Multi-Store Operations
+                        </h4>
+                        <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin: 0;">
+                            Connect unlimited Shopify stores to a single Odoo 19 database. Configure independent warehouses, pricelists, currencies, companies, and sales teams per store.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card h-100 border" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+                    <div class="card-body p-3">
+                        <div style="font-size: 22px; margin-bottom: 8px;">🛡️</div>
+                        <h4 style="font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">
+                            Lossless Staging Feeds
+                        </h4>
+                        <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin: 0;">
+                            Incoming payloads land in resilient <code>shopify.feed</code> staging queues. Inspect full raw JSON, view traceback errors, and re-process failed records in one click.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card h-100 border" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+                    <div class="card-body p-3">
+                        <div style="font-size: 22px; margin-bottom: 8px;">🔄</div>
+                        <h4 style="font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">
+                            Bi-Directional Catalog
+                        </h4>
+                        <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin: 0;">
+                            Export Odoo templates &amp; variants to Shopify, or import Shopify catalogs into Odoo with automated SKU, barcode, price, and variant matrix cross-referencing.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card h-100 border" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+                    <div class="card-body p-3">
+                        <div style="font-size: 22px; margin-bottom: 8px;">📍</div>
+                        <h4 style="font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">
+                            Multi-Location Stock Sync
+                        </h4>
+                        <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin: 0;">
+                            Pair discovered Shopify fulfillment locations with Odoo warehouses. Push on-hand quantities, import Shopify stock counts, and route order deliveries automatically.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 5 -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card h-100 border" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+                    <div class="card-body p-3">
+                        <div style="font-size: 22px; margin-bottom: 8px;">📦</div>
+                        <h4 style="font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">
+                            Automated Delivery Tracking
+                        </h4>
+                        <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin: 0;">
+                            Validating a delivery order (stock picking) in Odoo immediately pushes tracking reference numbers and carrier names to Shopify, fulfilling orders instantly.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 6 -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card h-100 border" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+                    <div class="card-body p-3">
+                        <div style="font-size: 22px; margin-bottom: 8px;">🏷️</div>
+                        <h4 style="font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">
+                            Declarative Metafields
+                        </h4>
+                        <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin: 0;">
+                            Map custom Shopify metafields (materials, care guides, SEO, JSON attributes) directly to native or custom Odoo fields with bi-directional sync direction control.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 7 -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card h-100 border" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+                    <div class="card-body p-3">
+                        <div style="font-size: 22px; margin-bottom: 8px;">💳</div>
+                        <h4 style="font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">
+                            Automated Order Refunds
+                        </h4>
+                        <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin: 0;">
+                            When orders are refunded on Shopify, the connector captures refund events, generates matching Customer Credit Notes in Odoo, and provides optional auto-posting.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 8 -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card h-100 border" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+                    <div class="card-body p-3">
+                        <div style="font-size: 22px; margin-bottom: 8px;">⚡</div>
+                        <h4 style="font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">
+                            HMAC Webhooks &amp; Crons
+                        </h4>
+                        <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin: 0;">
+                            Built-in HTTP controller with cryptographic HMAC-SHA256 signature verification for instant Shopify webhooks, scheduled cron automation, and complete audit logging.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- 6. HOW THE WORKFLOW WORKS (SYNC FLOW)                    -->
+    <!-- ======================================================== -->
+    <div id="workflow" class="mb-5">
+        <div style="border-bottom: 2px solid #008060; padding-bottom: 8px; margin-bottom: 20px;">
+            <h3 style="font-size: 22px; font-weight: 800; color: #0f172a; margin: 0;">
+                How the Workflow Works
+            </h3>
+        </div>
+
+        <!-- Sync Flow Banner / Animation -->
+        <div class="card border mb-3" style="border: 1px solid #cbd5e1; border-radius: 12px; overflow: hidden; background-color: #ffffff;">
+            <img src="sync_flow.gif" alt="Shopify Odoo Synchronization Workflow Flowchart" class="img-fluid" style="display: block; width: 100%; height: auto;"/>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-12 col-md-3">
+                <div class="card h-100 border" style="border: 1px solid #e2e8f0; border-radius: 10px; background-color: #ffffff;">
+                    <div class="card-body p-3">
+                        <div style="font-size: 13px; font-weight: 800; color: #008060; margin-bottom: 4px;">STEP 1: INGESTION</div>
+                        <div style="font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">Webhook or Cron Trigger</div>
+                        <div style="font-size: 13px; color: #64748b; line-height: 1.5;">
+                            Shopify triggers an HMAC-verified webhook (Order, Product, Customer, Refund) or Odoo polls via scheduled cron or the manual Sync Wizard.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-3">
+                <div class="card h-100 border" style="border: 1px solid #e2e8f0; border-radius: 10px; background-color: #ffffff;">
+                    <div class="card-body p-3">
+                        <div style="font-size: 13px; font-weight: 800; color: #0284c7; margin-bottom: 4px;">STEP 2: RESILIENCE</div>
+                        <div style="font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">Lossless Staging Queue</div>
+                        <div style="font-size: 13px; color: #64748b; line-height: 1.5;">
+                            Raw payloads land in <code>shopify.feed</code> in a Pending state. If tax or mapping rules are missing, inspect raw JSON and re-process with one click.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-3">
+                <div class="card h-100 border" style="border: 1px solid #e2e8f0; border-radius: 10px; background-color: #ffffff;">
+                    <div class="card-body p-3">
+                        <div style="font-size: 13px; font-weight: 800; color: #714B67; margin-bottom: 4px;">STEP 3: CONVERSION</div>
+                        <div style="font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">Core Odoo Records</div>
+                        <div style="font-size: 13px; color: #64748b; line-height: 1.5;">
+                            Feeds resolve to core Odoo records: Sales Orders, Deliveries, Partners, Products, and Invoices with automatic tax, discount, and carrier mapping.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-3">
+                <div class="card h-100 border" style="border: 1px solid #e2e8f0; border-radius: 10px; background-color: #ffffff;">
+                    <div class="card-body p-3">
+                        <div style="font-size: 13px; font-weight: 800; color: #059669; margin-bottom: 4px;">STEP 4: FEEDBACK</div>
+                        <div style="font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">Fulfillment &amp; Stock Push</div>
+                        <div style="font-size: 13px; color: #64748b; line-height: 1.5;">
+                            Validating delivery pickings in Odoo dispatches carrier tracking numbers to Shopify, marking orders fulfilled and updating live stock counts.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- 7. VISUAL TOUR / SCREENSHOTS GALLERY                     -->
+    <!-- ======================================================== -->
+    <div id="screenshots" class="mb-5">
+        <div style="border-bottom: 2px solid #008060; padding-bottom: 8px; margin-bottom: 20px;">
+            <h3 style="font-size: 22px; font-weight: 800; color: #0f172a; margin: 0;">
+                Visual Tour &amp; Dashboard Operations
+            </h3>
+        </div>
+        <p style="font-size: 15px; color: #64748b; margin-bottom: 24px;">
+            Real screenshots from live Odoo 19 instances showcasing dashboards, store kanban, lossless queues, and mapping tables.
+        </p>
+
+        <!-- Screenshot 1: Store Insights -->
+        <div class="card border mb-4" style="border: 1px solid #cbd5e1; border-radius: 14px; overflow: hidden; background-color: #ffffff;">
+            <div class="card-header bg-light border-bottom p-3" style="border-color: #e2e8f0;">
+                <div class="d-flex align-items-center justify-content-between flex-wrap">
+                    <div class="d-flex align-items-center">
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #ef4444; margin-right: 6px;"></span>
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #f59e0b; margin-right: 6px;"></span>
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #10b981; margin-right: 10px;"></span>
+                        <strong style="color: #0f172a; font-size: 15px;">Shopify Operations &amp; Store Insights Dashboard</strong>
+                    </div>
+                    <span class="badge" style="background-color: #f1f5f9; color: #475569; border: 1px solid #cbd5e1;">Live Analytics</span>
+                </div>
+            </div>
+            <div class="card-body p-3">
+                <p style="font-size: 14px; color: #475569; margin-bottom: 14px;">
+                    Real-time visual overview of Shopify operations in Odoo, including total synced orders, GMV sales revenue, connected store statuses, queue health metrics, and pending errors.
+                </p>
+                <div style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+                    <img src="01_store_insights.png" alt="Shopify Operations and Store Insights Dashboard in Odoo 19" class="img-fluid" style="display: block; width: 100%; height: auto;"/>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screenshot 2: Store Kanban -->
+        <div class="card border mb-4" style="border: 1px solid #cbd5e1; border-radius: 14px; overflow: hidden; background-color: #ffffff;">
+            <div class="card-header bg-light border-bottom p-3" style="border-color: #e2e8f0;">
+                <div class="d-flex align-items-center justify-content-between flex-wrap">
+                    <div class="d-flex align-items-center">
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #ef4444; margin-right: 6px;"></span>
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #f59e0b; margin-right: 6px;"></span>
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #10b981; margin-right: 10px;"></span>
+                        <strong style="color: #0f172a; font-size: 15px;">Multi-Store Kanban Overview</strong>
+                    </div>
+                    <span class="badge" style="background-color: #f1f5f9; color: #475569; border: 1px solid #cbd5e1;">Multi-Instance</span>
+                </div>
+            </div>
+            <div class="card-body p-3">
+                <p style="font-size: 14px; color: #475569; margin-bottom: 14px;">
+                    Operate multiple stores from a single interactive Kanban view with quick sync action buttons, store URLs, company assignments, pricelists, and live connection status indicators.
+                </p>
+                <div style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+                    <img src="02_stores_kanban.png" alt="Multi-Store Shopify Kanban Overview in Odoo 19" class="img-fluid" style="display: block; width: 100%; height: auto;"/>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screenshot 3: Store Configuration -->
+        <div class="card border mb-4" style="border: 1px solid #cbd5e1; border-radius: 14px; overflow: hidden; background-color: #ffffff;">
+            <div class="card-header bg-light border-bottom p-3" style="border-color: #e2e8f0;">
+                <div class="d-flex align-items-center justify-content-between flex-wrap">
+                    <div class="d-flex align-items-center">
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #ef4444; margin-right: 6px;"></span>
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #f59e0b; margin-right: 6px;"></span>
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #10b981; margin-right: 10px;"></span>
+                        <strong style="color: #0f172a; font-size: 15px;">Store Configuration, OAuth 2.0 &amp; GraphQL API Settings</strong>
+                    </div>
+                    <span class="badge" style="background-color: #f1f5f9; color: #475569; border: 1px solid #cbd5e1;">API Setup</span>
+                </div>
+            </div>
+            <div class="card-body p-3">
+                <p style="font-size: 14px; color: #475569; margin-bottom: 14px;">
+                    Flexible authentication via Shopify OAuth 2.0 (1-Click Redirect) or Direct Admin API Token. Configure default warehouses, pricelists, delivery products, and auto-invoicing rules.
+                </p>
+                <div style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+                    <img src="03_store_instance_form.png" alt="Shopify Store Instance Form and API Settings in Odoo 19" class="img-fluid" style="display: block; width: 100%; height: auto;"/>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screenshot 4: Staging Feeds Queue -->
+        <div class="card border mb-4" style="border: 1px solid #cbd5e1; border-radius: 14px; overflow: hidden; background-color: #ffffff;">
+            <div class="card-header bg-light border-bottom p-3" style="border-color: #e2e8f0;">
+                <div class="d-flex align-items-center justify-content-between flex-wrap">
+                    <div class="d-flex align-items-center">
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #ef4444; margin-right: 6px;"></span>
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #f59e0b; margin-right: 6px;"></span>
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #10b981; margin-right: 10px;"></span>
+                        <strong style="color: #0f172a; font-size: 15px;">Lossless Staging Feeds Queue (shopify.feed)</strong>
+                    </div>
+                    <span class="badge" style="background-color: #f1f5f9; color: #475569; border: 1px solid #cbd5e1;">Zero Data Loss</span>
+                </div>
+            </div>
+            <div class="card-body p-3">
+                <p style="font-size: 14px; color: #475569; margin-bottom: 14px;">
+                    Shopify product, order, customer, and refund staging queues with processing states (Pending, Processed, Failed). Inspect raw JSON payloads and re-process failed records anytime.
+                </p>
+                <div style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+                    <img src="04_staging_feeds.png" alt="Shopify Lossless Staging Feeds Queue in Odoo 19" class="img-fluid" style="display: block; width: 100%; height: auto;"/>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screenshot 5: Product & Variant Mappings -->
+        <div class="card border mb-4" style="border: 1px solid #cbd5e1; border-radius: 14px; overflow: hidden; background-color: #ffffff;">
+            <div class="card-header bg-light border-bottom p-3" style="border-color: #e2e8f0;">
+                <div class="d-flex align-items-center justify-content-between flex-wrap">
+                    <div class="d-flex align-items-center">
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #ef4444; margin-right: 6px;"></span>
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #f59e0b; margin-right: 6px;"></span>
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #10b981; margin-right: 10px;"></span>
+                        <strong style="color: #0f172a; font-size: 15px;">Product &amp; Variant SKU Mapping Tables</strong>
+                    </div>
+                    <span class="badge" style="background-color: #f1f5f9; color: #475569; border: 1px solid #cbd5e1;">Bi-directional</span>
+                </div>
+            </div>
+            <div class="card-body p-3">
+                <p style="font-size: 14px; color: #475569; margin-bottom: 14px;">
+                    Complete cross-reference of Odoo product templates and variants with Shopify Product IDs, Variant IDs, and Inventory Item IDs.
+                </p>
+                <div style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+                    <img src="05_product_mappings.png" alt="Shopify Product and Variant Mapping Table in Odoo 19" class="img-fluid" style="display: block; width: 100%; height: auto;"/>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screenshot 6: Multi-Location Warehouse Mappings -->
+        <div class="card border mb-4" style="border: 1px solid #cbd5e1; border-radius: 14px; overflow: hidden; background-color: #ffffff;">
+            <div class="card-header bg-light border-bottom p-3" style="border-color: #e2e8f0;">
+                <div class="d-flex align-items-center justify-content-between flex-wrap">
+                    <div class="d-flex align-items-center">
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #ef4444; margin-right: 6px;"></span>
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #f59e0b; margin-right: 6px;"></span>
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #10b981; margin-right: 10px;"></span>
+                        <strong style="color: #0f172a; font-size: 15px;">Multi-Location Warehouse Mappings</strong>
+                    </div>
+                    <span class="badge" style="background-color: #f1f5f9; color: #475569; border: 1px solid #cbd5e1;">Location Routing</span>
+                </div>
+            </div>
+            <div class="card-body p-3">
+                <p style="font-size: 14px; color: #475569; margin-bottom: 14px;">
+                    Pair discovered Shopify fulfillment locations with Odoo warehouses and internal stock locations for accurate stock push, stock import, and order routing.
+                </p>
+                <div style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+                    <img src="09_location_mappings.png" alt="Shopify Multi-Location Fulfillment Warehouse Mapping in Odoo 19" class="img-fluid" style="display: block; width: 100%; height: auto;"/>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screenshot 7: Order Mappings -->
+        <div class="card border mb-4" style="border: 1px solid #cbd5e1; border-radius: 14px; overflow: hidden; background-color: #ffffff;">
+            <div class="card-header bg-light border-bottom p-3" style="border-color: #e2e8f0;">
+                <div class="d-flex align-items-center justify-content-between flex-wrap">
+                    <div class="d-flex align-items-center">
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #ef4444; margin-right: 6px;"></span>
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #f59e0b; margin-right: 6px;"></span>
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #10b981; margin-right: 10px;"></span>
+                        <strong style="color: #0f172a; font-size: 15px;">Order Mappings &amp; Financial Tracking</strong>
+                    </div>
+                    <span class="badge" style="background-color: #f1f5f9; color: #475569; border: 1px solid #cbd5e1;">Sales Orders</span>
+                </div>
+            </div>
+            <div class="card-body p-3">
+                <p style="font-size: 14px; color: #475569; margin-bottom: 14px;">
+                    Shopify orders mapped directly to Odoo sales orders, financial status (Paid, Pending, Refunded), fulfillment status, and customer contacts.
+                </p>
+                <div style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+                    <img src="06_order_mappings.png" alt="Shopify Sales Order and Financial Status Mapping in Odoo 19" class="img-fluid" style="display: block; width: 100%; height: auto;"/>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screenshot 8: Sync Operations Wizard -->
+        <div class="card border mb-4" style="border: 1px solid #cbd5e1; border-radius: 14px; overflow: hidden; background-color: #ffffff;">
+            <div class="card-header bg-light border-bottom p-3" style="border-color: #e2e8f0;">
+                <div class="d-flex align-items-center justify-content-between flex-wrap">
+                    <div class="d-flex align-items-center">
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #ef4444; margin-right: 6px;"></span>
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #f59e0b; margin-right: 6px;"></span>
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #10b981; margin-right: 10px;"></span>
+                        <strong style="color: #0f172a; font-size: 15px;">Interactive Sync Operations Wizard</strong>
+                    </div>
+                    <span class="badge" style="background-color: #f1f5f9; color: #475569; border: 1px solid #cbd5e1;">Batch Control</span>
+                </div>
+            </div>
+            <div class="card-body p-3">
+                <p style="font-size: 14px; color: #475569; margin-bottom: 14px;">
+                    On-demand manual synchronization with granular filters: select target entity (Orders, Products, Customers, Inventory, Refunds), date range, and record batch size.
+                </p>
+                <div style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+                    <img src="10_sync_wizard.png" alt="Interactive Shopify Sync Operations Wizard for Odoo 19" class="img-fluid" style="display: block; width: 100%; height: auto;"/>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screenshot 9: Sync History & Audit Trail -->
+        <div class="card border mb-4" style="border: 1px solid #cbd5e1; border-radius: 14px; overflow: hidden; background-color: #ffffff;">
+            <div class="card-header bg-light border-bottom p-3" style="border-color: #e2e8f0;">
+                <div class="d-flex align-items-center justify-content-between flex-wrap">
+                    <div class="d-flex align-items-center">
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #ef4444; margin-right: 6px;"></span>
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #f59e0b; margin-right: 6px;"></span>
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #10b981; margin-right: 10px;"></span>
+                        <strong style="color: #0f172a; font-size: 15px;">Synchronization History &amp; Audit Trail</strong>
+                    </div>
+                    <span class="badge" style="background-color: #f1f5f9; color: #475569; border: 1px solid #cbd5e1;">Audit Logs</span>
+                </div>
+            </div>
+            <div class="card-body p-3">
+                <p style="font-size: 14px; color: #475569; margin-bottom: 14px;">
+                    Shopify synchronization audit trail with execution results (Success, Warning, Error), processed record counts, execution duration, and full error log tracebacks.
+                </p>
+                <div style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+                    <img src="07_sync_history.png" alt="Detailed Shopify Synchronization Audit History in Odoo 19" class="img-fluid" style="display: block; width: 100%; height: auto;"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- 8. STEP-BY-STEP USER GUIDE & CONFIGURATION MANUAL        -->
+    <!-- ======================================================== -->
+    <div id="user-guide" class="mb-5">
+        <div style="border-bottom: 2px solid #008060; padding-bottom: 8px; margin-bottom: 20px;">
+            <span class="badge" style="background-color: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 12px; margin-bottom: 6px; display: inline-block;">
+                OFFICIAL USER GUIDE
+            </span>
+            <h3 style="font-size: 24px; font-weight: 800; color: #0f172a; margin: 0;">
+                Setup, Configuration &amp; User Manual
+            </h3>
+        </div>
+
+        <!-- Guide Step 1: Shopify Admin Credentials -->
+        <div class="card border mb-3" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-3">
+                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background-color: #008060; color: #ffffff; font-weight: 800; font-size: 15px; margin-right: 12px; flex-shrink: 0;">
+                        1
+                    </span>
+                    <h4 style="font-size: 18px; font-weight: 800; color: #0f172a; margin: 0;">
+                        Generate Shopify Admin API Credentials
+                    </h4>
+                </div>
+                <p style="font-size: 14px; color: #475569; line-height: 1.6; margin-bottom: 12px;">
+                    To establish a direct connection between Shopify and your Odoo 19 instance without middleware, create a Custom App inside your Shopify Store Admin:
+                </p>
+                <ol style="font-size: 14px; color: #334155; line-height: 1.7; padding-left: 20px; margin-bottom: 14px;">
+                    <li>Log in to your <strong>Shopify Store Admin</strong> and navigate to <strong>Settings &rarr; Apps and sales channels &rarr; Develop apps</strong>.</li>
+                    <li>Click <strong>Create an app</strong> and give it a name (e.g., <em>Odoo 19 Shopify Connector</em>).</li>
+                    <li>Under <strong>Configuration &rarr; Admin API integration</strong>, enable the following Admin API Access Scopes:
+                        <div class="p-2 my-2 border rounded" style="background-color: #f8fafc; font-family: monospace; font-size: 12px; color: #0f172a;">
+                            read_products, write_products, read_orders, write_orders, read_customers, write_customers, read_inventory, write_inventory, read_locations, read_fulfillments, write_fulfillments, read_merchant_managed_fulfillment_orders, write_merchant_managed_fulfillment_orders
+                        </div>
+                    </li>
+                    <li>Click <strong>Save</strong> and then click <strong>Install app</strong>.</li>
+                    <li>Copy your <strong>Admin API access token</strong> (starts with <code>shpat_</code>). <em>Note: Store it securely as it is displayed only once.</em></li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Guide Step 2: Configure Store in Odoo -->
+        <div class="card border mb-3" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-3">
+                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background-color: #008060; color: #ffffff; font-weight: 800; font-size: 15px; margin-right: 12px; flex-shrink: 0;">
+                        2
+                    </span>
+                    <h4 style="font-size: 18px; font-weight: 800; color: #0f172a; margin: 0;">
+                        Configure Shopify Store Instance in Odoo 19
+                    </h4>
+                </div>
+                <p style="font-size: 14px; color: #475569; line-height: 1.6; margin-bottom: 12px;">
+                    With your API credentials ready, create a new connected store instance in Odoo:
+                </p>
+                <ol style="font-size: 14px; color: #334155; line-height: 1.7; padding-left: 20px; margin-bottom: 14px;">
+                    <li>Open <strong>Shopify &rarr; Configuration &rarr; Stores</strong> in Odoo 19 and click <strong>New</strong>.</li>
+                    <li>Enter a store name (e.g. <em>My Brand US</em>) and your Shopify domain URL (e.g. <code>mybrand.myshopify.com</code>).</li>
+                    <li>Under the <strong>Credentials</strong> tab:
+                        <ul style="margin-top: 4px;">
+                            <li>Select <strong>Authentication Mode: Admin API Token</strong>.</li>
+                            <li>Paste your <code>shpat_...</code> token into the <strong>Admin API Access Token</strong> field.</li>
+                        </ul>
+                    </li>
+                    <li>Under the <strong>Defaults</strong> tab, select your default <em>Warehouse</em>, <em>Pricelist</em>, <em>Sales Team</em>, <em>Company</em>, and <em>Delivery Product</em>.</li>
+                    <li>Click the <strong>Test Connection</strong> button in the top action bar. Upon successful verification, the store status changes to <span class="badge" style="background-color: #ecfdf5; color: #047857; border: 1px solid #a7f3d0;">Connected</span>.</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Guide Step 3: Location Mapping & Multi-Location Stock -->
+        <div class="card border mb-3" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-3">
+                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background-color: #008060; color: #ffffff; font-weight: 800; font-size: 15px; margin-right: 12px; flex-shrink: 0;">
+                        3
+                    </span>
+                    <h4 style="font-size: 18px; font-weight: 800; color: #0f172a; margin: 0;">
+                        Discover &amp; Map Fulfillment Locations (Multi-Location Inventory)
+                    </h4>
+                </div>
+                <p style="font-size: 14px; color: #475569; line-height: 1.6; margin-bottom: 12px;">
+                    Shopify stores can fulfill orders from multiple locations (e.g., Primary Warehouse, East Coast 3PL, Retail Store). Pair them with corresponding Odoo warehouses:
+                </p>
+                <ol style="font-size: 14px; color: #334155; line-height: 1.7; padding-left: 20px; margin-bottom: 14px;">
+                    <li>On the Store Instance form, click the <strong>Discover Locations</strong> button.</li>
+                    <li>The connector automatically imports all active locations from Shopify into <strong>Shopify &rarr; Configuration &rarr; Location Mappings</strong>.</li>
+                    <li>For each discovered Shopify location, select the target <strong>Odoo Warehouse</strong> and <strong>Stock Location</strong> (e.g. <code>WH/Stock</code>).</li>
+                    <li>When orders are imported from Shopify, Odoo routes delivery pickings directly to the mapped warehouse. Stock export routines also push on-hand counts from the matching stock location to the respective Shopify location.</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Guide Step 4: Webhook Real-time Integration -->
+        <div class="card border mb-3" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-3">
+                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background-color: #008060; color: #ffffff; font-weight: 800; font-size: 15px; margin-right: 12px; flex-shrink: 0;">
+                        4
+                    </span>
+                    <h4 style="font-size: 18px; font-weight: 800; color: #0f172a; margin: 0;">
+                        Configure Real-Time Webhooks with HMAC-SHA256
+                    </h4>
+                </div>
+                <p style="font-size: 14px; color: #475569; line-height: 1.6; margin-bottom: 12px;">
+                    Enable real-time event updates from Shopify into Odoo (sub-second order creation):
+                </p>
+                <ol style="font-size: 14px; color: #334155; line-height: 1.7; padding-left: 20px; margin-bottom: 14px;">
+                    <li>Copy your <strong>Webhook Secret Key</strong> from your Shopify Custom App overview.</li>
+                    <li>Paste it into the <strong>Webhook Secret</strong> field on your Odoo Store Instance form.</li>
+                    <li>In Shopify Admin, navigate to <strong>Settings &rarr; Notifications &rarr; Webhooks</strong> and create webhooks for:
+                        <ul style="margin-top: 4px;">
+                            <li><code>orders/create</code> &rarr; <code>https://your-odoo-domain.com/shopify/webhook/orders_create</code></li>
+                            <li><code>orders/updated</code> &rarr; <code>https://your-odoo-domain.com/shopify/webhook/orders_updated</code></li>
+                            <li><code>refunds/create</code> &rarr; <code>https://your-odoo-domain.com/shopify/webhook/refunds_create</code></li>
+                            <li><code>products/create</code> &amp; <code>products/update</code> &rarr; <code>https://your-odoo-domain.com/shopify/webhook/products_...</code></li>
+                        </ul>
+                    </li>
+                    <li>Every incoming webhook is verified cryptographically via <code>X-Shopify-Hmac-Sha256</code> headers before being accepted into the lossless queue.</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Guide Step 5: Declarative Metafields Engine -->
+        <div class="card border mb-3" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-3">
+                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background-color: #008060; color: #ffffff; font-weight: 800; font-size: 15px; margin-right: 12px; flex-shrink: 0;">
+                        5
+                    </span>
+                    <h4 style="font-size: 18px; font-weight: 800; color: #0f172a; margin: 0;">
+                        Declarative Metafields Mapping Engine
+                    </h4>
+                </div>
+                <p style="font-size: 14px; color: #475569; line-height: 1.6; margin-bottom: 12px;">
+                    Map arbitrary Shopify custom fields directly to Odoo model attributes without writing Python code:
+                </p>
+                <ul style="font-size: 14px; color: #334155; line-height: 1.7; padding-left: 20px; margin-bottom: 14px;">
+                    <li>Navigate to <strong>Shopify &rarr; Configuration &rarr; Metafield Mappings</strong>.</li>
+                    <li>Select the target entity (<code>product.template</code>, <code>product.product</code>, <code>res.partner</code>, <code>sale.order</code>).</li>
+                    <li>Specify the Shopify Metafield <strong>Namespace</strong> (e.g. <code>custom</code>) and <strong>Key</strong> (e.g. <code>material_care</code>).</li>
+                    <li>Select the matching <strong>Odoo Field</strong> from the dropdown.</li>
+                    <li>Set the <strong>Direction</strong>: <em>Bidirectional</em>, <em>Import Only</em>, or <em>Export Only</em>. Supported types include Single-Line Text, Multi-Line Text, Integer, Decimal, Boolean, JSON, and URL.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Guide Step 6: Automated Refunds -->
+        <div class="card border mb-3" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-3">
+                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background-color: #008060; color: #ffffff; font-weight: 800; font-size: 15px; margin-right: 12px; flex-shrink: 0;">
+                        6
+                    </span>
+                    <h4 style="font-size: 18px; font-weight: 800; color: #0f172a; margin: 0;">
+                        Automated Order Refunds &amp; Credit Notes
+                    </h4>
+                </div>
+                <p style="font-size: 14px; color: #475569; line-height: 1.6; margin-bottom: 12px;">
+                    When customer returns or refund adjustments occur on Shopify:
+                </p>
+                <ul style="font-size: 14px; color: #334155; line-height: 1.7; padding-left: 20px; margin-bottom: 14px;">
+                    <li>Shopify triggers a <code>refunds/create</code> event or the Sync Wizard fetches recent refunds.</li>
+                    <li>The connector locates the matching Odoo Sales Order and its posted customer invoice.</li>
+                    <li>Automatically generates a <strong>Customer Credit Note</strong> (<code>account.move</code> of type <code>out_refund</code>) with the exact refund amount and line item breakdowns.</li>
+                    <li>Configure optional automation toggles on your Store form: <em>Auto-Process Refunds</em>, <em>Auto-Create Credit Notes</em>, and <em>Auto-Post Credit Notes</em>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- 9. TECHNICAL ARCHITECTURE & COMPLIANCE                   -->
+    <!-- ======================================================== -->
+    <div id="architecture" class="mb-5">
+        <div style="border-bottom: 2px solid #008060; padding-bottom: 8px; margin-bottom: 20px;">
+            <h3 style="font-size: 22px; font-weight: 800; color: #0f172a; margin: 0;">
+                Technical Architecture &amp; Odoo 19 Standards
+            </h3>
+        </div>
+
+        <div class="card border" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff; overflow: hidden;">
+            <table class="table table-bordered mb-0" style="font-size: 14px;">
+                <tbody>
+                    <tr>
+                        <td style="width: 25%; font-weight: 700; color: #0f172a; background-color: #f8fafc;">Odoo Edition Support</td>
+                        <td style="color: #334155;">Odoo 19.0 Community (CE), Enterprise (EE), Odoo.sh &amp; Self-Hosted Docker</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; color: #0f172a; background-color: #f8fafc;">View Architecture</td>
+                        <td style="color: #334155;">Strictly utilizes native <code>&lt;list&gt;</code> views. Deprecated <code>&lt;tree&gt;</code> tags completely removed.</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; color: #0f172a; background-color: #f8fafc;">Security Model</td>
+                        <td style="color: #334155;">Modern 3-Tier Security: <code>ir.module.category</code> &rarr; <code>res.groups.privilege</code> &rarr; <code>res.groups</code></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; color: #0f172a; background-color: #f8fafc;">Data Integrity</td>
+                        <td style="color: #334155;">Modern declarative constraints via <code>models.Constraint</code> (Odoo 19 standard)</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; color: #0f172a; background-color: #f8fafc;">Shopify API Engine</td>
+                        <td style="color: #334155;">Native Shopify Admin GraphQL API (2024-04+) with automatic pagination &amp; throttle backoff</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; color: #0f172a; background-color: #f8fafc;">Dependencies</td>
+                        <td style="color: #334155;"><code>base</code>, <code>sale_management</code>, <code>stock</code>, <code>account</code> (Standard Odoo core modules)</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; color: #0f172a; background-color: #f8fafc;">External Libraries</td>
+                        <td style="color: #334155;">Zero proprietary dependencies. Standard Python libraries: <code>requests</code>, <code>urllib3</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- 10. FREQUENTLY ASKED QUESTIONS (FAQ)                     -->
+    <!-- ======================================================== -->
+    <div id="faq" class="mb-5">
+        <div style="border-bottom: 2px solid #008060; padding-bottom: 8px; margin-bottom: 20px;">
+            <h3 style="font-size: 22px; font-weight: 800; color: #0f172a; margin: 0;">
+                Frequently Asked Questions (FAQ)
+            </h3>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-12 col-md-6">
+                <div class="card h-100 border" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+                    <div class="card-body p-3">
+                        <h4 style="font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">
+                            Can I connect multiple Shopify stores with different currencies?
+                        </h4>
+                        <p style="font-size: 13.5px; color: #475569; line-height: 1.55; margin: 0;">
+                            Yes. Each Shopify store instance is independent. You can assign different default currencies, pricelists, warehouses, sales teams, and Odoo companies to each store.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="card h-100 border" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+                    <div class="card-body p-3">
+                        <h4 style="font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">
+                            Are there recurring monthly subscription or middleware fees?
+                        </h4>
+                        <p style="font-size: 13.5px; color: #475569; line-height: 1.55; margin: 0;">
+                            No. Unlike connector SaaS platforms that charge per order or per month, this module is a one-time purchase with direct Odoo-to-Shopify GraphQL communication and zero intermediary fees.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="card h-100 border" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+                    <div class="card-body p-3">
+                        <h4 style="font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">
+                            Does this module support Odoo.sh cloud hosting?
+                        </h4>
+                        <p style="font-size: 13.5px; color: #475569; line-height: 1.55; margin: 0;">
+                            Yes. The module is fully tested and 100% compliant with Odoo.sh, standard on-premise servers, and containerized Docker environments without any custom OS dependencies.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="card h-100 border" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+                    <div class="card-body p-3">
+                        <h4 style="font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 6px;">
+                            What happens if an order contains an unmapped product?
+                        </h4>
+                        <p style="font-size: 13.5px; color: #475569; line-height: 1.55; margin: 0;">
+                            The raw order lands safely in the <code>shopify.feed</code> queue with an error flag. No data is lost. You can either auto-create the missing product or manually map it, then click "Process" to convert the order immediately.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- 11. LIVE DEMO & SUPPORT FOOTER                           -->
+    <!-- ======================================================== -->
+    <div class="card border" style="border: 1px solid #cbd5e1; border-radius: 14px; background-color: #ffffff;">
+        <div class="card-body p-4 text-center">
+            <h3 style="font-size: 22px; font-weight: 800; color: #0f172a; margin-bottom: 8px;">
+                Need Assistance or a Personalized Live Walkthrough?
+            </h3>
+            <p style="font-size: 15px; color: #475569; max-width: 680px; margin: 0 auto 20px; line-height: 1.6;">
+                Our certified implementation engineers are available for live demonstrations, architecture consultations, and migration guidance from legacy connectors.
+            </p>
+            <div class="d-flex align-items-center justify-content-center flex-wrap">
+                <a href="mailto:odooteck.apps@gmail.com?subject=Demo%20Request%20%E2%80%94%20Shopify%20Odoo%20Connector&body=Dear%20Odooteck%20Team%2C%0A%0AI%20would%20like%20to%20request%20a%20live%20walkthrough%20of%20the%20Shopify%20Odoo%20Connector.%0A%0ACompany%3A%0AOdoo%20Version%3A%2019%0ANumber%20of%20Stores%3A%0A%0AThank%20you!" class="btn btn-success m-2" style="background-color: #008060; border-color: #008060; font-size: 15px; font-weight: 700; padding: 10px 24px; border-radius: 30px;">
+                    &phone; Request Live Demo
+                </a>
+                <a href="mailto:odooteck.apps@gmail.com?subject=Technical%20Inquiry%20%E2%80%94%20Shopify%20Odoo%20Connector" class="btn btn-outline-secondary m-2" style="font-size: 15px; font-weight: 700; padding: 10px 24px; border-radius: 30px;">
+                    &envelope; Contact Technical Support
+                </a>
+            </div>
+            <div style="margin-top: 24px; font-size: 12px; color: #94a3b8; border-top: 1px solid #f1f5f9; padding-top: 16px;">
+                Shopify Odoo Connector &bull; Developed by Odooteck &bull; Licensed under Odoo Proprietary License v1.0 (OPL-1)
+            </div>
+        </div>
+    </div>
+
+</div>
 </div>
 
 </body>
