@@ -3,40 +3,49 @@
 # See LICENSE file for full copyright and licensing details.
 
 {
-    "name": "Shopify Odoo Connector",
+    "name": "Shopify Odoo Connector | Multi-Store Shopify Integration",
     "summary": """
-        Sync Shopify with Odoo — products, orders, customers, inventory & fulfillment.
-        Multi-store support, real-time webhooks, automated staging feeds, and full audit logs.
-        Works with Odoo 19 Community, Enterprise, Odoo.sh and On-Premise.
+        Connect Shopify stores with Odoo 19. Real-time bi-directional sync for products, variants, multi-location stock, sales orders, customers, metafields, refunds, and fulfillment tracking via Shopify GraphQL API.
     """,
     "description": """
 Shopify Odoo Connector
 Shopify Odoo Integration
-Shopify Connector for Odoo
-Odoo Shopify Sync
-Shopify Odoo Product Sync
-Shopify Odoo Order Sync
-Shopify Odoo Inventory Sync
-Shopify Odoo Customer Sync
-Shopify Odoo Fulfillment
+Shopify Connector for Odoo 19
+Odoo 19 Shopify Connector
+Odoo Shopify Integration
 Shopify Multi Store Odoo
-Shopify Webhook Odoo
-Shopify Odoo eCommerce
-Shopify Odoo 19
-Shopify Odoo 18
-Shopify Odoo 20
-Odoo Shopify Integration App
+Shopify Multi Location Inventory Odoo
+Shopify Stock Sync by Warehouse
+Shopify Inventory Management Odoo
+Shopify Product Sync Odoo
+Shopify Product Export Odoo
+Shopify Product Variant Import Odoo
+Shopify Order Sync Odoo
+Shopify Sales Order Import Odoo
+Shopify Order Management Odoo 19
+Shopify Customer Sync Odoo
+Shopify Fulfillment Tracking Odoo
+Shopify Delivery Tracking Sync
+Shopify Refund Credit Note Odoo
+Shopify Return Management Odoo
+Shopify Metafields Sync Odoo
+Shopify Declarative Metafields Odoo
+Shopify GraphQL API Odoo
+Shopify OAuth 2.0 Odoo
+Shopify Webhook HMAC SHA256 Odoo
+Shopify Staging Feeds Odoo
+Shopify Lossless Queue Odoo
+Shopify Auto Invoice Odoo
+Shopify Dropshipping Odoo
+Shopify B2B Wholesale Odoo
+Shopify POS Sync Odoo
+Shopify eCommerce Bridge Odoo
 Shopify Connector Odoo Community
 Shopify Connector Odoo Enterprise
-Shopify Odoo Mapping
-Shopify Staging Feed Odoo
-Shopify Odoo Sync History
-Shopify Stock Sync Odoo
-Shopify Product Import Odoo
-Shopify Order Import Odoo
-Shopify Customer Import Odoo
-Odoo eCommerce Shopify Bridge
-Shopify Odoo Automation
+Shopify Connector Odoo.sh
+Shopify Connector On Premise
+Odoo Shopify App
+Shopify Integration App for Odoo
     """,
     "author": "Odooteck",
     "category": "eCommerce",
@@ -87,7 +96,7 @@ Shopify Odoo Automation
             "odooteck_odoo_shopify_connector/static/src/xml/shopify_insights_dashboard.xml",
         ],
     },
-    "images": ["static/description/Banner.gif"],
+    "images": ["static/description/banner.png"],
     "application": True,
     "installable": True,
     "auto_install": False,

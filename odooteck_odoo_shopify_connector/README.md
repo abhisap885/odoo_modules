@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/License-OPL--1-blue.svg)](LICENSE)
 ![Author](https://img.shields.io/badge/Author-Odooteck-orange.svg)
 
-**Shopify Odoo Connector** is a modern, standalone, enterprise-grade integration bridge connecting one or multiple Shopify stores with **Odoo 19**. Developed strictly adhering to modern Odoo 19 architecture standards, it communicates directly with the **Shopify Admin REST API** without requiring third-party middleware, external subscription services, or proprietary dependencies.
+**Shopify Odoo Connector** is a modern, standalone, enterprise-grade integration bridge connecting one or multiple Shopify stores with **Odoo 19**. Developed strictly adhering to modern Odoo 19 architecture standards, it communicates directly with the **Shopify Admin GraphQL API** without requiring third-party middleware, external subscription services, or proprietary dependencies.
 
 ---
 
@@ -77,7 +77,7 @@
 | :--- | :--- |
 | **Odoo Framework** | Odoo 19.0 (Community & Enterprise) |
 | **Python Runtime** | Python 3.10+ (tested on Python 3.12) |
-| **Shopify API** | Shopify Admin REST API (`2024-07`, `2024-10`, `2025-01`, `2025-04`) |
+| **Shopify API** | Shopify Admin GraphQL API |
 | **Security Architecture** | Odoo 19 3-tier model with `res.groups.privilege` |
 | **View Engine** | Native `<list>` views & modern Python domain expressions (`invisible="..."`) |
 | **Data Integrity** | `models.Constraint` declarative SQL unique indices |
@@ -161,7 +161,7 @@ In Odoo, configure operational defaults on the instance record:
 | :--- | :--- | :--- |
 | **Store Name** | A friendly internal reference | `My Main Store` |
 | **Store URL** | Primary `myshopify.com` domain | `https://my-store.myshopify.com` |
-| **API Version** | Shopify REST API Version | `2025-01 (Recommended)` |
+| **API Version** | Shopify API Version | `Latest Stable` |
 | **Default Warehouse** | Odoo warehouse for order fulfillment | `San Francisco / WH` |
 | **Company** | Multi-company assignment | `Your Company` |
 | **Sales Team** | Sales channel assignment | `Website Sales` |
@@ -175,8 +175,8 @@ In Odoo, configure operational defaults on the instance record:
 
 1. If connecting via Direct Token, click **Connect & Test** in the header.
 2. If connecting via OAuth, click **Connect via Shopify OAuth**.
-2. The connector verifies API credentials, retrieves store information, and activates the store into `Connected` state.
-3. Click **Discover Locations** in the header or open the **Locations** tab. The connector automatically fetches all Shopify fulfillment locations and maps them into Odoo.
+3. The connector verifies API credentials, retrieves store information, and activates the store into `Connected` state.
+4. Click **Discover Locations** in the header or open the **Locations** tab. The connector automatically fetches all Shopify fulfillment locations and maps them into Odoo.
 
 ---
 
@@ -384,7 +384,7 @@ odooteck_odoo_shopify_connector/
 │   ├── data.xml                 # Default sequences
 │   └── cron.xml                 # Scheduled actions for orders & stock
 ├── models/
-│   ├── shopify_client.py        # Dedicated REST API client wrapper
+│   ├── shopify_client.py        # Dedicated Shopify API client wrapper
 │   ├── shopify_instance.py      # Core store configuration & credentials
 │   ├── shopify_feed.py          # Staging queue, order processing & metafield engine
 │   ├── shopify_mappings.py      # Templates, variants, orders, partners, taxes, locations, metafields, refunds
