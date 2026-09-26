@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ot_ai_product_sync_form" model="ir.ui.view">
+        <field name="name">ot.ai.product.sync.form</field>
+        <field name="model">ot.ai.product.sync</field>
+        <field name="arch" type="xml">
+            <form string="Train AI on Products">
+                <group>
+                    <field name="bot_id" invisible="1"/>
+                    <field name="field_name"/>
+                    <field name="field_description"/>
+                    <field name="field_price"/>
+                </group>
+                <footer>
+                    <button name="action_sync" string="Train Now" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ot_ai_product_sync" model="ir.actions.act_window">
+        <field name="name">Train AI on Products</field>
+        <field name="res_model">ot.ai.product.sync</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

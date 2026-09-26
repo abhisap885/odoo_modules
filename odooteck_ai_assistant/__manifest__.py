@@ -15,7 +15,7 @@
         "views/provider_views.xml",
         "views/bot_views.xml",
         "views/knowledge_views.xml",
-        "wizard/knowledge_import_views.xml",
+        "wizard/knowledge_import_views.xml",\n        "wizard/product_sync_views.xml",
         "views/session_views.xml",
         "views/channel_views.xml",
         "views/website_template.xml",
