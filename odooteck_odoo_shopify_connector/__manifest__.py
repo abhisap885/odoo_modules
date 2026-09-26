@@ -89,7 +89,7 @@ Shopify Odoo Automation
             "odooteck_odoo_shopify_connector/static/src/xml/shopify_insights_dashboard.xml",
         ],
     },
-    "images": ["static/description/Banner.gif"],
+    "images": ["static/description/banner.gif"],
     "application": True,
     "installable": True,
     "auto_install": False,
