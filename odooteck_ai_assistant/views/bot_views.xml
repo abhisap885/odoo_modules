@@ -1,0 +1,11 @@
+<odoo>
+    <record id="view_ot_ai_bot_list" model="ir.ui.view">
+        <field name="name">ot.ai.bot.list</field><field name="model">ot.ai.bot</field>
+        <field name="arch" type="xml"><list><field name="name"/><field name="website_enabled"/><field name="response_mode"/><field name="provider_id"/><field name="active"/></list></field>
+    </record>
+    <record id="view_ot_ai_bot_form" model="ir.ui.view">
+        <field name="name">ot.ai.bot.form</field><field name="model">ot.ai.bot</field>
+        <field name="arch" type="xml"><form string="AI Assistant"><header><button name="action_import_knowledge" string="Import knowledge" type="object"/></header><sheet><div class="oe_title"><h1><field name="name"/></h1></div><group><group><field name="active"/><field name="website_enabled"/><field name="response_mode"/><field name="responsible_user_id"/></group><group><field name="provider_id"/><field name="fallback_provider_id"/><field name="allow_product_search"/><field name="redact_pii"/></group></group><notebook><page string="Conversation"><group><field name="welcome_message"/><field name="fallback_message"/><field name="system_prompt"/><field name="handoff_keywords"/></group></page><page string="Knowledge"><group><field name="shared_knowledge_bot_ids" widget="many2many_tags"/></group><field name="knowledge_ids"><list editable="bottom"><field name="sequence" widget="handle"/><field name="name"/><field name="question"/><field name="answer"/><field name="source_url"/><field name="active"/></list></field></page><page string="Safety and budget"><group><group><field name="max_history_turns"/><field name="max_requests_per_minute"/><field name="auto_handoff_after_negative"/></group><group><field name="daily_token_budget"/><field name="daily_cost_budget"/></group></group></page></notebook></sheet><chatter/></form></field>
+    </record>
+    <record id="action_ot_ai_bot" model="ir.actions.act_window"><field name="name">AI Assistants</field><field name="res_model">ot.ai.bot</field><field name="view_mode">list,form</field></record>
+</odoo>

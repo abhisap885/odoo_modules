@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>AI Shopping Assistant | Grounded AI Chat for eCommerce | ERPteck</title>
+    <meta name="description" content="Engage visitors with an intelligent AI Shopping Assistant. Features knowledge base retrieval, live chat handoff, automatic lead generation, and provider integration."/>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <style>
+        .img-container {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.07);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+            background: #ffffff;
+        }
+        .img-container:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(79, 70, 229, 0.16), 0 0 0 2px rgba(79, 70, 229, 0.25);
+            border-color: #4f46e5;
+        }
+        .img-container img {
+            transition: transform 0.4s ease;
+        }
+        .img-container:hover img {
+            transform: scale(1.012);
+        }
+        .pillar-card {
+            background: #ffffff;
+            padding: 28px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .pillar-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.09);
+            border-color: #cbd5e1;
+        }
+        .pillar-card:hover .icon-box {
+            transform: scale(1.08);
+        }
+        .icon-box {
+            transition: transform 0.25s ease;
+        }
+        .hero-banner {
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+        .hero-banner:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.25);
+        }
+
+        @keyframes ot-enter { from { opacity: .6; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        .hero-banner { animation: ot-enter .7s ease-out both; }
+        .pillar-card { animation: ot-enter .65s ease-out both; }
+        .pillar-card:nth-child(2) { animation-delay: .1s; }
+        .pillar-card:nth-child(3) { animation-delay: .2s; }
+        .pillar-card:nth-child(4) { animation-delay: .3s; }
+        @media (max-width: 640px) { .container-fluid h1 { font-size: 28px !important; } }
+    </style>
+</head>
+<body style="font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; color: #1e293b; margin: 0; padding: 0;">
+
+    <div class="container-fluid" style="max-width: 1280px; margin: 0 auto; padding: 20px 15px;">
+
+        <!-- HERO BANNER SECTION -->
+        <div class="hero-banner" style="text-align: center; margin-bottom: 35px; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px -15px rgba(0,0,0,0.2);">
+            <img src="banner.gif" alt="AI Shopping Assistant" title="AI Shopping Assistant" style="width: 100%; height: auto; display: block;"/>
+        </div>
+
+        <!-- COMPATIBILITY & BADGES BAR -->
+        <div style="background: #ffffff; border-radius: 16px; padding: 20px 30px; margin-bottom: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px; border: 1px solid #e2e8f0;">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px;">
+                <span style="background: #eef2ff; color: #4338ca; font-size: 13px; font-weight: 700; padding: 8px 16px; border-radius: 30px; display: inline-flex; align-items: center; gap: 8px;">
+                    ERP 19.0 Ready
+                </span>
+                <span style="background: #ecfdf5; color: #047857; font-size: 13px; font-weight: 700; padding: 8px 16px; border-radius: 30px; display: inline-flex; align-items: center; gap: 8px;">
+                    Community & Enterprise
+                </span>
+                <span style="background: #fdf2f8; color: #be185d; font-size: 13px; font-weight: 700; padding: 8px 16px; border-radius: 30px; display: inline-flex; align-items: center; gap: 8px;">
+                    Cloud & On-Premise
+                </span>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+                <span style="background: #f1f5f9; color: #475569; font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px;">
+                    Multi-LLM Support
+                </span>
+            </div>
+        </div>
+
+        <!-- HEADLINE & VALUE PROP -->
+        <div style="text-align: center; max-width: 950px; margin: 0 auto 50px auto;">
+            <div style="display: inline-block; background: linear-gradient(135deg, #4f46e5 0%, #db2777 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 15px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px;">
+                Next-Generation Customer Support
+            </div>
+            <h1 style="font-size: 38px; font-weight: 800; line-height: 1.25; color: #0f172a; margin: 0 0 20px 0;">
+                AI Shopping Assistant: Grounded AI Chat <br/>
+                <span style="background: linear-gradient(135deg, #4f46e5 0%, #db2777 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">For Your E-Commerce Store</span>
+            </h1>
+            <p style="font-size: 18px; line-height: 1.6; color: #475569; margin: 0;">
+                Deploy intelligent AI bots to assist your website visitors 24/7. Grounded on your own knowledge base, it automatically converts chats to leads, seamlessly hands off complex inquiries to human agents, and strictly monitors token costs.
+            </p>
+        </div>
+
+
+        <!-- 4 KEY PILLARS -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-bottom: 55px;">
+            
+            <div class="pillar-card">
+                <div class="icon-box" style="width: 52px; height: 52px; background: #eef2ff; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; color: #4f46e5; font-size: 24px; font-weight: bold;">
+                    1
+                </div>
+                <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin: 0 0 10px 0;">Custom Knowledge Base</h3>
+                <p style="font-size: 14px; line-height: 1.6; color: #64748b; margin: 0;">
+                    Feed the AI your product specs and FAQs to ensure responses are perfectly accurate and context-aware. No hallucinations.
+                </p>
+            </div>
+
+            <div class="pillar-card">
+                <div class="icon-box" style="width: 52px; height: 52px; background: #fdf2f8; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; color: #db2777; font-size: 24px; font-weight: bold;">
+                    2
+                </div>
+                <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin: 0 0 10px 0;">Human Agent Handoff</h3>
+                <p style="font-size: 14px; line-height: 1.6; color: #64748b; margin: 0;">
+                    Detects negative sentiment or specific keywords to automatically route the conversation to a human support agent instantly.
+                </p>
+            </div>
+
+            <div class="pillar-card">
+                <div class="icon-box" style="width: 52px; height: 52px; background: #ecfdf5; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; color: #059669; font-size: 24px; font-weight: bold;">
+                    3
+                </div>
+                <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin: 0 0 10px 0;">Cost & Token Tracking</h3>
+                <p style="font-size: 14px; line-height: 1.6; color: #64748b; margin: 0;">
+                    Detailed analytics on token consumption and LLM costs per session, enforcing daily spending limits to keep your budget in check.
+                </p>
+            </div>
+
+            <div class="pillar-card">
+                <div class="icon-box" style="width: 52px; height: 52px; background: #fffbeb; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; color: #d97706; font-size: 24px; font-weight: bold;">
+                    4
+                </div>
+                <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin: 0 0 10px 0;">CRM Lead Generation</h3>
+                <p style="font-size: 14px; line-height: 1.6; color: #64748b; margin: 0;">
+                    The bot captures visitor details during the chat and converts them into qualified CRM leads automatically for the sales team.
+                </p>
+            </div>
+        </div>
+
+        <!-- PAIN POINTS VS SOLUTIONS (COMPARISON BANNER) -->
+        <div style="background: #0f172a; border-radius: 20px; padding: 40px 35px; margin-bottom: 60px; color: #ffffff;">
+            <div style="text-align: center; margin-bottom: 35px;">
+                <span style="background: #1e293b; color: #818cf8; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px;">
+                    Engineered Differently
+                </span>
+                <h2 style="font-size: 30px; font-weight: 800; margin: 12px 0 6px 0; color: #f8fafc;">Why Generic Chatbots Fail vs Our Native AI Assistant</h2>
+                <p style="color: #94a3b8; font-size: 16px; margin: 0;">Built specifically for your ERP to provide seamless integration and accurate answers.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;">
+                <!-- Problem -->
+                <div style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-radius: 14px; padding: 25px;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                        <div style="width: 32px; height: 32px; border-radius: 50%; background: #ef4444; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                            &times;
+                        </div>
+                        <h4 style="margin: 0; color: #f87171; font-size: 18px; font-weight: 700;">Generic Chatbots</h4>
+                    </div>
+                    <ul style="margin: 0; padding-left: 20px; color: #cbd5e1; font-size: 14px; line-height: 1.8;">
+                        <li>Prone to hallucination and inventing false facts</li>
+                        <li>Disconnected from your actual website data and products</li>
+                        <li>Hidden costs with no token usage limits</li>
+                        <li>Clunky human handoff processes that frustrate users</li>
+                    </ul>
+                </div>
+
+                <!-- Solution -->
+                <div style="background: rgba(79, 70, 229, 0.08); border: 1px solid rgba(79, 70, 229, 0.3); border-radius: 14px; padding: 25px;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                        <div style="width: 32px; height: 32px; border-radius: 50%; background: #4f46e5; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                            &check;
+                        </div>
+                        <h4 style="margin: 0; color: #818cf8; font-size: 18px; font-weight: 700;">ERPteck AI Assistant</h4>
+                    </div>
+                    <ul style="margin: 0; padding-left: 20px; color: #cbd5e1; font-size: 14px; line-height: 1.8;">
+                        <li><strong>Grounded Responses:</strong> Only answers based on your imported knowledge base</li>
+                        <li><strong>Native CRM Sync:</strong> Creates structured leads automatically</li>
+                        <li><strong>Budget Controls:</strong> Strict daily cost limits per AI provider</li>
+                        <li><strong>Smart Routing:</strong> Instantly transitions to a human agent when needed</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 1 -->
+        <div style="background: #ffffff; border-radius: 20px; border: 1px solid #e2e8f0; padding: 35px; margin-bottom: 45px; box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);">
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-bottom: 25px; gap: 15px;">
+                <div>
+                    <span style="color: #4f46e5; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Intelligent Bots</span>
+                    <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; margin: 6px 0 0 0;">Configure Highly Specialized AI Bots</h2>
+                </div>
+            </div>
+            <p style="font-size: 15px; line-height: 1.6; color: #475569; margin: 0 0 25px 0;">
+                Set up various AI bots tailored to different roles. Provide strict system prompts to dictate their personality and rules of engagement. Easily link them to the most suitable LLM provider and define human handoff thresholds.
+            </p>
+            <div class="img-container">
+                <img src="feature-image-01.png" alt="AI Bot Configuration" style="width: 100%; height: auto; display: block;"/>
+            </div>
+        </div>
+
+        <!-- SECTION 2 -->
+        <div style="background: #ffffff; border-radius: 20px; border: 1px solid #e2e8f0; padding: 35px; margin-bottom: 45px; box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);">
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-bottom: 25px; gap: 15px;">
+                <div>
+                    <span style="color: #db2777; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Provider Management</span>
+                    <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; margin: 6px 0 0 0;">Connect Any LLM Provider Easily</h2>
+                </div>
+            </div>
+            <p style="font-size: 15px; line-height: 1.6; color: #475569; margin: 0 0 25px 0;">
+                Support for OpenAI, Anthropic, and other major providers. Track token usage natively and set fallback providers so your assistant is never offline due to API rate limits.
+            </p>
+            <div class="img-container">
+                <img src="feature-image-02.png" alt="AI Provider Setup" style="width: 100%; height: auto; display: block;"/>
+            </div>
+        </div>
+
+        <!-- SECTION 3 -->
+        <div style="background: #ffffff; border-radius: 20px; border: 1px solid #e2e8f0; padding: 35px; margin-bottom: 45px; box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);">
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-bottom: 25px; gap: 15px;">
+                <div>
+                    <span style="color: #059669; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Analytics & Monitoring</span>
+                    <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; margin: 6px 0 0 0;">Live Session Monitoring and Summaries</h2>
+                </div>
+            </div>
+            <p style="font-size: 15px; line-height: 1.6; color: #475569; margin: 0 0 25px 0;">
+                Monitor all live AI sessions from your backend. Generate automatic bullet-point summaries of long conversations and easily review negative feedback left by users to improve your bot's system prompt.
+            </p>
+            <div class="img-container">
+                <img src="feature-image-03.png" alt="AI Chat Session Monitoring" style="width: 100%; height: auto; display: block;"/>
+            </div>
+        </div>
+
+
+        <!-- SCREENSHOTS SECTION -->
+        <div style="background: #ffffff; border-radius: 20px; border: 1px solid #e2e8f0; padding: 35px; margin-bottom: 45px; box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);">
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-bottom: 25px; gap: 15px;">
+                <div>
+                    <span style="color: #4f46e5; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Gallery</span>
+                    <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; margin: 6px 0 0 0;">Interface Screenshots</h2>
+                </div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 20px;">
+                <div class="img-container">
+                    <img src="screenshots/SS1.png" alt="Interface 1" style="width: 100%; height: auto; display: block;"/>
+                </div>
+                <div class="img-container">
+                    <img src="screenshots/SS2.png" alt="Interface 2" style="width: 100%; height: auto; display: block;"/>
+                </div>
+                <div class="img-container">
+                    <img src="screenshots/SS3.png" alt="Interface 3" style="width: 100%; height: auto; display: block;"/>
+                </div>
+                <div class="img-container">
+                    <img src="screenshots/SS4.png" alt="Interface 4" style="width: 100%; height: auto; display: block;"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

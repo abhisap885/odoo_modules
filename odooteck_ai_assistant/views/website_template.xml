@@ -1,0 +1,17 @@
+<odoo>
+    <template id="ot_ai_chat_widget" inherit_id="website.layout" name="OdooTeck AI Chat Widget">
+        <xpath expr="//body" position="inside">
+            <div id="ot-ai-chat" class="ot-ai-chat" hidden="hidden">
+                <button type="button" class="ot-ai-launcher" aria-label="Open AI assistant">Chat with us</button>
+                <section class="ot-ai-panel" aria-label="AI assistant" hidden="hidden">
+                    <header class="ot-ai-header"><strong class="ot-ai-title">AI Assistant</strong><button type="button" class="ot-ai-close" aria-label="Close chat">×</button></header>
+                    <div class="ot-ai-messages" aria-live="polite"/>
+                    <div class="ot-ai-lead" hidden="hidden"><p>A human will follow up. Please share your details.</p><input name="name" type="text" placeholder="Your name" maxlength="100"/><input name="email" type="email" placeholder="Email address" maxlength="254"/><label><input name="consent" type="checkbox"/> I agree to be contacted about this chat.</label><button type="button" class="ot-ai-lead-send">Request follow-up</button></div>
+                    <div class="ot-ai-error" role="alert"/>
+                    <form class="ot-ai-form"><input name="message" type="text" maxlength="2000" placeholder="Ask about products or policies" aria-label="Your message"/><button type="submit">Send</button></form>
+                    <button type="button" class="ot-ai-human">Talk to a human</button>
+                </section>
+            </div>
+        </xpath>
+    </template>
+</odoo>

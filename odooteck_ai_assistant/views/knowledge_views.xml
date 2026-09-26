@@ -1,0 +1,5 @@
+<odoo>
+    <record id="view_ot_ai_knowledge_list" model="ir.ui.view"><field name="name">ot.ai.knowledge.list</field><field name="model">ot.ai.knowledge</field><field name="arch" type="xml"><list><field name="sequence" widget="handle"/><field name="name"/><field name="bot_id"/><field name="question"/><field name="active"/></list></field></record>
+    <record id="view_ot_ai_knowledge_form" model="ir.ui.view"><field name="name">ot.ai.knowledge.form</field><field name="model">ot.ai.knowledge</field><field name="arch" type="xml"><form string="Knowledge article"><sheet><group><field name="name"/><field name="bot_id"/><field name="active"/><field name="question"/><field name="keywords"/><field name="source_url"/><field name="answer"/></group></sheet></form></field></record>
+    <record id="action_ot_ai_knowledge" model="ir.actions.act_window"><field name="name">Knowledge</field><field name="res_model">ot.ai.knowledge</field><field name="view_mode">list,form</field></record>
+</odoo>

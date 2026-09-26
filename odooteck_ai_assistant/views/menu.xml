@@ -1,0 +1,9 @@
+<odoo>
+    <menuitem id="menu_ot_ai_root" name="AI Shopping Assistant" sequence="45" groups="odooteck_ai_assistant.group_ai_user" web_icon="odooteck_ai_assistant,static/description/icon.png"/>
+    <menuitem id="menu_ot_ai_sessions" name="Conversations" parent="menu_ot_ai_root" action="action_ot_ai_session" sequence="10"/>
+    <menuitem id="menu_ot_ai_messages" name="Messages and Feedback" parent="menu_ot_ai_root" action="action_ot_ai_message" sequence="20"/>
+    <menuitem id="menu_ot_ai_bots" name="Assistants" parent="menu_ot_ai_root" action="action_ot_ai_bot" sequence="30" groups="odooteck_ai_assistant.group_ai_manager"/>
+    <menuitem id="menu_ot_ai_knowledge" name="Knowledge" parent="menu_ot_ai_root" action="action_ot_ai_knowledge" sequence="40" groups="odooteck_ai_assistant.group_ai_manager"/>
+    <menuitem id="menu_ot_ai_providers" name="Providers" parent="menu_ot_ai_root" action="action_ot_ai_provider" sequence="50" groups="odooteck_ai_assistant.group_ai_manager"/>
+    <menuitem id="menu_ot_ai_discuss" name="Discuss Channels" parent="menu_ot_ai_root" action="action_ot_discuss_channels" sequence="60" groups="odooteck_ai_assistant.group_ai_manager"/>
+</odoo>

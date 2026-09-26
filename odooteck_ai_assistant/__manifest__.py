@@ -1,0 +1,33 @@
+{
+    "name": "OdooTeck AI Shopping Assistant",
+    "summary": "Grounded AI chat for website shoppers, Live Chat and Discuss",
+    "version": "19.0.1.0.0",
+    "category": "Website/Website",
+    "author": "OdooTeck",
+    "website": "https://odooteck.com",
+    "license": "OPL-1",
+    "price": "50.0",
+    "currency": "USD",
+    "depends": ["website_sale", "website_livechat", "crm"],
+    "data": [
+        "security/security.xml",
+        "security/ir.model.access.csv",
+        "views/provider_views.xml",
+        "views/bot_views.xml",
+        "views/knowledge_views.xml",
+        "wizard/knowledge_import_views.xml",
+        "views/session_views.xml",
+        "views/channel_views.xml",
+        "views/website_template.xml",
+        "views/menu.xml",
+        "data/default.xml",
+    ],
+    "assets": {
+        "web.assets_frontend": [
+            "odooteck_ai_assistant/static/src/js/chat.js",
+            "odooteck_ai_assistant/static/src/scss/chat.scss",
+        ],
+    },
+    "application": True,
+    "installable": True,
+}

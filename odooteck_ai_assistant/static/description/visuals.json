@@ -1,0 +1,84 @@
+{
+  "schema": "ot-visuals/1",
+  "module": "odooteck_ai_assistant",
+  "theme": "midnight",
+  "_theme_reason": "--theme flag",
+  "odoo": {
+    "base_url": "${ODOO_BASE_URL}",
+    "db": "${ODOO_DB}"
+  },
+  "capture": {
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "device_scale_factor": 2,
+    "settle_ms": 400,
+    "hide": [
+      ".o_user_menu",
+      ".o_mail_systray_item",
+      ".o_debug_manager",
+      ".o_database_expiration_panel",
+      ".o_onboarding_container",
+      ".o_menu_systray"
+    ],
+    "rects": [
+      ".o_action_manager",
+      ".o_control_panel",
+      ".o_content",
+      ".o_form_sheet",
+      ".o_list_view",
+      ".o_kanban_view",
+      "#wrap",
+      "#product_detail",
+      ".oe_website_sale"
+    ]
+  },
+  "shots": [
+    {
+      "id": "main",
+      "recipe": {
+        "kind": "action",
+        "xmlid": "odooteck_ai_assistant.action_ot_ai_session",
+        "menu": "odooteck_ai_assistant.menu_ot_ai_root"
+      },
+      "expect": {
+        "selector": ".o_list_view",
+        "min_records": 0
+      }
+    },
+    {
+      "id": "feature1",
+      "recipe": {
+        "kind": "action",
+        "xmlid": "odooteck_ai_assistant.action_ot_ai_bot"
+      },
+      "expect": {
+        "selector": ".o_list_view",
+        "min_records": 0
+      }
+    }
+  ],
+  "images": [
+    {
+      "id": "feature1",
+      "target": "feature-image-01.png",
+      "capture": "feature1",
+      "shows": "AI Bot Configuration",
+      "crop": {
+        "landmark": ".o_content",
+        "snap": 40
+      }
+    },
+    {
+      "id": "ss1",
+      "target": "screenshots/SS1.png",
+      "capture": "main",
+      "shows": "AI Chat Session Monitoring",
+      "crop": {
+        "landmark": ".o_content",
+        "snap": 40
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+<odoo noupdate="1">
+    <record id="partner_ai_assistant" model="res.partner"><field name="name">OdooTeck AI Assistant</field><field name="is_company" eval="False"/></record>
+    <record id="default_bot" model="ot.ai.bot"><field name="name">OdooTeck Shopping Assistant</field><field name="response_mode">grounded</field><field name="website_enabled" eval="True"/></record>
+    <record id="getting_started_knowledge" model="ot.ai.knowledge">
+        <field name="name">Assistant capabilities</field>
+        <field name="bot_id" ref="default_bot"/>
+        <field name="question">What can this assistant do?</field>
+        <field name="keywords">assistant,help,capabilities</field>
+        <field name="answer">I can answer questions from the shop's approved knowledge articles and help you find published products. If I cannot find a reliable answer, you can request a human follow-up.</field>
+    </record>
+</odoo>

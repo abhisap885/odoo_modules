@@ -1,0 +1,11 @@
+<odoo>
+    <record id="view_ot_ai_provider_list" model="ir.ui.view">
+        <field name="name">ot.ai.provider.list</field><field name="model">ot.ai.provider</field>
+        <field name="arch" type="xml"><list><field name="sequence" widget="handle"/><field name="name"/><field name="kind"/><field name="model_name"/><field name="active"/></list></field>
+    </record>
+    <record id="view_ot_ai_provider_form" model="ir.ui.view">
+        <field name="name">ot.ai.provider.form</field><field name="model">ot.ai.provider</field>
+        <field name="arch" type="xml"><form string="AI Provider"><sheet><group><group><field name="name"/><field name="kind"/><field name="model_name"/><field name="active"/></group><group><field name="endpoint" invisible="kind != 'compatible'" required="kind == 'compatible'"/><field name="api_key" password="True"/><field name="temperature"/><field name="max_tokens"/><field name="timeout_seconds"/></group></group><group string="Optional USD cost estimates"><field name="input_cost_per_million"/><field name="output_cost_per_million"/></group></sheet></form></field>
+    </record>
+    <record id="action_ot_ai_provider" model="ir.actions.act_window"><field name="name">AI Providers</field><field name="res_model">ot.ai.provider</field><field name="view_mode">list,form</field></record>
+</odoo>

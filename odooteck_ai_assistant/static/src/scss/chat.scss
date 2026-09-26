@@ -1,0 +1,22 @@
+.ot-ai-chat { position: fixed; z-index: 1050; right: 1.5rem; bottom: 1.5rem; font: 14px/1.4 system-ui, sans-serif; color: #17233c; }
+.ot-ai-chat[hidden], .ot-ai-panel[hidden], .ot-ai-lead[hidden] { display: none !important; }
+.ot-ai-launcher, .ot-ai-form button, .ot-ai-lead-send { border: 0; border-radius: 999px; background: #153f75; color: white; padding: .8rem 1.2rem; box-shadow: 0 8px 24px #10243d33; }
+.ot-ai-panel { position: absolute; right: 0; bottom: 4.3rem; width: calc(100vw - 2rem); max-width: 380px; height: calc(100vh - 7rem); max-height: 560px; display: flex; flex-direction: column; background: white; border-radius: 16px; box-shadow: 0 16px 48px #10243d44; overflow: hidden; }
+.ot-ai-header { display: flex; justify-content: space-between; align-items: center; background: #153f75; color: white; padding: 1rem; }
+.ot-ai-close { border: 0; background: transparent; color: white; font-size: 1.5rem; line-height: 1; }
+.ot-ai-messages { flex: 1; overflow: auto; padding: 1rem; display: flex; flex-direction: column; gap: .65rem; }
+.ot-ai-message { max-width: 90%; border-radius: 12px; padding: .7rem .85rem; background: #eef3fa; overflow-wrap: anywhere; }
+.ot-ai-message p { margin: 0; white-space: pre-wrap; }
+.ot-ai-message a { display: block; margin-top: .35rem; font-size: .85rem; }
+.ot-ai-user { align-self: flex-end; background: #d7ecfa; }
+.ot-ai-feedback { display: flex; gap: .4rem; margin-top: .35rem; }
+.ot-ai-feedback button, .ot-ai-human { border: 0; background: transparent; color: #153f75; font-size: .82rem; padding: .15rem; }
+.ot-ai-error { color: #a52727; padding: 0 .7rem; }
+.ot-ai-form { display: flex; gap: .4rem; padding: .6rem; border-top: 1px solid #e3e7ed; }
+.ot-ai-form input { flex: 1; min-width: 0; border: 1px solid #ccd5e2; border-radius: 8px; padding: .5rem; }
+.ot-ai-form button { box-shadow: none; padding: .45rem .8rem; }
+.ot-ai-human { align-self: center; padding-bottom: .6rem; }
+.ot-ai-lead { border-top: 1px solid #e3e7ed; padding: .7rem; display: grid; gap: .4rem; }
+.ot-ai-lead input[type="text"], .ot-ai-lead input[type="email"] { border: 1px solid #ccd5e2; border-radius: 6px; padding: .4rem; }
+.ot-ai-lead label { font-size: .8rem; }
+.ot-ai-lead-send { box-shadow: none; padding: .45rem; }

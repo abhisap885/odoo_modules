@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ot_ai_provider_manager,AI Provider manager,model_ot_ai_provider,group_ai_manager,1,1,1,1
+access_ot_ai_provider_user,AI Provider user,model_ot_ai_provider,group_ai_user,1,0,0,0
+access_ot_ai_bot_manager,AI Bot manager,model_ot_ai_bot,group_ai_manager,1,1,1,1
+access_ot_ai_bot_user,AI Bot user,model_ot_ai_bot,group_ai_user,1,0,0,0
+access_ot_ai_knowledge_manager,AI Knowledge manager,model_ot_ai_knowledge,group_ai_manager,1,1,1,1
+access_ot_ai_knowledge_user,AI Knowledge user,model_ot_ai_knowledge,group_ai_user,1,0,0,0
+access_ot_ai_session_manager,AI Session manager,model_ot_ai_session,group_ai_manager,1,1,1,1
+access_ot_ai_session_user,AI Session user,model_ot_ai_session,group_ai_user,1,0,0,0
+access_ot_ai_message_manager,AI Message manager,model_ot_ai_message,group_ai_manager,1,1,1,1
+access_ot_ai_message_user,AI Message user,model_ot_ai_message,group_ai_user,1,0,0,0
+access_ot_ai_knowledge_import_manager,AI Knowledge import manager,model_ot_ai_knowledge_import,group_ai_manager,1,1,1,1
