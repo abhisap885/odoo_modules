@@ -27,10 +27,10 @@
                             <div class="flex-grow-1">
                                 <div class="d-flex align-items-center gap-2 mb-1">
                                     <h4 class="mb-0 fw-bold text-dark text-truncate">Store Insights &amp; Analytics</h4>
-                                    <span t-if="state.data and state.data.selected_instance_state == 'confirmed'" class="badge rounded-pill text-bg-success px-2 py-1 small">
+                                    <span t-if="this.state.data and this.state.data.selected_instance_state == 'confirmed'" class="badge rounded-pill text-bg-success px-2 py-1 small">
                                         <i class="fa fa-circle me-1" style="font-size: 0.5rem;"/>Live
                                     </span>
-                                    <span t-elif="state.data and state.data.selected_instance_state == 'draft'" class="badge rounded-pill text-bg-secondary px-2 py-1 small">
+                                    <span t-elif="this.state.data and this.state.data.selected_instance_state == 'draft'" class="badge rounded-pill text-bg-secondary px-2 py-1 small">
                                         Draft
                                     </span>
                                 </div>
@@ -39,9 +39,9 @@
                                     <select class="form-select form-select-sm border-secondary-subtle fw-semibold rounded-pill px-3 py-1 shadow-none"
                                             style="max-width: 240px;"
                                             t-on-change="onSelectStore">
-                                        <t t-if="state.data and state.data.instances">
-                                            <t t-foreach="state.data.instances" t-as="inst" t-key="inst.id">
-                                                <option t-att-value="inst.id" t-att-selected="inst.id == state.selectedInstanceId">
+                                        <t t-if="this.state.data and this.state.data.instances">
+                                            <t t-foreach="this.state.data.instances" t-as="inst" t-key="inst.id">
+                                                <option t-att-value="inst.id" t-att-selected="inst.id == this.state.selectedInstanceId">
                                                     <t t-out="inst.name"/>
                                                 </option>
                                             </t>
@@ -55,19 +55,19 @@
                         <div class="col-xl-4 col-lg-4 col-md-12 d-flex justify-content-center">
                             <div class="btn-group btn-group-sm p-1 bg-light rounded-pill border shadow-none" role="group" aria-label="Date Period">
                                 <button type="button"
-                                        t-attf-class="btn rounded-pill px-3 py-1 fw-semibold #{state.selectedPeriod == '7d' ? 'btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}"
+                                        t-attf-class="btn rounded-pill px-3 py-1 fw-semibold #{this.state.selectedPeriod == '7d' ? 'btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}"
                                         t-on-click="() => this.onSelectPeriod('7d')">7D</button>
                                 <button type="button"
-                                        t-attf-class="btn rounded-pill px-3 py-1 fw-semibold #{state.selectedPeriod == '30d' ? 'btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}"
+                                        t-attf-class="btn rounded-pill px-3 py-1 fw-semibold #{this.state.selectedPeriod == '30d' ? 'btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}"
                                         t-on-click="() => this.onSelectPeriod('30d')">30D</button>
                                 <button type="button"
-                                        t-attf-class="btn rounded-pill px-3 py-1 fw-semibold #{state.selectedPeriod == '90d' ? 'btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}"
+                                        t-attf-class="btn rounded-pill px-3 py-1 fw-semibold #{this.state.selectedPeriod == '90d' ? 'btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}"
                                         t-on-click="() => this.onSelectPeriod('90d')">90D</button>
                                 <button type="button"
-                                        t-attf-class="btn rounded-pill px-3 py-1 fw-semibold #{state.selectedPeriod == 'year' ? 'btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}"
+                                        t-attf-class="btn rounded-pill px-3 py-1 fw-semibold #{this.state.selectedPeriod == 'year' ? 'btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}"
                                         t-on-click="() => this.onSelectPeriod('year')">1 Year</button>
                                 <button type="button"
-                                        t-attf-class="btn rounded-pill px-3 py-1 fw-semibold #{state.selectedPeriod == 'all' ? 'btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}"
+                                        t-attf-class="btn rounded-pill px-3 py-1 fw-semibold #{this.state.selectedPeriod == 'all' ? 'btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}"
                                         t-on-click="() => this.onSelectPeriod('all')">All Time</button>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
             </div>
 
             <!-- Loading Spinner -->
-            <t t-if="state.isLoading">
+            <t t-if="this.state.isLoading">
                 <div class="d-flex flex-column align-items-center justify-content-center p-5 text-muted">
                     <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
                         <span class="visually-hidden">Loading Analytics...</span>
@@ -115,7 +115,7 @@
             <!-- Main Dashboard Body -->
             <t t-else="">
                 <!-- Sample Data Banner (Shown if 0 orders) -->
-                <t t-if="state.data and state.data.kpis.total_orders == 0">
+                <t t-if="this.state.data and this.state.data.kpis.total_orders == 0">
                     <div class="alert alert-info border-0 shadow-sm rounded-4 p-3 mb-4 d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
                         <div class="d-flex align-items-center gap-3">
                             <span class="rounded-circle p-2 bg-info bg-opacity-25 text-info d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
@@ -150,7 +150,7 @@
                                     <i class="fa fa-dollar"/>
                                 </span>
                             </div>
-                            <h3 class="fw-bold text-dark mb-1 text-truncate" t-out="state.data.kpis.total_sales_formatted"/>
+                            <h3 class="fw-bold text-dark mb-1 text-truncate" t-out="this.state.data.kpis.total_sales_formatted"/>
                             <div class="d-flex align-items-center text-success small fw-semibold">
                                 <i class="fa fa-arrow-up me-1"/>
                                 <span>Gross Revenue</span>
@@ -168,10 +168,10 @@
                                 </span>
                             </div>
                             <h3 class="fw-bold text-dark mb-1">
-                                <t t-out="state.data.kpis.total_orders"/>
+                                <t t-out="this.state.data.kpis.total_orders"/>
                             </h3>
                             <div class="text-muted small">
-                                <span class="text-dark fw-semibold" t-out="state.data.kpis.fulfilled_count"/> Fulfilled
+                                <span class="text-dark fw-semibold" t-out="this.state.data.kpis.fulfilled_count"/> Fulfilled
                             </div>
                         </div>
                     </div>
@@ -185,7 +185,7 @@
                                     <i class="fa fa-line-chart"/>
                                 </span>
                             </div>
-                            <h3 class="fw-bold text-dark mb-1 text-truncate" t-out="state.data.kpis.aov_formatted"/>
+                            <h3 class="fw-bold text-dark mb-1 text-truncate" t-out="this.state.data.kpis.aov_formatted"/>
                             <div class="text-muted small">
                                 <span>Revenue / Order</span>
                             </div>
@@ -202,10 +202,10 @@
                                 </span>
                             </div>
                             <h3 class="fw-bold text-dark mb-1">
-                                <t t-out="state.data.kpis.fulfillment_rate"/>%
+                                <t t-out="this.state.data.kpis.fulfillment_rate"/>%
                             </h3>
                             <div class="progress mt-1" style="height: 5px;">
-                                <div class="progress-bar bg-warning" t-attf-style="width: #{state.data.kpis.fulfillment_rate}%"/>
+                                <div class="progress-bar bg-warning" t-attf-style="width: #{this.state.data.kpis.fulfillment_rate}%"/>
                             </div>
                         </div>
                     </div>
@@ -220,7 +220,7 @@
                                 </span>
                             </div>
                             <h3 class="fw-bold text-dark mb-1">
-                                <t t-out="state.data.kpis.total_products"/>
+                                <t t-out="this.state.data.kpis.total_products"/>
                             </h3>
                             <div class="text-muted small">
                                 <span>Mapped Catalog</span>
@@ -238,10 +238,10 @@
                                 </span>
                             </div>
                             <h3 class="fw-bold text-dark mb-1">
-                                <t t-out="state.data.kpis.total_customers"/>
+                                <t t-out="this.state.data.kpis.total_customers"/>
                             </h3>
                             <div class="text-muted small">
-                                <span class="text-danger fw-semibold" t-out="state.data.kpis.refund_count"/> Refunds
+                                <span class="text-danger fw-semibold" t-out="this.state.data.kpis.refund_count"/> Refunds
                             </div>
                         </div>
                     </div>
@@ -370,8 +370,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <t t-if="state.data.recent_orders and state.data.recent_orders.length &gt; 0">
-                                    <t t-foreach="state.data.recent_orders" t-as="ord" t-key="ord.id">
+                                <t t-if="this.state.data.recent_orders and this.state.data.recent_orders.length &gt; 0">
+                                    <t t-foreach="this.state.data.recent_orders" t-as="ord" t-key="ord.id">
                                         <tr class="shopify-order-row">
                                             <td class="fw-bold text-primary">
                                                 <i class="fa fa-shopping-bag me-1 text-primary opacity-75"/>
